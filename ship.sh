@@ -44,11 +44,21 @@ docker_process(){
 openshift_process_route(){
  echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ROUTE"
 if [[ $app_name  =~ "client" ]]; then
-              oc expose  svc/$app_name  --hostname=www.helpful.army --name='route-'$app_name --port=3000-tcp
+
+             oc create route edge --service=$app_name \
+                             --cert=nginx.crt \
+                             --key=nginx.key \
+                             --ca-cert=nginx.crt \
+                             --hostname=www.helpful.army \
+                             --insecure-policy='Redirect' \
+                             --port=3000-tcp
+
 
 else
-              oc expose  svc/$app_name  --hostname=serviceha-helpfularmy.b9ad.pro-us-east-1.openshiftapps.com \
-                                        --name='route-'$app_name --port=8080-tcp
+         oc create route edge --service='serviceha' \
+                              --insecure-policy='Redirect' \
+                              --port=8080-tcp
+
 
 fi
 }
