@@ -33,4 +33,4 @@ yarn-error.log*
 nginx.key
 
 # Keyloack JSON
-keycloak.json
+public/keycloak.json
