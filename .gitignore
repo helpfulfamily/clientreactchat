@@ -31,3 +31,6 @@ yarn-error.log*
 
 ## SSL
 nginx.key
+
+# Keyloack JSON
+keycloak.json
