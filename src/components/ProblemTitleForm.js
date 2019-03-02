@@ -54,20 +54,8 @@ export default class ProblemTitleForm extends React.Component {
         }
 
 
-        axios.post(apiBaseUrl, data, {headers: headers}).then(function (response) {
-
-
-            if (response.data) {
-
-
-                window.location.href = "/";
-
-
-            } else {
-
-                alert(response.data.message);
-
-            }
+        axios.post(apiBaseUrl, data, {headers: headers}).then( (response) =>{
+            this.props.toggle();
 
         }).catch(function (error) {
 
