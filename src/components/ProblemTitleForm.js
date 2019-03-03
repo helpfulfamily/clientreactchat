@@ -55,7 +55,7 @@ class ProblemTitleForm extends React.Component {
     }
 
     render() {
-        return (
+         return (
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
@@ -67,7 +67,7 @@ class ProblemTitleForm extends React.Component {
                         <label>
                             Problem Title:
                             <br/>
-                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} class="form-control"/>
+                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} className="form-control"/>
                         </label>
                         <br/>
                         <label>
@@ -91,6 +91,7 @@ class ProblemTitleForm extends React.Component {
 
 ProblemTitleForm.propTypes = {
     postData: PropTypes.func.isRequired,
+    keycloak: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -98,6 +99,7 @@ ProblemTitleForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        keycloak: state.loginReducer,
         item: state.item,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading

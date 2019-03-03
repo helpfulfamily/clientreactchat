@@ -5,11 +5,13 @@ import {
   NavLink} from 'reactstrap';
 import {FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
+import {connect} from "react-redux";
 
-
+import { loginActionDispatcher } from '../actions/sso';
+import PropTypes from 'prop-types'
 const keycloak = Keycloak('/keycloak.json');
 
-export default class NavbarMenu extends React.Component {
+class NavbarMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,8 +26,14 @@ export default class NavbarMenu extends React.Component {
       responseMode: 'fragment',
       flow: 'standard'
     };
+    console.log(this.props.keycloak);
     keycloak.init(initOptions).success((authenticated)=>{
-      this.setState({ keycloak: keycloak, authenticated: authenticated })
+      //this.setState({ keycloak: keycloak, authenticated: authenticated })
+
+      if(authenticated){
+           this.props.loginActionDispatcher(keycloak);
+      }
+
     }).error(function() {
       console.log('failed to initialize');
     });
@@ -46,8 +54,8 @@ export default class NavbarMenu extends React.Component {
 
   render() {
 
-    if(this.state.keycloak) {
-      if(this.state.authenticated){
+    if(this.props.keycloak) {
+        if(this.props.keycloak.authenticated) {
 
         return (
                <Nav className="ml-auto" navbar>
@@ -64,7 +72,7 @@ export default class NavbarMenu extends React.Component {
                   </Nav>
 
            );
-          }
+        }
       }
 
     return (
@@ -80,4 +88,23 @@ export default class NavbarMenu extends React.Component {
   }
 }
 
-    
+
+NavbarMenu.propTypes = {
+    loginActionDispatcher: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => {
+    return {
+        keycloak: state.loginReducer
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        loginActionDispatcher: (keycloak) => {console.log(keycloak); dispatch(loginActionDispatcher(keycloak))}
+
+    };
+}
+
+    export default connect(mapStateToProps, mapDispatchToProps)(NavbarMenu);

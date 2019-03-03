@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { items, itemsHasErrored, itemsIsLoading, item} from './items';
 import { contents, contentsHasErrored, contentsIsLoading } from './contents';
 import { searchCriteria} from './search';
+import { logoutReducer, loginReducer} from './sso';
 export default combineReducers({
     item,
     items,
@@ -10,5 +11,8 @@ export default combineReducers({
     contents,
     contentsHasErrored,
     contentsIsLoading,
-    searchCriteria
+    searchCriteria,
+    logoutReducer,
+    loginReducer
+
 });
