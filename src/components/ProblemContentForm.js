@@ -6,7 +6,7 @@ import {itemsAddSuccess, itemsFetchData, itemsPostData} from "../actions/items";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 
-class ProblemTitleForm extends React.Component {
+class ProblemContentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +15,7 @@ class ProblemTitleForm extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
     }
 
@@ -23,9 +23,7 @@ class ProblemTitleForm extends React.Component {
         this.setState({content: event.target.value});
     }
 
-    handleChangeTitle(event) {
-        this.setState({title: event.target.value});
-    }
+
 
 
     handleSubmitProcess(event) {
@@ -45,7 +43,7 @@ class ProblemTitleForm extends React.Component {
                     null
                 ],
                 "id": 0,
-                "name": this.state.title
+                "name": this.props.title
             }
         }
 
@@ -56,40 +54,22 @@ class ProblemTitleForm extends React.Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
-                   external={this.props.externalCloseBtn}>
-
-                <ModalHeader>Ask for Help!</ModalHeader>
-                <ModalBody>
-                    <b>Do not hesitate to create a problem title. Helpful Army will help you.</b><br/>
+            <div>
 
 
-                        <label>
-                            Problem Title:
-                            <br/>
-                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} class="form-control"/>
-                        </label>
-                        <br/>
-                        <label>
-                            Content:
-                            <br/>
-                            <textarea value={this.state.content} onChange={this.handleChange} />
-                        </label>
 
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
-                    <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
-                </ModalFooter>
+                <textarea value={this.state.content} onChange={this.handleChange} class="form-control"/>
+
+                <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
 
 
-            </Modal>
+          </div>
 
         );
     }
 }
 
-ProblemTitleForm.propTypes = {
+ProblemContentForm.propTypes = {
     postData: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -111,4 +91,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProblemTitleForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProblemContentForm);

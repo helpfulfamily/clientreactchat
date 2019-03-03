@@ -4,6 +4,7 @@ import { contentsFetchData } from '../actions/contents';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
+import ProblemContentForm from "./ProblemContentForm";
 
 
 class ContentList extends Component {
@@ -29,7 +30,8 @@ class ContentList extends Component {
 
         return (
             <div>
-                <b>Contents: </b>
+                <b>  {this.props.searchCriteria.title} </b>
+            <ProblemContentForm title={this.props.searchCriteria.title}/>
             <ListGroup>
                  {this.props.contents.map((content) => (
                     <ListGroupItem key={content.id}>

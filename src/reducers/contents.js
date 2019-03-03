@@ -22,7 +22,16 @@ export function contents(state = [], action) {
     switch (action.type) {
         case 'CONTENTS_FETCH_DATA_SUCCESS':
             return action.contents;
+        case 'CONTENT_ADD_SUCCESS':{
 
+                return   [
+
+                    action.item.payloadObject,
+                    ...state,
+                ]
+
+
+        }
         default:
             return state;
     }
