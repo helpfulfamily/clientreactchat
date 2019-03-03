@@ -18,6 +18,7 @@ class ContentList extends Component {
 
     }
     componentDidMount() {
+        document.title=  this.props.match.params.title;
         this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.match.params.title);
 
     }
