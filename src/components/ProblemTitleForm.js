@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {properties} from '../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {itemsAddSuccess, itemsFetchData, itemsPostData} from "../actions/items";
+import {connect} from "react-redux";
+import PropTypes from 'prop-types'
 
-export default class ProblemTitleForm extends React.Component {
+class ProblemTitleForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,7 +36,7 @@ export default class ProblemTitleForm extends React.Component {
         var apiBaseUrl = properties.createTitle;
 
 
-        var data = {
+        var item = {
             "id": 0,
             "name": "",
             "text": this.state.content,
@@ -47,22 +50,7 @@ export default class ProblemTitleForm extends React.Component {
         }
 
 
-        var headers = {
-
-            'Content-Type': 'application/json',
-
-        }
-
-
-        axios.post(apiBaseUrl, data, {headers: headers}).then( (response) =>{
-            this.props.toggle();
-
-        }).catch(function (error) {
-
-            console.log(error);
-
-        });
-
+         this.props.postData(apiBaseUrl, item);
 
     }
 
@@ -100,3 +88,27 @@ export default class ProblemTitleForm extends React.Component {
         );
     }
 }
+
+ProblemTitleForm.propTypes = {
+    postData: PropTypes.func.isRequired,
+    item: PropTypes.object.isRequired,
+    hasErrored: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => {
+    return {
+        item: state.item,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        postData: (url, item) => {console.log(url); dispatch(itemsPostData(url, item))}
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProblemTitleForm);

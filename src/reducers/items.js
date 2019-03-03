@@ -23,6 +23,29 @@ export function items(state = [], action) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return action.items;
 
+        case 'CONTENT_ADD_SUCCESS':{
+            if( action.item.description=="success"){
+                return   [
+
+                    action.item.payloadObject.title,
+                    ...state,
+                ]
+            }
+
+        }
+        default:
+            return state;
+    }
+}
+export function item(state={}, action) {
+    switch (action.type) {
+        case 'CONTENT_ADD_SUCCESS':{
+
+            console.log("itemITEM:");
+            console.log(action.item);
+            return  action.item.payloadObject.title;
+
+        }
         default:
             return state;
     }

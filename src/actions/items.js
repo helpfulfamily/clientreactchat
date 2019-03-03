@@ -20,6 +20,12 @@ export function itemsFetchDataSuccess(items) {
         items
     };
 }
+export function itemsAddSuccess(item) {
+    return {
+        type: 'CONTENT_ADD_SUCCESS',
+        item
+    };
+}
 
 export function itemsFetchData(url) {
     return (dispatch) => {
@@ -44,6 +50,45 @@ export function itemsFetchData(url) {
 
 
                 dispatch(itemsIsLoading(false));
+
+            });
+    };
+}
+function dispatcherHa(data){
+    var actionType= data.type;
+    var action;
+    switch (actionType) {
+        case 'CONTENT_ADD_SUCCESS':{
+
+            action= itemsAddSuccess(data);
+        }
+    }
+
+   return action;
+}
+export function itemsPostData(url, item) {
+    return (dispatch) => {
+        var headers = {
+
+            'Content-Type': 'application/json',
+
+        }
+
+        axios.post(url, item,{headers: headers})
+
+            .then( (response)  => {
+                if (!response.status) {
+                    throw Error(response.statusText);
+                }
+                dispatch(dispatcherHa(response.data));
+            })
+            .catch( (error)  => {
+              //  dispatch(itemsHasErrored(true));
+            })
+            .then( () =>  {
+
+
+              //  dispatch(itemsIsLoading(false));
 
             });
     };

@@ -9,7 +9,8 @@ import PropTypes from 'prop-types'
 class ContentList extends Component {
     componentDidUpdate(prevProps) {
         // only update chart if the data has changed
-        if (prevProps.location.state.name !== this.props.location.state.name) {
+        console.log(this.props.searchCriteria);
+        if (prevProps.searchCriteria !== this.props.searchCriteria) {
             this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.location.state.name);
         }
     }
@@ -42,6 +43,7 @@ class ContentList extends Component {
 }
 
 ContentList.propTypes = {
+    searchCriteria:  PropTypes.object.isRequired,
     fetchData: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -50,6 +52,7 @@ ContentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        searchCriteria: state.searchCriteria,
         contents: state.contents,
         hasErrored: state.contentsHasErrored,
         isLoading: state.contentsIsLoading
