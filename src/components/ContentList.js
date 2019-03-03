@@ -8,15 +8,18 @@ import ProblemContentForm from "./ProblemContentForm";
 
 
 class ContentList extends Component {
+
     componentDidUpdate(prevProps) {
         // only update chart if the data has changed
         console.log(this.props.searchCriteria);
         if (prevProps.searchCriteria !== this.props.searchCriteria) {
-            this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.location.state.name);
+            this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.searchCriteria.title);
         }
+
     }
     componentDidMount() {
-        this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.location.state.name);
+        this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.match.params.title);
+
     }
 
     render() {
@@ -30,8 +33,8 @@ class ContentList extends Component {
 
         return (
             <div>
-                <b>  {this.props.searchCriteria.title} </b>
-            <ProblemContentForm title={this.props.searchCriteria.title}/>
+                <b>  {this.props.match.params.title} </b>
+            <ProblemContentForm title={this.props.match.params.title}/>
             <ListGroup>
                  {this.props.contents.map((content) => (
                     <ListGroupItem key={content.id}>

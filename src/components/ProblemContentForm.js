@@ -58,7 +58,7 @@ class ProblemContentForm extends React.Component {
 
 
 
-                <textarea value={this.state.content} onChange={this.handleChange} class="form-control"/>
+                <textarea value={this.state.content} onChange={this.handleChange} className="form-control"/>
 
                 <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
 
