@@ -125,6 +125,8 @@ fi
 if [[ -n "$app_name" ]]; then
         if [[ -n "$app_version" ]]; then
 
+            oc project helpfularmy
+
             build_local_project
 
 
