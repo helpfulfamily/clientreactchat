@@ -5,8 +5,13 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
 import ProblemContentForm from "./ProblemContentForm";
+import defaultuser from './default-avatar.png';
+import {FaThumbsUp, FaShare} from "react-icons/fa";
 
-
+import   './content.css';
+import {
+    Row,
+    Col } from 'reactstrap';
 class ContentList extends Component {
 
     componentDidUpdate(prevProps) {
@@ -24,6 +29,7 @@ class ContentList extends Component {
     }
 
     render() {
+
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the contents</p>;
         }
@@ -39,7 +45,37 @@ class ContentList extends Component {
             <ListGroup>
                  {this.props.contents.map((content) => (
                     <ListGroupItem key={content.id}>
-                        {content.text}
+
+                        <Row>
+                            <Col xs="2" sm="1">
+                                <img  className="picture align-baseline"  src={defaultuser} alt="Generic placeholder image" />
+                            </Col>
+                            <Col xs="9">
+                                <Row>
+                                    <Col>
+                                    <p className="text-left align-text-top"><b>{content.username}</b></p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <p className="text-justify align-middle">{content.text}</p>
+                                    </Col>
+                                </Row>
+
+                                <Row>
+                                    <Col>
+
+                                        9 <FaThumbsUp/>
+
+                                        {' '}
+
+                                        9 <FaShare/>
+                                    </Col>
+                                </Row>
+
+                            </Col>
+                        </Row>
+
                     </ListGroupItem>
                 ))}
             </ListGroup>
