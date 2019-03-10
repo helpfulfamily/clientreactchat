@@ -31,12 +31,15 @@ class ProblemContentForm extends React.Component {
         event.preventDefault();
 
 
+
+
         var apiBaseUrl = properties.createTitle;
 
 
         var item = {
             "id": 0,
             "name": "",
+            "username":this.props.keycloak.idTokenParsed.preferred_username,
             "text": this.state.content,
             "title": {
                 "contents": [
@@ -53,24 +56,30 @@ class ProblemContentForm extends React.Component {
     }
 
     render() {
-        return (
-            <div>
+        if(this.props.keycloak.authenticated){
+            return (
+                <div>
 
 
 
-                <textarea value={this.state.content} onChange={this.handleChange} className="form-control"/>
+                    <textarea value={this.state.content} onChange={this.handleChange} className="form-control"/>
 
-                <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
+                    <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
 
 
-          </div>
+                </div>
 
-        );
+            );
+        }else{
+            return ("");
+                }
+
     }
 }
 
 ProblemContentForm.propTypes = {
     postData: PropTypes.func.isRequired,
+    keycloak: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -78,6 +87,7 @@ ProblemContentForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+        keycloak: state.loginReducer,
         item: state.item,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React from 'react';
+
 import {properties} from '../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {itemsAddSuccess, itemsFetchData, itemsPostData} from "../actions/items";
+import {itemsPostData} from "../actions/items";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 
@@ -39,6 +39,7 @@ class ProblemTitleForm extends React.Component {
         var item = {
             "id": 0,
             "name": "",
+            "username":this.props.keycloak.idTokenParsed.preferred_username,
             "text": this.state.content,
             "title": {
                 "contents": [
