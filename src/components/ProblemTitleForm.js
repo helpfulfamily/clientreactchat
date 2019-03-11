@@ -68,14 +68,17 @@ class ProblemTitleForm extends React.Component {
                         <label>
                             Problem Title:
                             <br/>
-                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} className="form-control"/>
+
+                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} />
+
                         </label>
                         <br/>
-                        <label>
-                            Content:
-                            <br/>
-                            <textarea value={this.state.content} onChange={this.handleChange} />
-                        </label>
+
+                    <div >
+
+                        <textarea id="form10" className="md-textarea form-control" rows="3"  value={this.state.content} onChange={this.handleChange}></textarea>
+
+                    </div>
 
                 </ModalBody>
                 <ModalFooter>
