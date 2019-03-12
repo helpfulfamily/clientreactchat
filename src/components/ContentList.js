@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import ProblemContentForm from "./ProblemContentForm";
 import defaultuser from './default-avatar.png';
 import {FaThumbsUp, FaShare} from "react-icons/fa";
+import MetaTags from 'react-meta-tags';
 
 import   './content.css';
 import {
@@ -83,6 +84,15 @@ class ContentList extends Component {
 
         return (
             <div>
+                <div className="wrapper">
+
+                <MetaTags>
+                    <title>{this.props.match.params.title} </title>
+                    <meta name="description" content="Join the helpful army!" />
+                    <meta property="og:title" content={this.props.match.params.title} />
+                    <meta property="og:image" content="https://www.helpful.army/static/media/default-avatar.9a4d85aa.png" />
+                </MetaTags>
+                </div>
                 <b>  {this.props.match.params.title} </b>
             <ProblemContentForm title={this.props.match.params.title}/>
 
