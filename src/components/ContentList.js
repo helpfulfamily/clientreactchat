@@ -16,16 +16,21 @@ import InfiniteScroll from "react-infinite-scroll-component";
 var amount=9;
 class ContentList extends Component {
 
+
+    componentDidMount() {
+
+        this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ amount);
+    }
+
     componentDidUpdate(prevProps) {
-        // only update chart if the data has changed
-        console.log(this.props.searchCriteria);
-        if (prevProps.searchCriteria !== this.props.searchCriteria) {
-            this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.searchCriteria.title+ "/"+ amount);
+
+        if (prevProps.location.state.name != this.props.location.state.name) {
+            this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ amount);
         }
 
     }
     fetchMoreData = () => {
-        this.props.fetchData(properties.serverUrl+ properties.getTitle + this.props.searchCriteria.title+ "/"+ (10 + amount));
+        this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ (10 + amount));
     };
 
 
@@ -80,25 +85,23 @@ class ContentList extends Component {
             <div>
                 <b>  {this.props.match.params.title} </b>
             <ProblemContentForm title={this.props.match.params.title}/>
-                <div id="scrollableDiv" style={{ height: 700, overflow: "auto" }}>
 
                     <InfiniteScroll
                         dataLength={this.props.contents.length}
                         next={this.fetchMoreData}
                         hasMore={true}
                         loader={<br/>}
-                        scrollableTarget="scrollableDiv"
+                        scrollableTarget="scrollableDivContent"
                     >
                         {list}
                     </InfiniteScroll>
-                </div>
+
             </div>
         );
     }
 }
 
 ContentList.propTypes = {
-    searchCriteria:  PropTypes.object.isRequired,
     fetchData: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -107,7 +110,6 @@ ContentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        searchCriteria: state.searchCriteria,
         contents: state.contents,
         hasErrored: state.contentsHasErrored,
         isLoading: state.contentsIsLoading

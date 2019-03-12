@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { itemsFetchData } from '../actions/items';
-import { changeSearchCriteria } from '../actions/search';
 import {Link} from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { properties } from '../config/properties.js';
@@ -15,9 +14,7 @@ class ItemList extends Component {
 
         this.props.fetchData(properties.serverUrl + properties.getAllTitles + "/"+ amount);
     }
-    handleChangeSearchCriteriaEvent(title, event)   {
-      this.props.changeSearchCriteria(title);
-    }
+
 
     fetchMoreData = () => {
         this.props.fetchData(properties.serverUrl + properties.getAllTitles+ "/"+ (10 + amount));
@@ -32,7 +29,7 @@ class ItemList extends Component {
         }
         const list= <ListGroup>
             {this.props.items.map((item, index) => (
-                <ListGroupItem  key={item.id}> <Link onClick={(e) => this.handleChangeSearchCriteriaEvent(item.name, e)} to={{
+                <ListGroupItem  key={item.id}> <Link to={{
                     pathname: '/contents/' + item.name,
                     state: {
                         name: item.name
@@ -65,7 +62,6 @@ class ItemList extends Component {
 
 ItemList.propTypes = {
     fetchData: PropTypes.func.isRequired,
-    changeSearchCriteria: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -83,11 +79,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         fetchData: (url) => {console.log(url); dispatch(itemsFetchData(url))},
-        changeSearchCriteria: (title) => {
-            var criteria={};
-            criteria.title= title;
-            console.log(criteria);
-        dispatch(changeSearchCriteria(criteria))},
+
     };
 };
 
