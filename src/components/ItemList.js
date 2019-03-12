@@ -8,8 +8,7 @@ import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 
-
-  var amount=30;
+var amount=30;
 class ItemList extends Component {
 
     componentDidMount() {
