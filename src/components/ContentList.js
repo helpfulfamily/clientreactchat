@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { contentsFetchData } from '../actions/contents';
+import { contentsFetchData, contentsAppendList } from '../actions/contents';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
@@ -13,39 +13,57 @@ import   './content.css';
 import {
     Row,
     Col } from 'reactstrap';
-import InfiniteScroll from "react-infinite-scroll-component";
-var amount=9;
+
+var amount=0;
 class ContentList extends Component {
 
 
     componentDidMount() {
+
+        window.addEventListener('scroll', this.onScroll, false);
 
         this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ amount);
     }
 
     componentDidUpdate(prevProps) {
 
-        if (prevProps.location.state.name != this.props.location.state.name) {
+
+        if (prevProps.location.pathname != this.props.location.pathname) {
+            amount=0;
             this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ amount);
         }
 
     }
-    fetchMoreData = () => {
-        this.props.fetchData(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ (10 + amount));
-    };
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll, false);
+    }
+    onScroll = () => {
+        var totalHeight = document.documentElement.scrollHeight;
+        var clientHeight = document.documentElement.clientHeight;
+        var scrollTop = (document.body && document.body.scrollTop)
+            ? document.body.scrollTop : document.documentElement.scrollTop;
+        if (totalHeight == scrollTop + clientHeight){
+            amount= amount + 10;
+            if (typeof this.props.appendList !== 'undefined'){
+                this.props.appendList(properties.serverUrl+ properties.getTitle +  this.props.match.params.title+ "/"+ (amount));
+
+            }
+        }
+    }
 
 
     render() {
 
         if (this.props.hasErrored) {
-            return <p>Sorry! There was an error loading the contents</p>;
+          console.log("Sorry! There was an error loading the contents")
         }
 
         if (this.props.isLoading) {
-            return <p>Loading…</p>;
+           console.log("Contents are loading.")
         }
         const list=<ListGroup>
-            {this.props.contents.map((content) => (
+            {
+                this.props.contents.map((content) => (
                 <ListGroupItem key={content.id}>
 
                     <Row>
@@ -96,15 +114,8 @@ class ContentList extends Component {
                 <b>  {this.props.match.params.title} </b>
             <ProblemContentForm title={this.props.match.params.title}/>
 
-                    <InfiniteScroll
-                        dataLength={this.props.contents.length}
-                        next={this.fetchMoreData}
-                        hasMore={true}
-                        loader={<br/>}
-                        scrollableTarget="scrollableDivContent"
-                    >
                         {list}
-                    </InfiniteScroll>
+
 
             </div>
         );
@@ -112,6 +123,7 @@ class ContentList extends Component {
 }
 
 ContentList.propTypes = {
+    appendList: PropTypes.func.isRequired,
     fetchData: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -128,7 +140,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(contentsFetchData(url))
+        fetchData: (url) => dispatch(contentsFetchData(url)),
+        appendList: (url) => dispatch(contentsAppendList(url))
+
     };
 };
 

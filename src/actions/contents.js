@@ -18,7 +18,30 @@ export function contentsFetchDataSuccess(contents) {
         contents
     };
 }
+export function contentsAppendListSuccess(contents) {
+    return {
+        type: 'CONTENTS_APPEND_LIST_SUCCESS',
+        contents
+    };
+}
 
+export function contentsAppendList(url) {
+    return (dispatch) => {
+        dispatch(contentsIsLoading(true));
+
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(contentsIsLoading(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((contents) => dispatch(contentsAppendListSuccess(contents)))
+            .catch(() => console.log("Error: contentsFetchData"));
+    };
+}
 export function contentsFetchData(url) {
     return (dispatch) => {
         dispatch(contentsIsLoading(true));

@@ -50,7 +50,7 @@ class ProblemContentForm extends React.Component {
             }
         }
 
-
+         this.state.content="";
          this.props.postData(apiBaseUrl, item);
 
     }

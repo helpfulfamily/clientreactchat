@@ -32,7 +32,18 @@ export function contents(state = [], action) {
 
 
         }
+        case 'CONTENTS_APPEND_LIST_SUCCESS':{
+
+            return   [
+
+                 ...state,
+                ...action.contents
+            ]
+
+
+        }
         default:
             return state;
     }
+
 }
