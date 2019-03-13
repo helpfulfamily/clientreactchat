@@ -12,3 +12,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.navbar {
+  color: white;
+  background-color: black;
+}
+
+/* OR*/
+
+.nav {
+  color: white;
+
+}
+
+/* unvisited link */
+a:link {
+  color: #CC3333;
+}
+
+/* visited link */
+a:visited {
+  color: #CC3333;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import {Navbar, NavbarBrand, NavbarToggler, Collapse,
   Nav,
   NavItem,
   NavLink} from 'reactstrap';
@@ -51,40 +51,50 @@ class NavbarMenu extends React.Component {
     keycloak.logout();
   }
 
-
+  navContent="";
   render() {
 
-    if(this.props.keycloak) {
-        if(this.props.keycloak.authenticated) {
+    if(this.props.keycloak && this.props.keycloak.authenticated) {
 
-        return (
-               <Nav className="ml-auto" navbar>
+           this.navContent=(
+               <Nav className="ml-auto"   navbar>
                     <NavItem>
                       {this.props.externalCloseBtn}
 
                     </NavItem>
 
                     <NavItem>
-                      <NavLink href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
+                      <NavLink className="text-white"  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
                     </NavItem>
 
 
                   </Nav>
 
            );
-        }
-      }
-
-    return (
-
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="#" onClick={this.handleLogin}><FaUnlockAlt /> Login</NavLink>
-                </NavItem>
-                </Nav>
 
 
-    );
+      }else {
+        this.navContent=(
+            <Nav className="ml-auto" navbar>
+                            <NavItem >
+                                <NavLink  className="text-white" href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
+                            </NavItem>
+            </Nav>
+                 );
+    }
+
+
+      return (<Navbar fixed={'top'} expand="md">
+          <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+
+
+                      {this.navContent}
+
+
+          </Collapse>
+      </Navbar>);
   }
 }
 

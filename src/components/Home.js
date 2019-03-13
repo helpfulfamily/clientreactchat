@@ -25,7 +25,7 @@ export default class Home extends Component {
     }
     render() {
 
-        const externalCloseBtn = <a className="nav-link" href="#" onClick={this.toggle}><FaHireAHelper /> Ask for Help </a>;
+        const externalCloseBtn = <a className="nav-link text-white" href="#" onClick={this.toggle}><FaHireAHelper /> Ask for Help </a>;
         const buttonLabel ="Ask for Help"
         return (
             <div>
