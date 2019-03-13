@@ -67,31 +67,21 @@ class ContentList extends Component {
                 <ListGroupItem key={content.id}>
 
                     <Row>
-                        <Col xs="2" sm="1">
+                        <Col xs="2">
                             <img  className="picture align-baseline"  src={defaultuser} alt="Generic placeholder image" />
                         </Col>
                         <Col xs="9">
-                            <Row>
-                                <Col>
-                                    <p className="text-left align-text-top"><b>{content.username}</b></p>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <p className="text-justify align-middle">{content.text}</p>
-                                </Col>
-                            </Row>
 
-                            <Row>
-                                <Col>
-
-                                    9 <FaThumbsUp/>
+                            <div className="panel panel-default">
+                                <div className="panel-heading"><b>{content.username}</b></div>
+                                <div className="panel-body">{content.text}</div>
+                                <div className="card-footer">  9 <FaThumbsUp/>
 
                                     {' '}
 
-                                    9 <FaShare/>
-                                </Col>
-                            </Row>
+                                    9 <FaShare/></div>
+                            </div>
+
 
                         </Col>
                     </Row>

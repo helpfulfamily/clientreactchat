@@ -10,7 +10,6 @@ export default combineReducers({
     contents,
     contentsHasErrored,
     contentsIsLoading,
-    logoutReducer,
     loginReducer
 
 });

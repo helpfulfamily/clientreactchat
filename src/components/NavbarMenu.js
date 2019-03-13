@@ -12,33 +12,23 @@ import PropTypes from 'prop-types'
 const keycloak = Keycloak('/keycloak.json');
 
 class NavbarMenu extends React.Component {
-  constructor(props) {
-    super(props);
+    componentDidMount() {
 
-    this.state = {
-      keycloak: null, authenticated: false
-    };
+        var initOptions = {
+            responseMode: 'fragment',
+            flow: 'standard'
+        };
+        if(!this.props.isAuthenticated) {
+            keycloak.init(initOptions).success((authenticated) => {
+                this.props.loginActionDispatcher(authenticated);
 
-  }
-  componentDidMount() {
 
-    var initOptions = {
-      responseMode: 'fragment',
-      flow: 'standard'
-    };
-    console.log(this.props.keycloak);
-    keycloak.init(initOptions).success((authenticated)=>{
-      //this.setState({ keycloak: keycloak, authenticated: authenticated })
+            }).error(function () {
+                console.log('failed to initialize');
+            });
+        }
+    }
 
-      if(authenticated){
-           this.props.loginActionDispatcher(keycloak);
-      }
-
-    }).error(function() {
-      console.log('failed to initialize');
-    });
-
-  }
   handleLogin(e) {
     e.preventDefault();
 
@@ -54,65 +44,65 @@ class NavbarMenu extends React.Component {
   navContent="";
   render() {
 
-    if(this.props.keycloak && this.props.keycloak.authenticated) {
+      if(this.props.isAuthenticated) {
 
-           this.navContent=(
-               <Nav className="ml-auto"   navbar>
-                    <NavItem>
+          this.navContent=(
+              <Nav className="ml-auto"   navbar>
+                  <NavItem>
                       {this.props.externalCloseBtn}
 
-                    </NavItem>
+                  </NavItem>
 
-                    <NavItem>
+                  <NavItem>
                       <NavLink className="text-white"  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
-                    </NavItem>
+                  </NavItem>
 
 
-                  </Nav>
+              </Nav>
 
-           );
+          );
 
 
       }else {
-        this.navContent=(
-            <Nav className="ml-auto" navbar>
-                            <NavItem >
-                                <NavLink  className="text-white" href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
-                            </NavItem>
-            </Nav>
-                 );
-    }
+          this.navContent=(
+              <Nav className="ml-auto" navbar>
+                  <NavItem >
+                      <NavLink  className="text-white" href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
+                  </NavItem>
+              </Nav>
+          );
+      }
 
 
       return (<Navbar fixed={'top'} expand="md">
           <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+
 
 
                       {this.navContent}
 
-
-          </Collapse>
       </Navbar>);
   }
 }
 
 
 NavbarMenu.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
     loginActionDispatcher: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        keycloak: state.loginReducer
+        isAuthenticated: state.loginReducer
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        loginActionDispatcher: (keycloak) => {console.log(keycloak); dispatch(loginActionDispatcher(keycloak))}
+        loginActionDispatcher: (authenticated) => {
+            dispatch(loginActionDispatcher(authenticated))
+        }
 
     };
 }

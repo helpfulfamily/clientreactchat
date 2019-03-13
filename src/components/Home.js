@@ -30,6 +30,9 @@ export default class Home extends Component {
         return (
             <div>
                 <NavbarHa externalCloseBtn={externalCloseBtn}/>
+                <br/>
+                <br/>
+             
                 <Row>
                     <Col xs="6" sm="4"><ItemList /></Col>
                     <Col xs="6" sm="8"><Route exact path="/contents/:title" component={ContentList} /></Col>

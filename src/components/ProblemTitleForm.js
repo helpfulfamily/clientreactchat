@@ -95,7 +95,7 @@ class ProblemTitleForm extends React.Component {
 
 ProblemTitleForm.propTypes = {
     postData: PropTypes.func.isRequired,
-    keycloak: PropTypes.object.isRequired,
+    keycloak: PropTypes.bool.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
