@@ -20,12 +20,17 @@ class NavbarMenu extends React.Component {
         };
         if(!this.props.user.isAuthenticated) {
             keycloak.init(initOptions).success((authenticated) => {
-                var username="";
-                if(typeof keycloak.idTokenParsed !=="undefined"){
-                    username= keycloak.idTokenParsed.preferred_username;
+                if(!authenticated){
+                    keycloak.login();
+                }else{
+                    var username="";
+                    if(typeof keycloak.idTokenParsed !=="undefined"){
+                        username= keycloak.idTokenParsed.preferred_username;
+                    }
+                    var user = {isAuthenticated: authenticated, username: username }
+                    this.props.loginActionDispatcher(user);
                 }
-               var user = {isAuthenticated: authenticated, username: username }
-                this.props.loginActionDispatcher(user);
+
 
 
             }).error(function () {
