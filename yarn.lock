@@ -8023,13 +8023,6 @@ react-infinite-scroll-component@^4.5.1:
   resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-4.5.1.tgz#dd5a9b3fdbca8f5be9926fb8d5e2552cca66ffe5"
   integrity sha512-UpkaLwMwdkRmWRjCizC1nARZ6ViGMbxVOuNd3ozWrxh3OsMwoUdctNcUG5VZehtzsvh+jFTR4Q6hTRe/I1Qd4A==
 
-react-infinite-scroller@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.2.4.tgz#f67eaec4940a4ce6417bebdd6e3433bfc38826e9"
-  integrity sha512-/oOa0QhZjXPqaD6sictN2edFMsd3kkMiE19Vcz5JDgHpzEJVqYcmq+V3mkwO88087kvKGe1URNksHEOt839Ubw==
-  dependencies:
-    prop-types "^15.5.8"
-
 react-is@^16.8.1:
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.1.tgz#a80141e246eb894824fb4f2901c0c50ef31d4cdb"
