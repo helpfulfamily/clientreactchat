@@ -1,24 +1,24 @@
 import axios from "axios";
 
-export function loginAction(keycloak) {
+export function loginAction(user) {
     return {
         type: 'USER_LOG_IN',
-        keycloak
+        user
     };
 }
-export function logoutAction(keycloak) {
+export function logoutAction(user) {
     return {
         type: 'USER_LOG_OUT',
-        keycloak
+        user
     };
 }
-export function loginActionDispatcher(keycloak) {
+export function loginActionDispatcher(user) {
     return (dispatch) => {
-          dispatch(loginAction(keycloak));
+          dispatch(loginAction(user));
     };
 }
-export function logoutActionDispatcher(keycloak) {
+export function logoutActionDispatcher(user) {
     return (dispatch) => {
-        dispatch(logoutAction(keycloak));
+        dispatch(logoutAction(user));
     };
 }

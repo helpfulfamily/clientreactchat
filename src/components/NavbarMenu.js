@@ -18,9 +18,14 @@ class NavbarMenu extends React.Component {
             responseMode: 'fragment',
             flow: 'standard'
         };
-        if(!this.props.isAuthenticated) {
+        if(!this.props.user.isAuthenticated) {
             keycloak.init(initOptions).success((authenticated) => {
-                this.props.loginActionDispatcher(authenticated);
+                var username="";
+                if(typeof keycloak.idTokenParsed !=="undefined"){
+                    username= keycloak.idTokenParsed.preferred_username;
+                }
+               var user = {isAuthenticated: authenticated, username: username }
+                this.props.loginActionDispatcher(user);
 
 
             }).error(function () {
@@ -44,7 +49,7 @@ class NavbarMenu extends React.Component {
   navContent="";
   render() {
 
-      if(this.props.isAuthenticated) {
+      if(this.props.user.isAuthenticated) {
 
           this.navContent=(
               <Nav className="ml-auto"   navbar>
@@ -87,21 +92,21 @@ class NavbarMenu extends React.Component {
 
 
 NavbarMenu.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
     loginActionDispatcher: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.loginReducer
+        user: state.loginReducer
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        loginActionDispatcher: (authenticated) => {
-            dispatch(loginActionDispatcher(authenticated))
+        loginActionDispatcher: (user) => {
+            dispatch(loginActionDispatcher(user))
         }
 
     };

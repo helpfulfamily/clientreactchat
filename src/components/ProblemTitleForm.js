@@ -39,7 +39,7 @@ class ProblemTitleForm extends React.Component {
         var item = {
             "id": 0,
             "name": "",
-            "username":this.props.keycloak.idTokenParsed.preferred_username,
+            "username":this.props.user.username,
             "text": this.state.content,
             "title": {
                 "contents": [
@@ -95,7 +95,7 @@ class ProblemTitleForm extends React.Component {
 
 ProblemTitleForm.propTypes = {
     postData: PropTypes.func.isRequired,
-    keycloak: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -103,7 +103,7 @@ ProblemTitleForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        keycloak: state.loginReducer,
+        user: state.loginReducer,
         item: state.item,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading
