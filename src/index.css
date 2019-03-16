@@ -26,20 +26,24 @@ code {
 
 /* unvisited link */
 a:link {
+  font-weight: bold;
   color: #CC3333;
 }
 
 /* visited link */
 a:visited {
+  font-weight: bold;
   color: #CC3333;
 }
 
 /* mouse over link */
 a:hover {
+  font-weight: bold;
   color: hotpink;
 }
 
 /* selected link */
 a:active {
+  font-weight: bold;
   color: blue;
 }

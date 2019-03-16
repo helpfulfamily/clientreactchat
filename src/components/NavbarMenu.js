@@ -16,7 +16,8 @@ class NavbarMenu extends React.Component {
 
         var initOptions = {
             responseMode: 'fragment',
-            flow: 'standard'
+            flow: 'standard',
+            onLoad: 'check-sso'
         };
         if(!this.props.user.isAuthenticated) {
             keycloak.init(initOptions).success((authenticated) => {
