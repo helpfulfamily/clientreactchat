@@ -9,8 +9,14 @@ import {connect} from "react-redux";
 
 import { loginActionDispatcher } from '../actions/sso';
 import PropTypes from 'prop-types'
-const keycloak = Keycloak('/keycloak.json');
+import ModalExample from "./ModalExample";
 
+import Responsive from 'react-responsive';
+const keycloak = Keycloak('/keycloak.json');
+const Desktop = props => <Responsive {...props} minWidth={992} />;
+const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
+const Default = props => <Responsive {...props} minWidth={768} />;
 class NavbarMenu extends React.Component {
     componentDidMount() {
 
@@ -82,8 +88,16 @@ class NavbarMenu extends React.Component {
 
       return (<Navbar fixed={'top'} expand="md">
           <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
-
-
+          <Mobile>
+              <Nav className="ml-auto" navbar>
+                  <ModalExample buttonLabel="Problems"/>
+              </Nav>
+          </Mobile>
+          <Tablet>
+              <Nav className="ml-auto" navbar>
+                  <ModalExample buttonLabel="Problems"/>
+              </Nav>
+          </Tablet>
 
                       {this.navContent}
 
