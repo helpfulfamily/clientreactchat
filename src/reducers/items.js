@@ -24,13 +24,13 @@ export function items(state = [], action) {
             return action.items;
 
         case 'CONTENT_ADD_SUCCESS':{
-            if( action.item.description=="success"){
+
                 return   [
 
-                    action.item.payloadObject.title,
+                    action.item.payload.title,
                     ...state,
                 ]
-            }
+
 
         }
         default:
@@ -41,9 +41,8 @@ export function item(state={}, action) {
     switch (action.type) {
         case 'CONTENT_ADD_SUCCESS':{
 
-            console.log("itemITEM:");
-            console.log(action.item);
-            return  action.item.payloadObject.title;
+
+            return  action.item.payload.title;
 
         }
         default:

@@ -26,7 +26,7 @@ export function contents(state = [], action) {
 
                 return   [
 
-                    action.item.payloadObject,
+                    action.item.payload,
                     ...state,
                 ]
 

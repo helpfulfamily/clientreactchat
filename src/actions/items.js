@@ -54,17 +54,19 @@ export function itemsFetchData(url) {
             });
     };
 }
-function dispatcherHa(data){
-    var actionType= data.type;
+var dispatcher;
+export default function dispatcherHa(data){
+    data= JSON.parse(data.body);
+    var publishContent= data.headers.publishContent;
     var action;
-    switch (actionType) {
-        case 'CONTENT_ADD_SUCCESS':{
+    switch (publishContent) {
+        case 'SUCCESS':{
 
             action= itemsAddSuccess(data);
         }
     }
+    dispatcher(action);
 
-   return action;
 }
 export function itemsPostData(url, item) {
     return (dispatch) => {
@@ -80,7 +82,7 @@ export function itemsPostData(url, item) {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-                dispatch(dispatcherHa(response.data));
+              dispatcher= dispatch;
             })
             .catch( (error)  => {
               //  dispatch(itemsHasErrored(true));
