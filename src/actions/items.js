@@ -58,14 +58,18 @@ var dispatcher;
 export default function dispatcherHa(data){
     data= JSON.parse(data.body);
     var publishContent= data.headers.publishContent;
-    var action;
-    switch (publishContent) {
-        case 'SUCCESS':{
 
-            action= itemsAddSuccess(data);
+    var action;
+
+ 
+        switch (publishContent) {
+            case 'SUCCESS':{
+
+                action= itemsAddSuccess(data);
+            }
         }
-    }
-    dispatcher(action);
+        dispatcher(action);
+
 
 }
 export function itemsPostData(url, item) {

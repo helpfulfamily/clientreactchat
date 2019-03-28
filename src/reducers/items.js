@@ -19,19 +19,24 @@ export function itemsIsLoading(state = false, action) {
 }
 
 export function items(state = [], action) {
-    switch (action.type) {
+
+   switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return action.items;
 
         case 'CONTENT_ADD_SUCCESS':{
-
+            var data= action.item;
+            var firstContent= data.payload.firstContent;
+            if(firstContent){
                 return   [
 
-                    action.item.payload.title,
+                    data.payload.title,
                     ...state,
                 ]
 
-
+            }else{
+                return state;
+            }
         }
         default:
             return state;
