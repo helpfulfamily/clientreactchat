@@ -54,8 +54,8 @@ export function itemsFetchData(url) {
             });
     };
 }
-var dispatcher;
-export default function dispatcherHa(data){
+
+export default function dispatcherHa(data, store){
     data= JSON.parse(data.body);
     var publishContent= data.headers.publishContent;
 
@@ -68,7 +68,7 @@ export default function dispatcherHa(data){
                 action= itemsAddSuccess(data);
             }
         }
-        dispatcher(action);
+       store.dispatch(action);
 
 
 }
@@ -86,7 +86,7 @@ export function itemsPostData(url, item) {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-              dispatcher= dispatch;
+
             })
             .catch( (error)  => {
               //  dispatch(itemsHasErrored(true));

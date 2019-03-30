@@ -25,6 +25,7 @@ export function contents(state = [], action) {
         case 'CONTENT_ADD_SUCCESS':{
             var data=action.item;
             var title= window.location.pathname;
+            title = decodeURIComponent(title);
             title = title.replace("\/contents\/","")
             if(data.payload.title.name==title){
                 return   [
