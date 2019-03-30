@@ -19,19 +19,24 @@ export function itemsIsLoading(state = false, action) {
 }
 
 export function items(state = [], action) {
-    switch (action.type) {
+
+   switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return action.items;
 
         case 'CONTENT_ADD_SUCCESS':{
-            if( action.item.description=="success"){
+            var data= action.item;
+            var firstContent= data.payload.firstContent;
+            if(firstContent){
                 return   [
 
-                    action.item.payloadObject.title,
+                    data.payload.title,
                     ...state,
                 ]
-            }
 
+            }else{
+                return state;
+            }
         }
         default:
             return state;
@@ -41,9 +46,8 @@ export function item(state={}, action) {
     switch (action.type) {
         case 'CONTENT_ADD_SUCCESS':{
 
-            console.log("itemITEM:");
-            console.log(action.item);
-            return  action.item.payloadObject.title;
+
+            return  action.item.payload.title;
 
         }
         default:

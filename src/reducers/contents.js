@@ -23,14 +23,21 @@ export function contents(state = [], action) {
         case 'CONTENTS_FETCH_DATA_SUCCESS':
             return action.contents;
         case 'CONTENT_ADD_SUCCESS':{
-
+            var data=action.item;
+            var title= window.location.pathname;
+            title = decodeURIComponent(title);
+            title = title.replace("\/contents\/","")
+            if(data.payload.title.name==title){
                 return   [
 
-                    action.item.payloadObject,
+                    data.payload,
                     ...state,
                 ]
 
+            }else{
 
+                return state;
+            }
         }
         case 'CONTENTS_APPEND_LIST_SUCCESS':{
 

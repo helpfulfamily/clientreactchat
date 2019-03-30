@@ -17,7 +17,9 @@
     "react-scripts": "2.1.5",
     "reactstrap": "^7.1.0",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "sockjs-client": "^1.3.0",
+    "stompjs": "^2.3.3"
   },
   "scripts": {
     "start": "export HTTPS=true&&PORT=3000 react-scripts start",

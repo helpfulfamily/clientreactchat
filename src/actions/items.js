@@ -54,17 +54,23 @@ export function itemsFetchData(url) {
             });
     };
 }
-function dispatcherHa(data){
-    var actionType= data.type;
+
+export default function dispatcherHa(data, store){
+    data= JSON.parse(data.body);
+    var publishContent= data.headers.publishContent;
+
     var action;
-    switch (actionType) {
-        case 'CONTENT_ADD_SUCCESS':{
 
-            action= itemsAddSuccess(data);
+ 
+        switch (publishContent) {
+            case 'SUCCESS':{
+
+                action= itemsAddSuccess(data);
+            }
         }
-    }
+       store.dispatch(action);
 
-   return action;
+
 }
 export function itemsPostData(url, item) {
     return (dispatch) => {
@@ -80,7 +86,7 @@ export function itemsPostData(url, item) {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-                dispatch(dispatcherHa(response.data));
+
             })
             .catch( (error)  => {
               //  dispatch(itemsHasErrored(true));
