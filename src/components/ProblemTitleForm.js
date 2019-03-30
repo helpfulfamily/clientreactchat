@@ -5,23 +5,29 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {itemsPostData} from "../actions/items";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 class ProblemTitleForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            content: ''
+            content: EditorState.createEmpty()
         };
 
-        this.handleChange = this.handleChange.bind(this);
+
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({content: event.target.value});
-    }
+    onEditorStateChange = (editorState) => {
+
+        this.setState({content: editorState});
+
+    };
 
     handleChangeTitle(event) {
         this.setState({title: event.target.value});
@@ -56,6 +62,7 @@ class ProblemTitleForm extends React.Component {
     }
 
     render() {
+
          return (
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
@@ -76,7 +83,15 @@ class ProblemTitleForm extends React.Component {
 
                     <div >
 
-                        <textarea id="form10" className="md-textarea form-control" rows="3"  value={this.state.content} onChange={this.handleChange}></textarea>
+
+                            <Editor
+                                editorState={this.state.content}
+                                wrapperClassName="demo-wrapper"
+                                editorClassName="demo-editor"
+                                onEditorStateChange={this.onEditorStateChange}
+                            />
+
+
 
                     </div>
 

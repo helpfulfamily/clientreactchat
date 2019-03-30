@@ -5,9 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "draft-js": "^0.10.5",
+    "draftjs-to-html": "^0.8.4",
     "keycloak-js": "^4.8.3",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-icons": "^3.4.0",
     "react-infinite-scroll-component": "^4.5.1",
     "react-meta-tags": "^0.7.4",
