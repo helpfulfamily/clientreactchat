@@ -5,17 +5,21 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {itemsPostData} from "../actions/items";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
-import { EditorState, convertToRaw } from 'draft-js';
+import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+
+
+
 
 class ProblemTitleForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            content: EditorState.createEmpty()
+            content: '',
+            editorState: EditorState.createEmpty()
         };
 
 
@@ -25,7 +29,10 @@ class ProblemTitleForm extends React.Component {
 
     onEditorStateChange = (editorState) => {
 
-        this.setState({content: editorState});
+        this.setState({editorState: editorState});
+
+        this.setState({content:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+
 
     };
 
@@ -85,7 +92,7 @@ class ProblemTitleForm extends React.Component {
 
 
                             <Editor
-                                editorState={this.state.content}
+                                editorState={this.state.editorState}
                                 wrapperClassName="demo-wrapper"
                                 editorClassName="demo-editor"
                                 onEditorStateChange={this.onEditorStateChange}
@@ -100,7 +107,6 @@ class ProblemTitleForm extends React.Component {
                     <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
                     <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
-
 
             </Modal>
 

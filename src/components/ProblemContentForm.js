@@ -1,27 +1,34 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React from 'react';
+
 import {properties} from '../config/properties.js';
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {itemsAddSuccess, itemsFetchData, itemsPostData} from "../actions/items";
+import {Button} from "reactstrap";
+import {itemsPostData} from "../actions/items";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
+import {convertToRaw, EditorState} from "draft-js";
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from "draftjs-to-html";
 
 class ProblemContentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            content: ''
+            content: '',
+            editorState: EditorState.createEmpty()
         };
 
-        this.handleChange = this.handleChange.bind(this);
 
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
     }
+    onEditorStateChange = (editorState) => {
 
-    handleChange(event) {
-        this.setState({content: event.target.value});
-    }
+        this.setState({editorState: editorState});
+        this.setState({content:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+
+
+    };
+
 
 
 
@@ -62,7 +69,14 @@ class ProblemContentForm extends React.Component {
 
 
 
-                    <textarea value={this.state.content} onChange={this.handleChange} className="form-control"/>
+
+                    <Editor
+                        editorState={this.state.editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={this.onEditorStateChange}
+                    />
+
 
                     <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
 

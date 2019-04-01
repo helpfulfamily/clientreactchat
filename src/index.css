@@ -47,3 +47,19 @@ a:active {
   font-weight: bold;
   color: blue;
 }
+
+.demo-wrapper {
+  width: 100% !important;
+  display: block !important;
+  margin-bottom: 25px !important;
+  height: 250px !important;
+
+}
+
+.demo-editor {
+  height: 125px !important;
+  border: 1px solid #F1F1F1 !important;
+  padding: 5px !important;
+  border-radius: 2px !important;
+
+}
