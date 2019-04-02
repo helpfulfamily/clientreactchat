@@ -31,9 +31,10 @@ class NavbarMenu extends React.Component {
                     var username="";
                     if(typeof keycloak.idTokenParsed !=="undefined"){
                         username= keycloak.idTokenParsed.preferred_username;
+                        var user = {isAuthenticated: authenticated, username: username }
+                        this.props.loginActionDispatcher(user);
                     }
-                    var user = {isAuthenticated: authenticated, username: username }
-                    this.props.loginActionDispatcher(user);
+
 
             }).error(function () {
                 console.log('failed to initialize');
