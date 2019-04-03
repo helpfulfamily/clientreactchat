@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { contentsFetchData, contentsAppendList } from '../actions/contents';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import {ListGroup, ListGroupItem, Tooltip} from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
 import ProblemContentForm from "./ProblemContentForm";
@@ -15,6 +15,7 @@ import   './content.css';
 import {
     Row,
     Col } from 'reactstrap';
+import {Link} from "react-router-dom";
 
 var amount=0;
 class ContentList extends Component {
@@ -85,12 +86,31 @@ class ContentList extends Component {
 
                         <Row>
                             <Col xs="2">
-                                <img  className="picture align-baseline"  src={defaultuser} alt="Generic placeholder image" />
+
+                                <div className="content-img" >
+
+
+                                    <Link to={{
+                                        pathname: '/profile/' + content.user.username,
+                                        state: {
+                                            username: content.user.username
+                                        }
+                                    }} >
+                                     <img     src={content.user.profilePhotoUrl} alt=""   />
+
+                                    </Link>
+
+
+
+                                </div>
+
+
+
                             </Col>
                             <Col xs="9">
 
                                 <div className="panel panel-default">
-                                    <div className="panel-heading"><b>{content.username}</b></div>
+                                    <div className="panel-heading"><b>{content.user.username}</b></div>
 
                                     <Editor editorState={this.contentToRender(content.text)}
 

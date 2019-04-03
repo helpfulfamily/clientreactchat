@@ -30,7 +30,7 @@ class ItemList extends Component {
         const list= <ListGroup>
             {this.props.items.map((item, index) => (
                 <ListGroupItem  key={item.id}> <Link to={{
-                    pathname: '/contents/' + item.name,
+                    pathname: '/proso/contents/' + item.name,
                     state: {
                         name: item.name
                     }

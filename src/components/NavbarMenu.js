@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
 import Responsive from 'react-responsive';
+
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -87,7 +88,9 @@ class NavbarMenu extends React.Component {
       }
 
 
-      return (<Navbar fixed={'top'} expand="md">
+      return (
+
+          <Navbar fixed={'top'} expand="md">
           <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
           <Mobile>
               <Nav className="ml-auto" navbar>
@@ -102,7 +105,9 @@ class NavbarMenu extends React.Component {
 
                       {this.navContent}
 
-      </Navbar>);
+          </Navbar>
+
+      );
   }
 }
 

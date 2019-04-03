@@ -28,8 +28,9 @@ export function loginActionDispatcher(user) {
                     createUser(user);
                 }else{
                     user= response.data;
+                    dispatch(loginAction(user));
                 }
-                dispatch(loginAction(user));
+
 
             })
             .catch( (error)  => {
