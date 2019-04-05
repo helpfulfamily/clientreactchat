@@ -12,7 +12,7 @@ export function logoutAction(user) {
         user
     };
 }
-export function loginActionDispatcher(user) {
+export function loginActionDispatcher(loginUser) {
     return (dispatch) => {
         var headers = {
 
@@ -20,15 +20,17 @@ export function loginActionDispatcher(user) {
 
         }
 
-        var url= properties.serverUrl+ properties.user+ user.username;
+        var url= properties.serverUrl+ properties.user+ loginUser.sso.username;
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
                 if(response.data==""){
-                    createUser(user);
+                    createUser(loginUser);
                 }else{
-                    user= response.data;
-                    dispatch(loginAction(user));
+                    var sso= loginUser.sso;
+                    loginUser= response.data;
+                    loginUser.sso= sso;
+                    dispatch(loginAction(loginUser));
                 }
 
 

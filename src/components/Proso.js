@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import ItemList from "./ItemList";
+
 import {Col, Row} from "reactstrap";
 import ContentList from "./ContentList";
 
 import {Route} from "react-router-dom";
-import { FaHireAHelper} from 'react-icons/fa';
+
 
 
 import Responsive from 'react-responsive';
+import ProsoTab from "./ProsoTab";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -26,7 +27,7 @@ export default class Proso extends Component {
 
                 <Desktop>
                     <Row>
-                        <Col xs="6" sm="4"><ItemList /></Col>
+                        <Col xs="6" sm="4"> <ProsoTab/> </Col>
                         <Col xs="6" sm="8"><Route exact path="/proso/contents/:title" component={ContentList} /></Col>
                      </Row>
                 </Desktop>

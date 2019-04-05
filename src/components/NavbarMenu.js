@@ -3,7 +3,7 @@ import {Navbar, NavbarBrand, NavbarToggler, Collapse,
   Nav,
   NavItem,
   NavLink} from 'reactstrap';
-import {FaUnlockAlt} from "react-icons/fa";
+import {FaHireAHelper, FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
 import {connect} from "react-redux";
 
@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
 import Responsive from 'react-responsive';
+import ProblemTitleForm from "./ProblemTitleForm";
 
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -19,6 +20,18 @@ const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
 const Default = props => <Responsive {...props} minWidth={768} />;
 class NavbarMenu extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {modal: false };
+        this.toggle = this.toggle.bind(this);
+
+    }
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
     componentDidMount() {
 
         var initOptions = {
@@ -26,14 +39,17 @@ class NavbarMenu extends React.Component {
             flow: 'standard',
             onLoad: 'check-sso'
         };
-        if(!this.props.user.isAuthenticated) {
+        if(typeof this.props.loginUser.sso==="undefined" ||
+            (typeof this.props.loginUser.sso!=="undefined" && !this.props.loginUser.sso.isAuthenticated)) {
             keycloak.init(initOptions).success((authenticated) => {
 
                     var username="";
                     if(typeof keycloak.idTokenParsed !=="undefined"){
                         username= keycloak.idTokenParsed.preferred_username;
-                        var user = {isAuthenticated: authenticated, username: username }
-                        this.props.loginActionDispatcher(user);
+
+                        var sso = {isAuthenticated: authenticated, username: username }
+                        var loginUser = {"sso": sso};
+                        this.props.loginActionDispatcher(loginUser);
                     }
 
 
@@ -57,13 +73,13 @@ class NavbarMenu extends React.Component {
 
   navContent="";
   render() {
-
-      if(this.props.user.isAuthenticated) {
+      const externalCloseBtn = <a className="nav-link text-white" href="#" onClick={this.toggle}><FaHireAHelper /> Help </a>;
+      if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
               <Nav className="ml-auto"   navbar>
                   <NavItem>
-                      {this.props.externalCloseBtn}
+                      {externalCloseBtn}
 
                   </NavItem>
 
@@ -89,7 +105,6 @@ class NavbarMenu extends React.Component {
 
 
       return (
-
           <Navbar fixed={'top'} expand="md">
           <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
           <Mobile>
@@ -104,7 +119,10 @@ class NavbarMenu extends React.Component {
           </Tablet>
 
                       {this.navContent}
+              <ProblemTitleForm externalCloseBtn={externalCloseBtn}
 
+                                modal={this.state.modal}
+                                toggle={this.toggle} />
           </Navbar>
 
       );
@@ -113,13 +131,13 @@ class NavbarMenu extends React.Component {
 
 
 NavbarMenu.propTypes = {
-    user: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
     loginActionDispatcher: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        user: state.loginReducer
+        loginUser: state.loginReducer
     };
 };
 

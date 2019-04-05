@@ -52,7 +52,7 @@ class ProblemTitleForm extends React.Component {
         var item = {
             "id": 0,
             "name": "",
-            "username":this.props.user.username,
+            "user": this.props.loginUser,
             "text": this.state.content,
             "title": {
                 "contents": [
@@ -116,7 +116,7 @@ class ProblemTitleForm extends React.Component {
 
 ProblemTitleForm.propTypes = {
     postData: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -124,7 +124,7 @@ ProblemTitleForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.loginReducer,
+        loginUser: state.loginReducer,
         item: state.item,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading

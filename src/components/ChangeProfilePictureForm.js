@@ -72,13 +72,13 @@ export default  class ChangeProfilePictureForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>Ask for Help!</ModalHeader>
+                <ModalHeader>Change profile picture:</ModalHeader>
                 <ModalBody>
-                    <b>Do not hesitate to create a problem title. Helpful Army will help you.</b><br/>
+
 
 
                         <label>
-                            Problem Title:
+                            You can provide a link to image you want to use:
                             <br/>
 
                             <input type="text" value={this.state.profilePhotoUrl} onChange={this.handleChangeTitle} />

@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import Cover from "./Cover";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
+import PropTypes from 'prop-types'
 
 import {properties} from "../config/properties";
 import axios from "axios";
 
+import {connect} from "react-redux";
 
-export default  class Profile extends Component {
+
+  class Profile extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
+
         this.state = {user: {} };
         if(typeof  props.match.params.username != "undefined"){
             var headers = {
@@ -46,7 +51,7 @@ export default  class Profile extends Component {
             <Row>
 
                 <Col>
-                     <Cover user={this.state.user}/>
+                     <Cover loginUser={this.props.loginUser} user={this.state.user}/>
                 </Col>
 
             </Row>
@@ -54,6 +59,20 @@ export default  class Profile extends Component {
 
         )
     }
+
+
 }
 
 
+Profile.propTypes = {
+    loginUser: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+    return {
+        loginUser: state.loginReducer
+    };
+};
+
+
+export default connect(mapStateToProps)(Profile);

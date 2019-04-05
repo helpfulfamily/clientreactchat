@@ -6,7 +6,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import   './title.css';
 var amount=30;
 class ItemList extends Component {
 
@@ -40,8 +40,6 @@ class ItemList extends Component {
         </ListGroup>;
         return (
             <div>
-            <b>Problems:</b>
-
 
                 <div id="scrollableDiv" style={{ height: 700, overflow: "auto" }}>
 

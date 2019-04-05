@@ -5,13 +5,14 @@ import {ListGroup, ListGroupItem, Tooltip} from 'reactstrap';
 import { properties } from '../config/properties.js';
 import PropTypes from 'prop-types'
 import ProblemContentForm from "./ProblemContentForm";
-import defaultuser from './default-avatar.png';
+
 import {FaThumbsUp, FaShare} from "react-icons/fa";
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 import   './content.css';
+
 import {
     Row,
     Col } from 'reactstrap';
@@ -91,7 +92,7 @@ class ContentList extends Component {
 
 
                                     <Link to={{
-                                        pathname: '/profile/' + content.user.username,
+                                        pathname: '/' + content.user.username,
                                         state: {
                                             username: content.user.username
                                         }

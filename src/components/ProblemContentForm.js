@@ -46,8 +46,8 @@ class ProblemContentForm extends React.Component {
         var item = {
             "id": 0,
             "name": "",
-            "username":this.props.user.username,
-            "text": this.state.content,
+             "text": this.state.content,
+            "user": this.props.loginUser,
             "title": {
                 "contents": [
                     null
@@ -63,7 +63,7 @@ class ProblemContentForm extends React.Component {
     }
 
     render() {
-        if(this.props.user.isAuthenticated){
+        if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated){
             return (
                 <div>
 
@@ -93,7 +93,7 @@ class ProblemContentForm extends React.Component {
 
 ProblemContentForm.propTypes = {
     postData: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -101,7 +101,7 @@ ProblemContentForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.loginReducer,
+        loginUser: state.loginReducer,
         item: state.item,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading

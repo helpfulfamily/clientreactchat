@@ -13,6 +13,22 @@
     background: -webkit-radial-gradient(bottom, #73D6F5 12%, #1E90FF);
     background: radial-gradient(at bottom, #73D6F5 12%, #1E90FF)
 }
+.cover-container  a {
+
+    box-shadow: none;
+    display: block;
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+
+}
+.cover-container  img {
+    height: 100%;
+    width: 100%;
+
+}
 .fb-profile-block-thumb{
     display: block;
     height: 315px;
@@ -125,3 +141,4 @@
 .block-menu ul li:first-child a{
     border-left: 1px solid #e9eaed;
 }
+
