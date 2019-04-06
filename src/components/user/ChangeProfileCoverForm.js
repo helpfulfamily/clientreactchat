@@ -1,17 +1,17 @@
 import React from 'react';
 
-import {properties} from '../config/properties.js';
+import {properties} from '../../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import axios from "axios";
 
 
 
 
-export default  class ChangeProfilePictureForm extends React.Component {
+export default  class ChangeProfileCoverForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profilePhotoUrl: ''
+            coverUrl: ''
         };
 
 
@@ -22,7 +22,7 @@ export default  class ChangeProfilePictureForm extends React.Component {
 
 
     handleChangeTitle(event) {
-        this.setState({profilePhotoUrl: event.target.value});
+        this.setState({coverUrl: event.target.value});
     }
 
 
@@ -31,12 +31,12 @@ export default  class ChangeProfilePictureForm extends React.Component {
         event.preventDefault();
 
 
-        var apiBaseUrl = properties.changeProfilePhotoUrl;
+        var apiBaseUrl = properties.changeCoverUrl;
 
 
         var user = {
             "username": this.props.username,
-            "profilePhotoUrl": this.state.profilePhotoUrl,
+            "coverUrl": this.state.coverUrl,
 
         }
 
@@ -55,12 +55,12 @@ export default  class ChangeProfilePictureForm extends React.Component {
 
             })
             .catch( (error)  => {
-                //  dispatch(itemsHasErrored(true));
+
             })
             .then( () =>  {
 
 
-                //  dispatch(itemsIsLoading(false));
+
 
             });
 
@@ -72,7 +72,7 @@ export default  class ChangeProfilePictureForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>Change profile picture:</ModalHeader>
+                <ModalHeader>Change cover picture:</ModalHeader>
                 <ModalBody>
 
 
@@ -81,7 +81,7 @@ export default  class ChangeProfilePictureForm extends React.Component {
                             You can provide a link to image you want to use:
                             <br/>
 
-                            <input type="text" value={this.state.profilePhotoUrl} onChange={this.handleChangeTitle} />
+                            <input type="text" value={this.state.coverUrl} onChange={this.handleChangeTitle} />
 
                         </label>
                         <br/>

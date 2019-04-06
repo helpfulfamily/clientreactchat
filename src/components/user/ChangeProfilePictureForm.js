@@ -1,17 +1,17 @@
 import React from 'react';
 
-import {properties} from '../config/properties.js';
+import {properties} from '../../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import axios from "axios";
 
 
 
 
-export default  class ChangeProfileCoverForm extends React.Component {
+export default  class ChangeProfilePictureForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            coverUrl: ''
+            profilePhotoUrl: ''
         };
 
 
@@ -22,7 +22,7 @@ export default  class ChangeProfileCoverForm extends React.Component {
 
 
     handleChangeTitle(event) {
-        this.setState({coverUrl: event.target.value});
+        this.setState({profilePhotoUrl: event.target.value});
     }
 
 
@@ -31,12 +31,12 @@ export default  class ChangeProfileCoverForm extends React.Component {
         event.preventDefault();
 
 
-        var apiBaseUrl = properties.changeCoverUrl;
+        var apiBaseUrl = properties.changeProfilePhotoUrl;
 
 
         var user = {
             "username": this.props.username,
-            "coverUrl": this.state.coverUrl,
+            "profilePhotoUrl": this.state.profilePhotoUrl,
 
         }
 
@@ -72,7 +72,7 @@ export default  class ChangeProfileCoverForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>Change cover picture:</ModalHeader>
+                <ModalHeader>Change profile picture:</ModalHeader>
                 <ModalBody>
 
 
@@ -81,7 +81,7 @@ export default  class ChangeProfileCoverForm extends React.Component {
                             You can provide a link to image you want to use:
                             <br/>
 
-                            <input type="text" value={this.state.coverUrl} onChange={this.handleChangeTitle} />
+                            <input type="text" value={this.state.profilePhotoUrl} onChange={this.handleChangeTitle} />
 
                         </label>
                         <br/>

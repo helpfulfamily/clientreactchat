@@ -4,7 +4,7 @@ import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import PropTypes from 'prop-types'
 
-import {properties} from "../config/properties";
+import {properties} from "../../config/properties";
 import axios from "axios";
 
 import {connect} from "react-redux";

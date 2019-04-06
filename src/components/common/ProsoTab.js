@@ -1,7 +1,8 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import ItemList from "./ItemList";
+import ProblemTitleList from "../problem/ProblemTitleList";
+import SolutionTitleList from "../solution/SolutionTitleList";
 export default class ProsoTab extends React.Component {
   constructor(props) {
     super(props);
@@ -44,12 +45,12 @@ export default class ProsoTab extends React.Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <ItemList/>
+                <ProblemTitleList/>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
-            test
+            <SolutionTitleList/>
           </TabPane>
         </TabContent>
       </div>

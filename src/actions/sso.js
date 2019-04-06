@@ -24,9 +24,8 @@ export function loginActionDispatcher(loginUser) {
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
-                if(response.data==""){
-                    createUser(loginUser);
-                }else{
+                if(response.data!==""){
+
                     var sso= loginUser.sso;
                     loginUser= response.data;
                     loginUser.sso= sso;
@@ -43,22 +42,3 @@ export function loginActionDispatcher(loginUser) {
 
 
 }
- function createUser(user){
-     var headers = {
-
-         'Content-Type': 'application/json',
-
-     }
-     var url= properties.serverUrl+ properties.user+"create";
-
-     axios.post(url, user,{headers: headers})
-
-
-         .then( (response) =>  {
-
-                 console.log("user created");
-
-
-         });
-
- }

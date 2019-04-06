@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import ItemList from "./ItemList";
+import ItemList from "../problem/ProblemTitleList";
 
 class ModalExample extends React.Component {
   constructor(props) {

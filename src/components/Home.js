@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import {Route, Switch} from "react-router-dom";
 
 
-import Profile from "./Profile";
-import NavbarMenu from "./NavbarMenu";
-import Proso from "./Proso";
+import Profile from "./user/Profile";
+import NavbarMenu from "./common/NavbarMenu";
+import Proso from "./common/Proso";
 
 
 

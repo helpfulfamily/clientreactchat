@@ -1,15 +1,23 @@
 import { combineReducers } from 'redux';
-import { items, itemsHasErrored, itemsIsLoading, item} from './items';
-import { contents, contentsHasErrored, contentsIsLoading } from './contents';
-import { logoutReducer, loginReducer} from './sso';
+import { problemTitleReducer, problemTitleHasErrored, problemTitleIsLoading} from './problem/ProblemTitleReducer';
+import { problemContentReducer, problemContentsHasErrored, problemContentsIsLoading } from './problem/ProblemContentReducer';
+import { solutionTitleReducer, solutionTitleHasErrored, solutionTitleIsLoading} from './solution/SolutionTitleReducer';
+import { solutionContentReducer, solutionContentsHasErrored, solutionContentsIsLoading } from './solution/SolutionContentReducer';
+import { loginReducer} from './sso';
 export default combineReducers({
-    item,
-    items,
-    itemsHasErrored,
-    itemsIsLoading,
-    contents,
-    contentsHasErrored,
-    contentsIsLoading,
-    loginReducer
+    problemTitles: problemTitleReducer,
+    problemTitleHasErrored,
+    problemTitleIsLoading,
+    problemContents: problemContentReducer,
+    problemContentsHasErrored,
+    problemContentsIsLoading,
+    loginReducer,
+    solutionTitles: solutionTitleReducer,
+    solutionTitleHasErrored,
+    solutionTitleIsLoading,
+    solutionContents: solutionContentReducer,
+    solutionContentsHasErrored,
+    solutionContentsIsLoading
+
 
 });

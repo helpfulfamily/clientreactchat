@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {properties} from '../config/properties.js';
+import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
-import {itemsPostData} from "../actions/items";
+import {publishProblem} from "../../actions/problem/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
@@ -13,23 +13,24 @@ class ProblemContentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            content: '',
+            problemTitle: '',
+            problemContent: '',
             editorState: EditorState.createEmpty()
         };
 
 
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
+
     }
+
     onEditorStateChange = (editorState) => {
 
         this.setState({editorState: editorState});
-        this.setState({content:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+
+        this.setState({problemContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
 
     };
-
-
 
 
 
@@ -37,28 +38,21 @@ class ProblemContentForm extends React.Component {
 
         event.preventDefault();
 
+        var apiBaseUrl = properties.problemtitle_publishContent;
 
-
-
-        var apiBaseUrl = properties.createTitle;
 
 
         var item = {
-            "id": 0,
             "name": "",
-             "text": this.state.content,
             "user": this.props.loginUser,
-            "title": {
-                "contents": [
-                    null
-                ],
-                "id": 0,
-                "name": this.props.title
+            "text": this.state.problemContent,
+            "problemTitle": {
+                "name": this.props.problemTitle
             }
         }
 
-         this.state.content="";
-         this.props.postData(apiBaseUrl, item);
+
+        this.props.postData(apiBaseUrl, item);
 
     }
 
@@ -94,7 +88,6 @@ class ProblemContentForm extends React.Component {
 ProblemContentForm.propTypes = {
     postData: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,
-    item: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
@@ -102,16 +95,15 @@ ProblemContentForm.propTypes = {
 const mapStateToProps = (state) => {
     return {
         loginUser: state.loginReducer,
-        item: state.item,
-        hasErrored: state.itemsHasErrored,
-        isLoading: state.itemsIsLoading
+        hasErrored: state.problemTitleHasErrored,
+        isLoading: state.problemTitleIsLoading
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(itemsPostData(url, item))}
+        postData: (url, item) => {console.log(url); dispatch(publishProblem(url, item))}
     };
 };
 

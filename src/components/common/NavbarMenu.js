@@ -7,12 +7,13 @@ import {FaHireAHelper, FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
 import {connect} from "react-redux";
 
-import { loginActionDispatcher } from '../actions/sso';
+import { loginActionDispatcher } from '../../actions/sso';
 import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
 import Responsive from 'react-responsive';
-import ProblemTitleForm from "./ProblemTitleForm";
+import ProblemTitleForm from "../problem/ProblemTitleForm";
+import SolutionTitleForm from "../solution/SolutionTitleForm";
 
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -23,15 +24,21 @@ class NavbarMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {modal: false };
-        this.toggle = this.toggle.bind(this);
-
+        this.state = {modalProblemTitle: false };
+        this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
+        this.toggleSolutionTitle = this.toggleSolutionTitle.bind(this);
     }
-    toggle() {
+    toggleProblemTitle() {
         this.setState(prevState => ({
-            modal: !prevState.modal
+            modalProblemTitle: !prevState.modalProblemTitle
         }));
     }
+    toggleSolutionTitle() {
+        this.setState(prevState => ({
+            modalSolutionTitle: !prevState.modalSolutionTitle
+        }));
+    }
+
     componentDidMount() {
 
         var initOptions = {
@@ -73,16 +80,19 @@ class NavbarMenu extends React.Component {
 
   navContent="";
   render() {
-      const externalCloseBtn = <a className="nav-link text-white" href="#" onClick={this.toggle}><FaHireAHelper /> Help </a>;
+      const externalCloseBtnProblemTitle = <a className="nav-link text-white" href="#" onClick={this.toggleProblemTitle}><FaHireAHelper /> I need help! </a>;
+      const externalCloseBtnSolutionTitle = <a className="nav-link text-white" href="#" onClick={this.toggleSolutionTitle}><FaHireAHelper /> I can help! </a>;
+
       if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
               <Nav className="ml-auto"   navbar>
                   <NavItem>
-                      {externalCloseBtn}
-
+                      {externalCloseBtnSolutionTitle}
+                   </NavItem>
+                  <NavItem>
+                       {externalCloseBtnProblemTitle}
                   </NavItem>
-
                   <NavItem>
                       <NavLink className="text-white"  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
                   </NavItem>
@@ -119,10 +129,15 @@ class NavbarMenu extends React.Component {
           </Tablet>
 
                       {this.navContent}
-              <ProblemTitleForm externalCloseBtn={externalCloseBtn}
+              <ProblemTitleForm externalCloseBtn={externalCloseBtnProblemTitle}
 
-                                modal={this.state.modal}
-                                toggle={this.toggle} />
+                                modal={this.state.modalProblemTitle}
+                                toggle={this.toggleProblemTitle} />
+
+              <SolutionTitleForm externalCloseBtn={externalCloseBtnSolutionTitle}
+
+                                modal={this.state.modalSolutionTitle}
+                                toggle={this.toggleSolutionTitle} />
           </Navbar>
 
       );

@@ -1,33 +1,33 @@
 import axios from "axios";
 
-export function itemsHasErrored(bool) {
+export function solutionTitleHasErrored(bool) {
     return {
-        type: 'ITEMS_HAS_ERRORED',
+        type: 'SOLUTION_TITLE_HAS_ERRORED',
         hasErrored: bool
     };
 }
 
-export function itemsIsLoading(bool) {
+export function solutionTitleIsLoading(bool) {
     return {
-        type: 'ITEMS_IS_LOADING',
+        type: 'SOLUTION_TITLE_IS_LOADING',
         isLoading: bool
     };
 }
 
-export function itemsFetchDataSuccess(items) {
+export function solutionTitleFetchDataSuccess(solutionTitles) {
     return {
-        type: 'ITEMS_FETCH_DATA_SUCCESS',
-        items
+        type: 'SOLUTION_TITLE_FETCH_DATA_SUCCESS',
+        solutionTitles
     };
 }
-export function itemsAddSuccess(item) {
+export function publishSolutionSuccess(item) {
     return {
-        type: 'CONTENT_ADD_SUCCESS',
+        type: 'PUBLISH_SOLUTION_CONTENT',
         item
     };
 }
 
-export function itemsFetchData(url) {
+export function solutionTitleFetchData(url) {
     return (dispatch) => {
       var headers = {
 
@@ -41,23 +41,26 @@ export function itemsFetchData(url) {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-                dispatch(itemsFetchDataSuccess(response.data))
+                if(response.data!==""){
+                    dispatch(solutionTitleFetchDataSuccess(response.data))
+                }
+
             })
             .catch( (error)  => {
-                dispatch(itemsHasErrored(true));
+                dispatch(solutionTitleHasErrored(true));
             })
             .then( () =>  {
 
 
-                dispatch(itemsIsLoading(false));
+                dispatch(solutionTitleIsLoading(false));
 
             });
     };
 }
 
-export default function dispatcherHa(data, store){
+export default function SolutionContent(data, store){
     data= JSON.parse(data.body);
-    var publishContent= data.headers.publishContent;
+    var publishContent= data.headers.publishSolutionContent;
 
     var action;
 
@@ -65,14 +68,14 @@ export default function dispatcherHa(data, store){
         switch (publishContent) {
             case 'SUCCESS':{
 
-                action= itemsAddSuccess(data);
+                action= publishSolutionSuccess(data);
             }
         }
        store.dispatch(action);
 
 
 }
-export function itemsPostData(url, item) {
+export function publishSolution(url, item) {
     return (dispatch) => {
         var headers = {
 
@@ -89,12 +92,12 @@ export function itemsPostData(url, item) {
 
             })
             .catch( (error)  => {
-              //  dispatch(itemsHasErrored(true));
+
             })
             .then( () =>  {
 
 
-              //  dispatch(itemsIsLoading(false));
+
 
             });
     };

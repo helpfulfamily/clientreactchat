@@ -1,8 +1,3 @@
-.picture {
-     height: 54px;
-     border-radius: 50%;
- }
-
 .fb-profile-block {
     margin: auto;
     position: relative;
@@ -68,14 +63,14 @@
 
 }
 .content-img a{
-    bottom: 15px;
+    top: 15px;
     box-shadow: none;
     display: block;
     left: 15px;
     padding:1px;
     position: absolute;
-    height: 81px;
-    width: 81px;
+    height: 72px;
+    width: 72px;
 
     z-index:9;
     border-radius: 50%;
@@ -93,6 +88,7 @@
     width:81px;
 
 }
+
 .profile-name {
     bottom: 60px;
     left: 200px;

@@ -4,6 +4,7 @@ import ChangeProfilePictureForm from "./ChangeProfilePictureForm";
 
 import { Tooltip } from 'reactstrap';
 import ChangeProfileCoverForm from "./ChangeProfileCoverForm";
+import defaultavatar from "./default-avatar.png";
 
 
 
@@ -39,6 +40,12 @@ export default class Cover extends React.Component {
             tooltipOpenCover: !this.state.tooltipOpenCover
         });
     }
+    profilePicture(picture) {
+        if(picture===null){
+            picture= defaultavatar;
+        }
+        return picture;
+    }
     render() {
         var changeProfileUrlLink=<span> </span>;
         var changeProfileCoverLink=<span> </span>;
@@ -73,7 +80,7 @@ export default class Cover extends React.Component {
 
                                  <a href="#"  >
 
-                                     <img src={this.props.user.profilePhotoUrl} alt=""  />
+                                     <img src={this.profilePicture(this.props.user.profilePhotoUrl) }  alt=""  />
 
                                  </a>
 
