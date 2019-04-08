@@ -3,21 +3,42 @@ import {Navbar, NavbarBrand, NavbarToggler, Collapse,
   Nav,
   NavItem,
   NavLink} from 'reactstrap';
-import {FaUnlockAlt} from "react-icons/fa";
+import {FaHireAHelper, FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
 import {connect} from "react-redux";
 
-import { loginActionDispatcher } from '../actions/sso';
+import { loginActionDispatcher } from '../../actions/sso';
 import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
 import Responsive from 'react-responsive';
+import ProblemTitleForm from "../problem/ProblemTitleForm";
+import SolutionTitleForm from "../solution/SolutionTitleForm";
+
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
 const Default = props => <Responsive {...props} minWidth={768} />;
 class NavbarMenu extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {modalProblemTitle: false };
+        this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
+        this.toggleSolutionTitle = this.toggleSolutionTitle.bind(this);
+    }
+    toggleProblemTitle() {
+        this.setState(prevState => ({
+            modalProblemTitle: !prevState.modalProblemTitle
+        }));
+    }
+    toggleSolutionTitle() {
+        this.setState(prevState => ({
+            modalSolutionTitle: !prevState.modalSolutionTitle
+        }));
+    }
+
     componentDidMount() {
 
         var initOptions = {
@@ -25,14 +46,17 @@ class NavbarMenu extends React.Component {
             flow: 'standard',
             onLoad: 'check-sso'
         };
-        if(!this.props.user.isAuthenticated) {
+        if(typeof this.props.loginUser.sso==="undefined" ||
+            (typeof this.props.loginUser.sso!=="undefined" && !this.props.loginUser.sso.isAuthenticated)) {
             keycloak.init(initOptions).success((authenticated) => {
 
                     var username="";
                     if(typeof keycloak.idTokenParsed !=="undefined"){
                         username= keycloak.idTokenParsed.preferred_username;
-                        var user = {isAuthenticated: authenticated, username: username }
-                        this.props.loginActionDispatcher(user);
+
+                        var sso = {isAuthenticated: authenticated, username: username }
+                        var loginUser = {"sso": sso};
+                        this.props.loginActionDispatcher(loginUser);
                     }
 
 
@@ -56,16 +80,19 @@ class NavbarMenu extends React.Component {
 
   navContent="";
   render() {
+      const externalCloseBtnProblemTitle = <a className="nav-link text-white" href="#" onClick={this.toggleProblemTitle}><FaHireAHelper /> I need help! </a>;
+      const externalCloseBtnSolutionTitle = <a className="nav-link text-white" href="#" onClick={this.toggleSolutionTitle}><FaHireAHelper /> I can help! </a>;
 
-      if(this.props.user.isAuthenticated) {
+      if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
               <Nav className="ml-auto"   navbar>
                   <NavItem>
-                      {this.props.externalCloseBtn}
-
+                      {externalCloseBtnSolutionTitle}
+                   </NavItem>
+                  <NavItem>
+                       {externalCloseBtnProblemTitle}
                   </NavItem>
-
                   <NavItem>
                       <NavLink className="text-white"  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
                   </NavItem>
@@ -87,7 +114,8 @@ class NavbarMenu extends React.Component {
       }
 
 
-      return (<Navbar fixed={'top'} expand="md">
+      return (
+          <Navbar fixed={'top'} expand="md">
           <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
           <Mobile>
               <Nav className="ml-auto" navbar>
@@ -101,20 +129,30 @@ class NavbarMenu extends React.Component {
           </Tablet>
 
                       {this.navContent}
+              <ProblemTitleForm externalCloseBtn={externalCloseBtnProblemTitle}
 
-      </Navbar>);
+                                modal={this.state.modalProblemTitle}
+                                toggle={this.toggleProblemTitle} />
+
+              <SolutionTitleForm externalCloseBtn={externalCloseBtnSolutionTitle}
+
+                                modal={this.state.modalSolutionTitle}
+                                toggle={this.toggleSolutionTitle} />
+          </Navbar>
+
+      );
   }
 }
 
 
 NavbarMenu.propTypes = {
-    user: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
     loginActionDispatcher: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        user: state.loginReducer
+        loginUser: state.loginReducer
     };
 };
 

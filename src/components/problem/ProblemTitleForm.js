@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {properties} from '../config/properties.js';
+import {properties} from '../../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {itemsPostData} from "../actions/items";
+import {publishProblem} from "../../actions/problem/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 
 
@@ -17,27 +17,28 @@ class ProblemTitleForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            content: '',
+            problemTitle: '',
+            problemContent: '',
             editorState: EditorState.createEmpty()
         };
 
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
+
     }
 
     onEditorStateChange = (editorState) => {
 
         this.setState({editorState: editorState});
 
-        this.setState({content:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+        this.setState({problemContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
 
     };
 
     handleChangeTitle(event) {
-        this.setState({title: event.target.value});
+        this.setState({problemTitle: event.target.value});
     }
 
 
@@ -45,21 +46,16 @@ class ProblemTitleForm extends React.Component {
 
         event.preventDefault();
 
+        var apiBaseUrl = properties.problemtitle_publishContent;
 
-        var apiBaseUrl = properties.createTitle;
 
 
         var item = {
-            "id": 0,
             "name": "",
-            "username":this.props.user.username,
-            "text": this.state.content,
-            "title": {
-                "contents": [
-                    null
-                ],
-                "id": 0,
-                "name": this.state.title
+            "user": this.props.loginUser,
+            "text": this.state.problemContent,
+            "problemTitle": {
+                  "name": this.state.problemTitle
             }
         }
 
@@ -74,18 +70,16 @@ class ProblemTitleForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>Ask for Help!</ModalHeader>
+                <ModalHeader>I need help!</ModalHeader>
                 <ModalBody>
-                    <b>Do not hesitate to create a problem title. Helpful Army will help you.</b><br/>
 
 
-                        <label>
-                            Problem Title:
+                    <label>   Problem Title:  </label>
                             <br/>
 
                             <input type="text" value={this.state.title} onChange={this.handleChangeTitle} />
 
-                        </label>
+
                         <br/>
 
                     <div >
@@ -116,25 +110,23 @@ class ProblemTitleForm extends React.Component {
 
 ProblemTitleForm.propTypes = {
     postData: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    item: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-        user: state.loginReducer,
-        item: state.item,
-        hasErrored: state.itemsHasErrored,
-        isLoading: state.itemsIsLoading
+        loginUser: state.loginReducer,
+        hasErrored: state.problemTitleHasErrored,
+        isLoading: state.problemTitleIsLoading
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(itemsPostData(url, item))}
+        postData: (url, item) => {console.log(url); dispatch(publishProblem(url, item))}
     };
 };
 

@@ -12,7 +12,7 @@ export function logoutAction(user) {
         user
     };
 }
-export function loginActionDispatcher(user) {
+export function loginActionDispatcher(loginUser) {
     return (dispatch) => {
         var headers = {
 
@@ -20,16 +20,18 @@ export function loginActionDispatcher(user) {
 
         }
 
-        var url= properties.serverUrl+ properties.user+ user.username;
+        var url= properties.serverUrl+ properties.user+ loginUser.sso.username;
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
-                if(response.data==""){
-                    createUser(user);
-                }else{
-                    user= response.data;
+                if(response.data!==""){
+
+                    var sso= loginUser.sso;
+                    loginUser= response.data;
+                    loginUser.sso= sso;
+                    dispatch(loginAction(loginUser));
                 }
-                dispatch(loginAction(user));
+
 
             })
             .catch( (error)  => {
@@ -40,22 +42,3 @@ export function loginActionDispatcher(user) {
 
 
 }
- function createUser(user){
-     var headers = {
-
-         'Content-Type': 'application/json',
-
-     }
-     var url= properties.serverUrl+ properties.user+"create";
-
-     axios.post(url, user,{headers: headers})
-
-
-         .then( (response) =>  {
-
-                 console.log("user created");
-
-
-         });
-
- }
