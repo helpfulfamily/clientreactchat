@@ -3,6 +3,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap
 import classnames from 'classnames';
 import ProblemTitleList from "../problem/ProblemTitleList";
 import SolutionTitleList from "../solution/SolutionTitleList";
+import {FaQuestionCircle, FaRegLightbulb} from "react-icons/fa";
 export default class ProsoTab extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ export default class ProsoTab extends React.Component {
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
             >
-             Problems
+            <FaQuestionCircle/> Problems
             </NavLink>
           </NavItem>
           <NavItem>
@@ -37,7 +38,7 @@ export default class ProsoTab extends React.Component {
                 className={classnames({ active: this.state.activeTab === '2' })}
                 onClick={() => { this.toggle('2'); }}
             >
-              Solutions
+            <FaRegLightbulb/>  Solutions
             </NavLink>
           </NavItem>
         </Nav>

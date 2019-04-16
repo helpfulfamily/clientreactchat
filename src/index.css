@@ -24,3 +24,11 @@ code {
   background-color: white;
 }
 
+
+.solution {
+  color: #74b5fc;
+}
+
+.problem {
+  color: red;
+}

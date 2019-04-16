@@ -3,10 +3,9 @@ import {Navbar, NavbarBrand,
   Nav,
   NavItem,
   NavLink} from 'reactstrap';
-import {FaHireAHelper, FaUnlockAlt} from "react-icons/fa";
+import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
 import {connect} from "react-redux";
-
 import { loginActionDispatcher } from '../../actions/sso';
 import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
@@ -17,6 +16,7 @@ import SolutionTitleForm from "../solution/SolutionTitleForm";
 import '../../css/style.css';
 
 import logo from "../../img/logo.png";
+import {FaLightbulb, FaRegLightbulb} from "react-icons/fa/index";
 
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -83,21 +83,21 @@ class NavbarMenu extends React.Component {
 
   navContent="";
   render() {
-      const externalCloseBtnProblemTitle = <a className="nav-link" href="#" onClick={this.toggleProblemTitle}><FaHireAHelper /> I need help! </a>;
-      const externalCloseBtnSolutionTitle = <a className="nav-link" href="#" onClick={this.toggleSolutionTitle}><FaHireAHelper /> I can help! </a>;
+      const externalCloseBtnProblemTitle = <a  href="#" onClick={this.toggleProblemTitle}><FaQuestionCircle /> I need help! </a>;
+      const externalCloseBtnSolutionTitle = <a href="#" onClick={this.toggleSolutionTitle}><FaRegLightbulb /> I can help! </a>;
 
       if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
-              <Nav navbar>
+              <Nav navbar className="ml-auto">
                   <NavItem>
-                      {externalCloseBtnSolutionTitle}
-                   </NavItem>
-                  <NavItem>
-                       {externalCloseBtnProblemTitle}
+                      {externalCloseBtnProblemTitle}
                   </NavItem>
                   <NavItem>
-                      <NavLink  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
+                      {externalCloseBtnSolutionTitle}
+                  </NavItem>
+                  <NavItem>
+                      <NavLink  href="#" onClick={this.handleLogout}><FaUnlockAlt />Logout</NavLink>
                   </NavItem>
 
 

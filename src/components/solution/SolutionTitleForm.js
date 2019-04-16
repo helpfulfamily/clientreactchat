@@ -61,7 +61,7 @@ class SolutionTitleForm extends React.Component {
 
 
          this.props.postData(apiBaseUrl, item);
-
+         this.props.toggle();
     }
 
     render() {
