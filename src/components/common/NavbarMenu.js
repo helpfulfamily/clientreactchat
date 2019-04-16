@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, NavbarBrand, NavbarToggler, Collapse,
+import {Navbar, NavbarBrand,
   Nav,
   NavItem,
   NavLink} from 'reactstrap';
@@ -14,6 +14,9 @@ import ModalExample from "./ModalExample";
 import Responsive from 'react-responsive';
 import ProblemTitleForm from "../problem/ProblemTitleForm";
 import SolutionTitleForm from "../solution/SolutionTitleForm";
+import '../../css/style.css';
+
+import logo from "../../img/logo.png";
 
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -80,13 +83,13 @@ class NavbarMenu extends React.Component {
 
   navContent="";
   render() {
-      const externalCloseBtnProblemTitle = <a className="nav-link text-white" href="#" onClick={this.toggleProblemTitle}><FaHireAHelper /> I need help! </a>;
-      const externalCloseBtnSolutionTitle = <a className="nav-link text-white" href="#" onClick={this.toggleSolutionTitle}><FaHireAHelper /> I can help! </a>;
+      const externalCloseBtnProblemTitle = <a className="nav-link" href="#" onClick={this.toggleProblemTitle}><FaHireAHelper /> I need help! </a>;
+      const externalCloseBtnSolutionTitle = <a className="nav-link" href="#" onClick={this.toggleSolutionTitle}><FaHireAHelper /> I can help! </a>;
 
       if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
-              <Nav className="ml-auto"   navbar>
+              <Nav navbar>
                   <NavItem>
                       {externalCloseBtnSolutionTitle}
                    </NavItem>
@@ -94,7 +97,7 @@ class NavbarMenu extends React.Component {
                        {externalCloseBtnProblemTitle}
                   </NavItem>
                   <NavItem>
-                      <NavLink className="text-white"  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
+                      <NavLink  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
                   </NavItem>
 
 
@@ -105,9 +108,9 @@ class NavbarMenu extends React.Component {
 
       }else {
           this.navContent=(
-              <Nav className="ml-auto" navbar>
+              <Nav  navbar>
                   <NavItem >
-                      <NavLink  className="text-white" href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
+                      <NavLink   href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
                   </NavItem>
               </Nav>
           );
@@ -115,15 +118,17 @@ class NavbarMenu extends React.Component {
 
 
       return (
-          <Navbar fixed={'top'} expand="md">
-          <NavbarBrand className="text-white" href="/"><b>helpful.army</b></NavbarBrand>
+          <Navbar fixed={'top'} expand="md" id="header" className="main-nav">
+
+          <NavbarBrand  href="/" className="scrollto logo"><img src={logo} alt=""
+                                                                             className="img-fluid"/></NavbarBrand>
           <Mobile>
-              <Nav className="ml-auto" navbar>
+              <Nav  navbar>
                   <ModalExample buttonLabel="Problems"/>
               </Nav>
           </Mobile>
           <Tablet>
-              <Nav className="ml-auto" navbar>
+              <Nav  navbar>
                   <ModalExample buttonLabel="Problems"/>
               </Nav>
           </Tablet>

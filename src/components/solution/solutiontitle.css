@@ -1,23 +1,23 @@
 /* unvisited link */
-a:link {
-    font-weight: bold;
-    color: #CC3333;
+.solutiontitle {
+  /* mouse over link */
+  /* selected link */
+}
+.solutiontitle a:link {
+  font-weight: bold;
+  color: #74b5fc;
+}
+.solutiontitle a:hover {
+  font-weight: bold;
+  color: #0b6bd3;
+}
+.solutiontitle a:active {
+  font-weight: bold;
+  color: blue;
+}
+.solutiontitle a:visited {
+  font-weight: bold;
+  color: #74b5fc;
 }
 
-/* visited link */
-a:visited {
-    font-weight: bold;
-    color: #CC3333;
-}
-
-/* mouse over link */
-a:hover {
-    font-weight: bold;
-    color: #f44242;
-}
-
-/* selected link */
-a:active {
-    font-weight: bold;
-    color: blue;
-}
+/*# sourceMappingURL=solutiontitle.css.map */

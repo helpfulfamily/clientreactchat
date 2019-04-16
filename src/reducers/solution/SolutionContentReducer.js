@@ -26,7 +26,7 @@ export function solutionContentReducer(state = [], action) {
             var data=action.item;
             var title= window.location.pathname;
             title = decodeURIComponent(title);
-            title = title.replace("\/proso\/solutioncontents\/","")
+            title = title.replace("\/solutioncontents\/","")
             if(data.payload.solutionTitle.name==title){
                 return   [
 

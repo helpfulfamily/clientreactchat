@@ -138,6 +138,8 @@ class ProblemContentList extends Component {
                         </Row>
 
                     </ListGroupItem>
+
+
                 ))}
         </ListGroup>;
 
@@ -146,7 +148,6 @@ class ProblemContentList extends Component {
 
                 <b>  {this.props.match.params.title} </b>
                 <ProblemContentForm problemTitle={this.props.match.params.title}/>
-
                 {list}
 
 

@@ -29,10 +29,10 @@ class ProblemTitleList extends Component {
         }
         var list="";
         if(typeof this.props.problemTitles!=="undefined" && this.props.problemTitles.length>0){
-            list= <ListGroup>
+            list= <ListGroup className="problemtitle">
                 {this.props.problemTitles.map((item, index) => (
                     <ListGroupItem  key={item.id}> <Link to={{
-                        pathname: '/proso/problemcontents/' + item.name,
+                        pathname: '/problemcontents/' + item.name,
                         state: {
                             name: item.name
                         }

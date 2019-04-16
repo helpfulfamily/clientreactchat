@@ -1,18 +1,7 @@
 app_name=$1
 app_version=$2
-recreate=$3
+namespace=webclient
 
-delete_project () {
-          echo ">>>>>>>>>>>>>>>>>>> DELETE OLD PROJECT"
-
-           oc delete project helpfularmy
-}
-
-create_project () {
-          echo ">>>>>>>>>>>>>>>>>>> CREATE NEW PROJECT"
-               oc new-project helpfularmy \
-                   --description="Openshift Project For Helpful Army" --display-name="helpfularmy"
-}
 build_local_project () {
                 echo ">>>>>>>>>>>>>>>>>>> BUILDING LOCAL PROJECT"
 
@@ -45,20 +34,11 @@ openshift_process_route(){
  echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ROUTE"
 if [[ $app_name  =~ "client" ]]; then
 
-             oc create route edge --service=$app_name \
-                             --cert=nginx.crt \
-                             --key=nginx.key \
-                             --ca-cert=nginx.crt \
-                             --hostname=www.helpful.army \
-                             --insecure-policy='Redirect' \
-                             --port=8443-tcp
 
+            oc create -f clientha.yaml
 
-else
-         oc create route edge --service=$app_name \
-                              --insecure-policy='Redirect' \
-                              --port=8443-tcp
-
+oc patch route $app_name \
+    -p '{"metadata":{"annotations":{  "kubernetes.io/tls-acme" : "true"   }}}'
 
 fi
 }
@@ -92,9 +72,9 @@ if [[ $app_name =~ "service" ]]; then
         exit 1
     fi
 
-    oc delete configmap $app_name-config   -n helpfularmy
-    oc create configmap $app_name-config  $GEN_CONFIG   -n helpfularmy
-    oc label  configmap $app_name-config   app=$app_name -n helpfularmy
+    oc delete configmap $app_name-config   -n clientha
+    oc create configmap $app_name-config  $GEN_CONFIG   -n clientha
+    oc label  configmap $app_name-config   app=$app_name -n clientha
 
     echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ENV VARIABLES "
     oc set env dc/$app_name --from configmap/$app_name-config
@@ -113,9 +93,9 @@ if [[ $app_name =~ "service" ]]; then
         exit 1
     fi
 
-    oc delete secret $app_name-secret  -n helpfularmy
-    oc create secret generic $app_name-secret  $GEN_SECRET   -n helpfularmy
-    oc label  secret $app_name-secret   app=$app_name -n helpfularmy
+    oc delete secret $app_name-secret  -n clientha
+    oc create secret generic $app_name-secret  $GEN_SECRET   -n clientha
+    oc label  secret $app_name-secret   app=$app_name -n clientha
 
     echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ENV VARIABLES using Secrets"
     oc set env dc/$app_name --from secret/$app_name-secret
@@ -125,21 +105,12 @@ fi
 if [[ -n "$app_name" ]]; then
         if [[ -n "$app_version" ]]; then
 
-            oc project helpfularmy
+            oc project $namespace
 
             build_local_project
 
 
 
-            if [[ -n "$recreate" ]]; then
-
-            delete_project
-
-            create_project
-
-            else
-                echo "Countinue without re-creating helpfularmy project"
-            fi
 
 
         docker_process

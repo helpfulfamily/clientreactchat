@@ -72,9 +72,9 @@ class SolutionContentForm extends React.Component {
                     />
 
 
-                    <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
+                    <Button color="primary" onClick={this.handleSubmitProcess}>Publish</Button>{' '}
 
-
+                    <p/>
                 </div>
 
             );
