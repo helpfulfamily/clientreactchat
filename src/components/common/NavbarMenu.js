@@ -2,7 +2,8 @@ import React from 'react';
 import {Navbar, NavbarBrand,
   Nav,
   NavItem,
-  NavLink} from 'reactstrap';
+  NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu} from 'reactstrap';
+
 import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
 import * as Keycloak from "keycloak-js";
 import {connect} from "react-redux";
@@ -15,8 +16,9 @@ import ProblemTitleForm from "../problem/ProblemTitleForm";
 import SolutionTitleForm from "../solution/SolutionTitleForm";
 import '../../css/style.css';
 
-import logo from "../../img/logo.png";
-import {FaLightbulb, FaRegLightbulb} from "react-icons/fa/index";
+import logo from "../../img/logo.svg";
+import {FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
+import defaultavatar from "../user/default-avatar.png";
 
 const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -27,7 +29,13 @@ class NavbarMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {modalProblemTitle: false };
+        this.state = {modalProblemTitle: false,
+            modalSolutionTitle: false,
+            isOpen: false
+
+        };
+        this.toggle = this.toggle.bind(this);
+
         this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
         this.toggleSolutionTitle = this.toggleSolutionTitle.bind(this);
     }
@@ -41,7 +49,11 @@ class NavbarMenu extends React.Component {
             modalSolutionTitle: !prevState.modalSolutionTitle
         }));
     }
-
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
     componentDidMount() {
 
         var initOptions = {
@@ -57,7 +69,7 @@ class NavbarMenu extends React.Component {
                     if(typeof keycloak.idTokenParsed !=="undefined"){
                         username= keycloak.idTokenParsed.preferred_username;
 
-                        var sso = {isAuthenticated: authenticated, username: username }
+                        var sso = {isAuthenticated: authenticated, username: username, keycloak: keycloak }
                         var loginUser = {"sso": sso};
                         this.props.loginActionDispatcher(loginUser);
                     }
@@ -80,7 +92,17 @@ class NavbarMenu extends React.Component {
 
     keycloak.logout();
   }
+  profilePicture(picture) {
+        if(picture===null){
+            picture= defaultavatar;
+        }
+        return picture;
+    }
 
+  profileUrl(username) {
+
+        return "/"+ username;
+    }
   navContent="";
   render() {
       const externalCloseBtnProblemTitle = <a  href="#" onClick={this.toggleProblemTitle}><FaQuestionCircle /> I need help! </a>;
@@ -89,17 +111,29 @@ class NavbarMenu extends React.Component {
       if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated) {
 
           this.navContent=(
-              <Nav navbar className="ml-auto">
+              <Nav  className="ml-auto main-nav" navbar>
                   <NavItem>
                       {externalCloseBtnProblemTitle}
                   </NavItem>
                   <NavItem>
                       {externalCloseBtnSolutionTitle}
                   </NavItem>
-                  <NavItem>
-                      <NavLink  href="#" onClick={this.handleLogout}><FaUnlockAlt />Logout</NavLink>
-                  </NavItem>
 
+                  <UncontrolledDropdown nav inNavbar>
+                      <DropdownToggle nav caret>
+                          <img className="nav-profile-img" src={this.profilePicture(this.props.loginUser.profilePhotoUrl) }  alt=""  />
+
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                          <DropdownItem>
+                              <NavLink  href={this.profileUrl(this.props.loginUser.username) }><FaUserCog/> Profil</NavLink>
+                          </DropdownItem>
+                           <DropdownItem divider />
+                          <DropdownItem>
+                              <NavLink  href="#" onClick={this.handleLogout}><FaUnlockAlt /> Logout</NavLink>
+                          </DropdownItem>
+                      </DropdownMenu>
+                  </UncontrolledDropdown>
 
               </Nav>
 
@@ -108,32 +142,35 @@ class NavbarMenu extends React.Component {
 
       }else {
           this.navContent=(
-              <Nav  navbar>
-                  <NavItem >
+              <Nav   className="ml-auto" navbar>
+                  <NavItem>
                       <NavLink   href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
                   </NavItem>
+
               </Nav>
           );
       }
 
 
       return (
-          <Navbar fixed={'top'} expand="md" id="header" className="main-nav">
-
-          <NavbarBrand  href="/" className="scrollto logo"><img src={logo} alt=""
-                                                                             className="img-fluid"/></NavbarBrand>
-          <Mobile>
-              <Nav  navbar>
-                  <ModalExample buttonLabel="Problems"/>
-              </Nav>
-          </Mobile>
-          <Tablet>
-              <Nav  navbar>
-                  <ModalExample buttonLabel="Problems"/>
-              </Nav>
-          </Tablet>
-
+          <div>
+              <Navbar color="light" light expand="md" id="header" fixed="top" >
+                  <NavbarBrand href="/" className="scrollto logo"><img src={logo}  /></NavbarBrand>
+                  <NavbarToggler onClick={this.toggle} />
+                  <Collapse isOpen={this.state.isOpen} navbar>
+                      <Mobile>
+                          <Nav  navbar>
+                              <ModalExample buttonLabel="Problems"/>
+                          </Nav>
+                      </Mobile>
+                      <Tablet>
+                          <Nav  navbar>
+                              <ModalExample buttonLabel="Problems"/>
+                          </Nav>
+                      </Tablet>
                       {this.navContent}
+                  </Collapse>
+              </Navbar>
               <ProblemTitleForm externalCloseBtn={externalCloseBtnProblemTitle}
 
                                 modal={this.state.modalProblemTitle}
@@ -141,10 +178,9 @@ class NavbarMenu extends React.Component {
 
               <SolutionTitleForm externalCloseBtn={externalCloseBtnSolutionTitle}
 
-                                modal={this.state.modalSolutionTitle}
-                                toggle={this.toggleSolutionTitle} />
-          </Navbar>
-
+                                 modal={this.state.modalSolutionTitle}
+                                 toggle={this.toggleSolutionTitle} />
+          </div>
       );
   }
 }

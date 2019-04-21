@@ -9,10 +9,8 @@ import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-
-
-
-
+import './solutiontitle.css';
+import solutionpng from './solution.png'
 class SolutionTitleForm extends React.Component {
     constructor(props) {
         super(props);
@@ -70,14 +68,16 @@ class SolutionTitleForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>I can help!</ModalHeader>
+                <ModalHeader>
+                <img src={solutionpng} height="54" width="54"/>  <label>  I can help! </label>
+                </ModalHeader>
                 <ModalBody>
 
 
                     <label>   Solution Title:  </label>
                             <br/>
 
-                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} />
+                            <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
 
 
                         <br/>

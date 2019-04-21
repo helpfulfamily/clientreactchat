@@ -2,12 +2,17 @@ import React from 'react';
 
 import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
-import {publishProblem} from "../../actions/problem/ProblemTitleAction";
+import {
+    problemTitleFetchDataSuccess,
+    problemTitleHasErrored, problemTitleIsLoading,
+    publishProblem
+} from "../../actions/problem/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
+import axios from "axios";
 
 class ProblemContentForm extends React.Component {
     constructor(props) {
@@ -20,6 +25,7 @@ class ProblemContentForm extends React.Component {
 
 
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
+        this.sendTransaction = this.sendTransaction.bind(this);
 
     }
 
@@ -56,12 +62,66 @@ class ProblemContentForm extends React.Component {
 
     }
 
+    getToken(){
+    var keycloak= this.props.loginUser.sso.keycloak;
+    var isExpired = keycloak.isTokenExpired();
+    var token = keycloak.token;
+
+    if (isExpired) {
+        keycloak.updateToken(5)
+            .success(function() {
+
+                // UPDATE THE TOKEN
+                token = keycloak.token;
+                return token;
+
+            })
+            .error(function() {
+                console.error('Failed to refresh token');
+            });
+    }else{
+        return token;
+
+    }
+    }
+    sendTransaction(event) {
+        var bearer=  ' Bearer ' +  this.getToken();
+        var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': bearer,
+            'Access-Control-Allow-Origin': '*'
+        }
+
+        var transaction = {
+        }
+
+       console.log(bearer);
+        axios.post("https://localhost:8443/transaction/sendThankCoin", transaction, {headers: headers})
+
+            .then( (response)  => {
+                if (!response.status) {
+                    throw Error(response.statusText);
+                }
+                if(response.data!==""){
+
+                }
+
+            })
+            .catch( (error)  => {
+
+            })
+            .then( () =>  {
+
+
+
+
+            });
+
+    }
     render() {
         if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated){
             return (
                 <div>
-
-
 
 
                     <Editor
@@ -73,6 +133,7 @@ class ProblemContentForm extends React.Component {
 
 
                     <Button color="primary" onClick={this.handleSubmitProcess}>Publish</Button>{' '}
+
 
                     <p/>
                 </div>

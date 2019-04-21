@@ -128,9 +128,7 @@ class SolutionContentList extends Component {
 
                                     <div className="card-footer">  9 <FaThumbsUp/>
 
-                                        {' '}
-
-                                        9 <FaShare/></div>
+                                     </div>
                                 </div>
 
 

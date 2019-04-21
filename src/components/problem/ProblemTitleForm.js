@@ -9,6 +9,7 @@ import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import problempng from "./problem.png";
 
 
 
@@ -71,14 +72,16 @@ class ProblemTitleForm extends React.Component {
             <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}
                    external={this.props.externalCloseBtn}>
 
-                <ModalHeader>I need help!</ModalHeader>
+                <ModalHeader>
+                    <img src={problempng} height="54" width="54"/>  <label>  I need help! </label>
+                </ModalHeader>
                 <ModalBody>
 
 
                     <label>   Problem Title:  </label>
                             <br/>
 
-                            <input type="text" value={this.state.title} onChange={this.handleChangeTitle} />
+                            <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
 
 
                         <br/>
