@@ -1,6 +1,7 @@
 import axios from "axios";
 import { properties } from '../config/properties.js';
 export function loginAction(user) {
+    console.log("user:", user);
     return {
         type: 'USER_LOG_IN',
         user
@@ -29,16 +30,36 @@ export function loginActionDispatcher(loginUser) {
                     var sso= loginUser.sso;
                     loginUser= response.data;
                     loginUser.sso= sso;
-                    dispatch(loginAction(loginUser));
+                }else{
+                    createUser(loginUser.sso);
+
                 }
 
-
+                dispatch(loginAction(loginUser));
             })
             .catch( (error)  => {
 
             });
 
     };
+    function createUser(user){
+        var headers = {
 
+            'Content-Type': 'application/json',
+
+        }
+        var url= properties.serverUrl+ properties.user+"create";
+
+        axios.post(url, user,{headers: headers})
+
+
+            .then( (response) =>  {
+
+                console.log("user created");
+
+
+            });
+
+    }
 
 }

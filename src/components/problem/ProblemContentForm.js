@@ -2,12 +2,17 @@ import React from 'react';
 
 import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
-import {publishProblem} from "../../actions/problem/ProblemTitleAction";
+import {
+    problemTitleFetchDataSuccess,
+    problemTitleHasErrored, problemTitleIsLoading,
+    publishProblem
+} from "../../actions/problem/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
+import  sendTransaction  from ".././thankcoin/process.js";
 
 class ProblemContentForm extends React.Component {
     constructor(props) {
@@ -20,6 +25,7 @@ class ProblemContentForm extends React.Component {
 
 
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
+
 
     }
 
@@ -56,12 +62,12 @@ class ProblemContentForm extends React.Component {
 
     }
 
+
+
     render() {
         if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated){
             return (
                 <div>
-
-
 
 
                     <Editor
@@ -72,9 +78,11 @@ class ProblemContentForm extends React.Component {
                     />
 
 
-                    <Button color="primary" onClick={this.handleSubmitProcess}>Submit</Button>{' '}
+                    <Button color="primary" onClick={this.handleSubmitProcess}>Publish</Button>{' '}
 
 
+
+                    <p/>
                 </div>
 
             );

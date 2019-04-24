@@ -38,6 +38,27 @@ export function solutionTitleReducer(state = [], action) {
                 return state;
             }
         }
+       case 'TRANSACTION_SOLUTION_TITLE':{
+
+           var transaction= action.transaction;
+
+           var index=-1;
+           const title =
+               state.find(function(title) {
+
+                   if(title.id === transaction.objectId){
+                       index = state.indexOf(title);
+                       return title;
+                   }
+               });
+           if(index>-1){
+               title.currentThankAmount = transaction.lastThankAmountObject;
+               state[index] = title;
+           }
+
+           return [...state];
+
+       }
         default:
             return state;
     }

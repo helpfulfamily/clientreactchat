@@ -1,23 +1,27 @@
 /* unvisited link */
-a:link {
-    font-weight: bold;
-    color: #CC3333;
+.problemtitle {
+  /* visited link */
+  /* mouse over link */
+}
+.problemtitle a:link {
+  font-weight: bold;
+  color: red;
+}
+.problemtitle a:active {
+  font-weight: bold;
+  color: #CC3333;
+}
+.problemtitle a:hover {
+  font-weight: bold;
+  color: #f44242;
+}
+.problemtitle a:visited {
+  font-weight: bold;
+  color: red;
 }
 
-/* visited link */
-a:visited {
-    font-weight: bold;
-    color: #CC3333;
+.problemmodal {
+  background-image: url("problem.png");
 }
 
-/* mouse over link */
-a:hover {
-    font-weight: bold;
-    color: #f44242;
-}
-
-/* selected link */
-a:active {
-    font-weight: bold;
-    color: blue;
-}
+/*# sourceMappingURL=problemtitle.css.map */

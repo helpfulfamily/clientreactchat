@@ -58,7 +58,7 @@ export function solutionTitleFetchData(url) {
     };
 }
 
-export default function SolutionContent(data, store){
+export default function dispatcherHaSolutionContent(data, store){
     data= JSON.parse(data.body);
     var publishContent= data.headers.publishSolutionContent;
 

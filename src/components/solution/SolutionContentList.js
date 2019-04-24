@@ -4,12 +4,11 @@ import {
     solutionContentsFetchData,
     solutionContentsAppendList
 } from '../../actions/solution/SolutionContentAction';
-import {ListGroup, ListGroupItem, Tooltip} from 'reactstrap';
+import {ListGroup, ListGroupItem} from 'reactstrap';
 import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import SolutionContentForm from "./SolutionContentForm";
 import defaultavatar from '../user/default-avatar.png';
-import {FaThumbsUp, FaShare} from "react-icons/fa";
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState } from 'draft-js';
@@ -20,6 +19,7 @@ import {
     Row,
     Col } from 'reactstrap';
 import {Link} from "react-router-dom";
+import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
 var amount=0;
 class SolutionContentList extends Component {
@@ -77,6 +77,20 @@ class SolutionContentList extends Component {
          }
          return picture;
     }
+    getTransaction(receiver, objectId)
+    {
+
+        var transaction = {
+            receiver:{
+                username:  receiver
+            },
+            objectType:"SolutionContent",
+            objectId:objectId,
+            name: this.props.match.params.title
+        }
+        return transaction;
+
+    }
     render() {
 
         if (this.props.hasErrored) {
@@ -126,11 +140,7 @@ class SolutionContentList extends Component {
 
                                             readOnly={true} toolbarHidden={true} />
 
-                                    <div className="card-footer">  9 <FaThumbsUp/>
-
-                                        {' '}
-
-                                        9 <FaShare/></div>
+                                    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)} currentThankAmount={content.currentThankAmount}/>
                                 </div>
 
 

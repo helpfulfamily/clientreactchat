@@ -1,0 +1,25 @@
+/* unvisited link */
+$primary-light: #74b5fc;
+.solutiontitle{
+    a:link {
+        font-weight: bold;
+        color: $primary-light;
+    }
+
+    /* mouse over link */
+    a:hover {
+        font-weight: bold;
+        color: #0b6bd3;
+    }
+
+    /* selected link */
+    a:active {
+        font-weight: bold;
+        color: blue;
+    }
+    a:visited {
+        font-weight: bold;
+        color: $primary-light;
+    }
+
+}

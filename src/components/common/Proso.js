@@ -8,8 +8,9 @@ import {Route, Switch} from "react-router-dom";
 
 
 import Responsive from 'react-responsive';
-import ProsoTab from "./ProsoTab";
+
 import SolutionContentList from "../solution/SolutionContentList";
+import ProsoTab from "./ProsoTab";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -28,11 +29,11 @@ export default class Proso extends Component {
 
                 <Desktop>
                     <Row>
-                        <Col xs="6" sm="4"> <ProsoTab/> </Col>
-                        <Col xs="6" sm="8">
+                        <Col xs="6" sm="3"> <ProsoTab/> </Col>
+                        <Col xs="6" sm="6">
                             <Switch>
-                            <Route exact path="/proso/solutioncontents/:title" component={SolutionContentList} />
-                            <Route exact path="/proso/problemcontents/:title" component={ProblemContentList} />
+                            <Route exact path="/solutioncontents/:title" component={SolutionContentList} />
+                            <Route exact path="/problemcontents/:title" component={ProblemContentList} />
                             </Switch>
                         </Col>
                      </Row>
@@ -41,8 +42,8 @@ export default class Proso extends Component {
                     <Row>
                       <Col>
                           <Switch>
-                              <Route exact path="/proso/solutioncontents/:title" component={SolutionContentList} />
-                              <Route exact path="/proso/problemcontents/:title" component={ProblemContentList} />
+                              <Route exact path="/solutioncontents/:title" component={SolutionContentList} />
+                              <Route exact path="/problemcontents/:title" component={ProblemContentList} />
                           </Switch>
                        </Col>
                     </Row>
@@ -51,8 +52,8 @@ export default class Proso extends Component {
                     <Row>
                         <Col>
                             <Switch>
-                                <Route exact path="/proso/solutioncontents/:title" component={SolutionContentList} />
-                                <Route exact path="/proso/problemcontents/:title" component={ProblemContentList} />
+                                <Route exact path="/solutioncontents/:title" component={SolutionContentList} />
+                                <Route exact path="/problemcontents/:title" component={ProblemContentList} />
                             </Switch>
                          </Col>
                     </Row>

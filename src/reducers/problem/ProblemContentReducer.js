@@ -17,17 +17,23 @@ export function problemContentsIsLoading(state = false, action) {
             return state;
     }
 }
-
+function isNeededToUpdateGui(titleFromWebSocket){
+    var title= window.location.pathname;
+    title = decodeURIComponent(title);
+    title = title.replace("\/problemcontents\/","")
+    if(titleFromWebSocket==title){
+        return true;
+    }else{
+        return false;
+    }
+}
 export function problemContentReducer(state = [], action) {
     switch (action.type) {
         case 'PROBLEM_CONTENTS_FETCH_DATA_SUCCESS':
             return action.contents;
         case 'PUBLISH_PROBLEM_CONTENT':{
             var data=action.item;
-            var title= window.location.pathname;
-            title = decodeURIComponent(title);
-            title = title.replace("\/proso\/problemcontents\/","")
-            if(data.payload.problemTitle.name==title){
+           if(isNeededToUpdateGui(data.payload.problemTitle.name) ){
                 return   [
 
                     data.payload,
@@ -48,6 +54,30 @@ export function problemContentReducer(state = [], action) {
             ]
 
 
+        }
+
+        case 'TRANSACTION_PROBLEM_CONTENT':{
+
+            var transaction= action.transaction;
+            if(isNeededToUpdateGui(transaction.name) ) {
+            var index=-1;
+            const content =
+            state.find(function(content) {
+
+               if(content.id === transaction.objectId){
+                   index = state.indexOf(content);
+                   return content;
+               }
+            });
+            if(index>-1){
+                content.currentThankAmount = transaction.lastThankAmountObject;
+                state[index] = content;
+            }
+
+            return [...state];
+            }else{
+                return state;
+            }
         }
         default:
             return state;

@@ -22,17 +22,21 @@ export default class Home extends Component {
     render() {
 
 
-       return (
+        return (
             <div>
-                   <NavbarMenu/>
-                   <br/>
-                   <br/>
+                <NavbarMenu/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
 
                 <Switch>
-                   <Route exact  path="/proso*" component={Proso} />
-                   <Route exact path="/:username" component={Profile} />
+                    <Route exact path="/:username" component={Profile} />
+                    <Route exact  path="/*" component={Proso} />
 
-                   </Switch>
+
+                </Switch>
             </div>
         );
     }

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 import {properties} from "../../config/properties";
 import axios from "axios";
+import './profil.css';
 
 import {connect} from "react-redux";
 
