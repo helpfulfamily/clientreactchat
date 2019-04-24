@@ -7,6 +7,7 @@ import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 import './problemtitle.css';
+import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 var amount=30;
 class ProblemTitleList extends Component {
 
@@ -19,6 +20,20 @@ class ProblemTitleList extends Component {
     fetchMoreData = () => {
         this.props.fetchData(properties.problemtitle_all + "/"+ (10 + amount));
      };
+    getTransaction(receiver, objectId)
+    {
+
+        var transaction = {
+            receiver:{
+                username:  receiver
+            },
+            objectType:"ProblemTitle",
+            objectId:objectId,
+            name:""
+        }
+        return transaction;
+
+    }
     render() {
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
@@ -37,6 +52,8 @@ class ProblemTitleList extends Component {
                             name: item.name
                         }
                     }} > {item.name}</Link>
+                        <ThankcoinPanel transaction={ this.getTransaction(item.user.username, item.id)} currentThankAmount={item.currentThankAmount}/>
+
                     </ListGroupItem>
                 ))}
             </ListGroup>;

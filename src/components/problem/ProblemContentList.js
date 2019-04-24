@@ -4,12 +4,12 @@ import {
     problemContentsFetchData,
     problemContentsAppendList
 } from '../../actions/problem/ProblemContentAction';
-import {ListGroup, ListGroupItem, Tooltip} from 'reactstrap';
+import { ListGroup, ListGroupItem} from 'reactstrap';
 import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import ProblemContentForm from "./ProblemContentForm";
 import defaultavatar from '../user/default-avatar.png';
-import {FaThumbsUp, FaShare} from "react-icons/fa";
+
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState } from 'draft-js';
@@ -20,6 +20,7 @@ import {
     Row,
     Col } from 'reactstrap';
 import {Link} from "react-router-dom";
+import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
 var amount=0;
 class ProblemContentList extends Component {
@@ -77,6 +78,21 @@ class ProblemContentList extends Component {
          }
          return picture;
     }
+
+    getTransaction(receiver, objectId)
+    {
+
+        var transaction = {
+            receiver:{
+                username:  receiver
+            },
+            objectType:"ProblemContent",
+            objectId:objectId,
+            name: this.props.match.params.title
+        }
+        return transaction;
+
+    }
     render() {
 
         if (this.props.hasErrored) {
@@ -126,11 +142,8 @@ class ProblemContentList extends Component {
 
                                             readOnly={true} toolbarHidden={true} />
 
-                                    <div className="card-footer">  9 <FaThumbsUp/>
+                                    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)} currentThankAmount={content.currentThankAmount}/>
 
-                                        {' '}
-
-                                        9 <FaShare/></div>
                                 </div>
 
 
@@ -166,6 +179,7 @@ ProblemContentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
+
         contents: state.problemContents,
         hasErrored: state.problemContentsHasErrored,
         isLoading: state.problemContentsIsLoading
