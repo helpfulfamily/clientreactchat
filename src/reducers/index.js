@@ -4,7 +4,11 @@ import { problemContentReducer, problemContentsHasErrored, problemContentsIsLoad
 import { solutionTitleReducer, solutionTitleHasErrored, solutionTitleIsLoading} from './solution/SolutionTitleReducer';
 import { solutionContentReducer, solutionContentsHasErrored, solutionContentsIsLoading } from './solution/SolutionContentReducer';
 import { loginReducer} from './sso';
+
+import {reducer as notificationsReducer} from 'reapop';
+
 export default combineReducers({
+    notifications: notificationsReducer(),
     problemTitles: problemTitleReducer,
     problemTitleHasErrored,
     problemTitleIsLoading,

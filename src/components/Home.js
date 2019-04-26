@@ -7,6 +7,7 @@ import {Route, Switch} from "react-router-dom";
 import Profile from "./user/Profile";
 import NavbarMenu from "./common/NavbarMenu";
 import Proso from "./common/Proso";
+import ATopLevelComponent from "./common/ATopLevelComponent";
 
 
 
@@ -24,6 +25,7 @@ export default class Home extends Component {
 
         return (
             <div>
+
                 <NavbarMenu/>
                 <br/>
                 <br/>
@@ -37,6 +39,7 @@ export default class Home extends Component {
 
 
                 </Switch>
+                <ATopLevelComponent/>
             </div>
         );
     }

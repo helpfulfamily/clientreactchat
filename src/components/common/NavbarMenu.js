@@ -5,7 +5,7 @@ import {Navbar, NavbarBrand,
   NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu} from 'reactstrap';
 
 import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
-import * as Keycloak from "keycloak-js";
+
 import {connect} from "react-redux";
 import { loginActionDispatcher } from '../../actions/sso';
 import PropTypes from 'prop-types'
@@ -19,8 +19,8 @@ import '../../css/style.css';
 import logo from "../../img/logo.svg";
 import {FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
+import  {getLoginUser, login, logout}  from "./LoginProcess";
 
-const keycloak = Keycloak('/keycloak.json');
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -56,41 +56,33 @@ class NavbarMenu extends React.Component {
     }
     componentDidMount() {
 
-        var initOptions = {
-            responseMode: 'fragment',
-            flow: 'standard',
-            onLoad: 'check-sso'
-        };
+
+
         if(typeof this.props.loginUser.sso==="undefined" ||
             (typeof this.props.loginUser.sso!=="undefined" && !this.props.loginUser.sso.isAuthenticated)) {
-            keycloak.init(initOptions).success((authenticated) => {
 
-                    var username="";
-                    if(typeof keycloak.idTokenParsed !=="undefined"){
-                        username= keycloak.idTokenParsed.preferred_username;
-
-                        var sso = {isAuthenticated: authenticated, username: username, keycloak: keycloak }
-                        var loginUser = {"sso": sso};
-                        this.props.loginActionDispatcher(loginUser);
-                    }
-
-
-            }).error(function () {
-                console.log('failed to initialize');
+            getLoginUser().then( (loginUser) => this.loginPromiseResolved(loginUser)).catch(function(hata){
+                console.log(hata)
             });
+
         }
     }
 
+  loginPromiseResolved(loginUser){
+      if(loginUser!=null){
+          this.props.loginActionDispatcher(loginUser);
+      }
+  }
   handleLogin(e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    keycloak.login();
+      login();
 
   }
   handleLogout(e) {
     e.preventDefault();
 
-    keycloak.logout();
+    logout();
   }
   profilePicture(picture) {
         if(picture===null){

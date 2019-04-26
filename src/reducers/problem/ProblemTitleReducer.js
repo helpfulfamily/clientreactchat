@@ -56,7 +56,7 @@ export function problemTitleReducer(state = [], action) {
                    state[index] = title;
                }
 
-               return [...state];
+            return [...state];
 
        }
         default:

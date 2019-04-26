@@ -22,6 +22,7 @@ import {
 import {Link} from "react-router-dom";
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
+
 var amount=0;
 class ProblemContentList extends Component {
     contentToRender = (html) => {
@@ -136,6 +137,7 @@ class ProblemContentList extends Component {
                             <Col xs="9">
 
                                 <div className="panel panel-default">
+
                                     <div className="panel-heading"><b>{content.user.username}</b></div>
 
                                     <Editor editorState={this.contentToRender(content.text)}

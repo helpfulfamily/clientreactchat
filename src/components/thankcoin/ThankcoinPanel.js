@@ -10,6 +10,7 @@ import sendTransaction from "./process";
 
 class ThankcoinPanel extends Component {
 
+
     sendTransaction(event)
     {
         event.preventDefault();
@@ -17,10 +18,15 @@ class ThankcoinPanel extends Component {
         sendTransaction(this.props.loginUser.sso.keycloak, this.props.transaction);
     }
     render() {
+        var context= <span>  <FaThumbsUp/>  {this.props.currentThankAmount}T</span>;
+        if(typeof this.props.loginUser.sso !== "undefined"){
+          context=         <Button color="link" onClick= {(e) => this.sendTransaction(e)} > <FaThumbsUp/>  {this.props.currentThankAmount}T</Button>;
+        }
         return (
             <div>
 
-                <Button color="link" onClick= {(e) => this.sendTransaction(e)} > <FaThumbsUp/>  {this.props.currentThankAmount}T</Button>
+
+                {context}
 
             </div>
         )
