@@ -1,4 +1,5 @@
 import axios from "axios";
+import { properties } from '../../config/properties.js';
 
 
 export default  function sendTransaction(keycloak, transaction)
@@ -12,7 +13,7 @@ export default  function sendTransaction(keycloak, transaction)
 
 
 
-    axios.post("https://localhost:8443/transaction/sendThankCoin", transaction, {headers: headers})
+    axios.post(properties.serverUrl+"/transaction/sendThankCoin", transaction, {headers: headers})
 
         .then( (response)  => {
             if (!response.status) {
