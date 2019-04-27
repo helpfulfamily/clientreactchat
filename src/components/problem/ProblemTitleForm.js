@@ -10,6 +10,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import problempng from "./problem.png";
+import {getToken} from "../thankcoin/process";
 
 
 
@@ -47,23 +48,31 @@ class ProblemTitleForm extends React.Component {
 
         event.preventDefault();
 
+        getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
+            .catch(function(hata){
+
+                console.log(hata)
+            });
+         this.props.toggle();
+
+    }
+    startPublishProcess = (token) =>
+    {
+
         var apiBaseUrl = properties.problemtitle_publishContent;
 
 
 
         var item = {
             "name": "",
-            "user": this.props.loginUser,
             "text": this.state.problemContent,
             "problemTitle": {
-                  "name": this.state.problemTitle
+                "name": this.state.problemTitle
             }
         }
 
 
-         this.props.postData(apiBaseUrl, item);
-         this.props.toggle();
-
+        this.props.postData(apiBaseUrl, item, token);
     }
 
     render() {
@@ -130,7 +139,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(publishProblem(url, item))}
+        postData: (url, item, token) => {console.log(url); publishProblem(url, item, token)}
     };
 };
 

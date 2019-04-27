@@ -4,7 +4,16 @@ import { properties } from '../../config/properties.js';
 
 export default  function sendTransaction(keycloak, transaction)
 {
-    var bearer=  ' Bearer ' +   getToken(keycloak);
+    getToken(keycloak).then( (token) => startTransaction(token, transaction))
+    .catch(function(hata){
+
+        console.log(hata)
+    });
+
+
+}
+function startTransaction(token, transaction){
+    var bearer=  ' Bearer ' +   token;
     var headers = {
         'Content-Type': 'application/json',
         'Authorization': bearer,
@@ -33,12 +42,10 @@ export default  function sendTransaction(keycloak, transaction)
 
 
         });
-
 }
-
-function getToken(keycloak)
+export function getToken(keycloak)
 {
-
+    return   new Promise(function(resolve, reject) {
     var isExpired = keycloak.isTokenExpired();
     var token = keycloak.token;
 
@@ -48,14 +55,16 @@ function getToken(keycloak)
 
                 // UPDATE THE TOKEN
                 token = keycloak.token;
-                return token;
+                resolve(token);
 
             })
             .error(function() {
-                console.error('Failed to refresh token');
+                reject('Failed to refresh token');
             });
     }else{
-        return token;
 
+        resolve(token);
     }
+    });
+
 }

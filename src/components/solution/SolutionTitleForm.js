@@ -11,6 +11,7 @@ import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './solutiontitle.css';
 import solutionpng from './solution.png'
+import {getToken} from "../thankcoin/process";
 class SolutionTitleForm extends React.Component {
     constructor(props) {
         super(props);
@@ -44,24 +45,36 @@ class SolutionTitleForm extends React.Component {
 
         event.preventDefault();
 
+        getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
+            .catch(function(hata){
+
+                console.log(hata)
+            });
+
+         this.props.toggle();
+    }
+    startPublishProcess = (token) =>
+    {
+
         var apiBaseUrl = properties.solutiontitle_publishContent;
 
 
 
         var item = {
             "name": "",
-            "user": this.props.loginUser,
             "text": this.state.solutionContent,
             "solutionTitle": {
-                  "name": this.state.solutionTitle
+                "name": this.state.solutionTitle
             }
         }
 
 
-         this.props.postData(apiBaseUrl, item);
-         this.props.toggle();
-    }
 
+        this.props.postData(apiBaseUrl, item, token);
+
+
+
+    }
     render() {
 
          return (
@@ -126,7 +139,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(publishSolution(url, item))}
+        postData: (url, item, token) => {console.log(url);  publishSolution(url, item, token)}
     };
 };
 

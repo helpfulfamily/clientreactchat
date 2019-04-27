@@ -3,8 +3,6 @@ import React from 'react';
 import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
 import {
-    problemTitleFetchDataSuccess,
-    problemTitleHasErrored, problemTitleIsLoading,
     publishProblem
 } from "../../actions/problem/ProblemTitleAction";
 import {connect} from "react-redux";
@@ -13,6 +11,7 @@ import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
 import  sendTransaction  from ".././thankcoin/process.js";
+import {getToken} from ".././thankcoin/process";
 
 class ProblemContentForm extends React.Component {
     constructor(props) {
@@ -44,13 +43,25 @@ class ProblemContentForm extends React.Component {
 
         event.preventDefault();
 
+        getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
+            .catch(function(hata){
+
+                console.log(hata)
+            });
+
+
+
+
+    }
+    startPublishProcess = (token) =>
+      {
+
         var apiBaseUrl = properties.problemtitle_publishContent;
 
 
 
         var item = {
             "name": "",
-            "user": this.props.loginUser,
             "text": this.state.problemContent,
             "problemTitle": {
                 "name": this.props.problemTitle
@@ -58,10 +69,8 @@ class ProblemContentForm extends React.Component {
         }
 
 
-        this.props.postData(apiBaseUrl, item);
-
+        this.props.postData(apiBaseUrl, item, token);
     }
-
 
 
     render() {
@@ -111,7 +120,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(publishProblem(url, item))}
+        postData: (url, item, token) => {console.log(url);  publishProblem(url, item, token)}
     };
 };
 

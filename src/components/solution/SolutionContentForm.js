@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
+import {getToken} from "../thankcoin/process";
 
 class SolutionContentForm extends React.Component {
     constructor(props) {
@@ -38,13 +39,21 @@ class SolutionContentForm extends React.Component {
 
         event.preventDefault();
 
+        getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
+            .catch(function(hata){
+
+                console.log(hata)
+            });
+
+    }
+    startPublishProcess = (token) =>
+    {
         var apiBaseUrl = properties.solutiontitle_publishContent;
 
 
 
         var item = {
             "name": "",
-            "user": this.props.loginUser,
             "text": this.state.solutionContent,
             "solutionTitle": {
                 "name": this.props.solutionTitle
@@ -52,10 +61,8 @@ class SolutionContentForm extends React.Component {
         }
 
 
-        this.props.postData(apiBaseUrl, item);
-
+        this.props.postData(apiBaseUrl, item, token);
     }
-
     render() {
         if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated){
             return (
@@ -103,7 +110,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item) => {console.log(url); dispatch(publishSolution(url, item))}
+        postData: (url, item, token) => {console.log(url); publishSolution(url, item, token)}
     };
 };
 

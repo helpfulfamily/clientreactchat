@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export function problemTitleHasErrored(bool) {
     return {
         type: 'PROBLEM_TITLE_HAS_ERRORED',
@@ -75,15 +76,17 @@ export default function dispatcherHaProblemContent(data, store){
 
 
 }
-export function publishProblem(url, item) {
-    return (dispatch) => {
-        var headers = {
+export function publishProblem(url, item, token) {
+    var bearer=  ' Bearer ' +  token;
+    var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': bearer,
+        'Access-Control-Allow-Origin': '*'
+    }
 
-            'Content-Type': 'application/json',
 
-        }
 
-        axios.post(url, item,{headers: headers})
+    axios.post(url, item, {headers: headers})
 
             .then( (response)  => {
                 if (!response.status) {
@@ -91,14 +94,14 @@ export function publishProblem(url, item) {
                 }
 
             })
-            .catch( (error)  => {
+        .catch( (error)  => {
 
-            })
-            .then( () =>  {
-
-
+        })
+        .then( () =>  {
 
 
-            });
-    };
+
+
+        });
+
 }

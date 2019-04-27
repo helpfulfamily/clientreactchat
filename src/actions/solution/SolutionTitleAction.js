@@ -75,30 +75,32 @@ export default function dispatcherHaSolutionContent(data, store){
 
 
 }
-export function publishSolution(url, item) {
-    return (dispatch) => {
-        var headers = {
-
-            'Content-Type': 'application/json',
-
-        }
-
-        axios.post(url, item,{headers: headers})
-
-            .then( (response)  => {
-                if (!response.status) {
-                    throw Error(response.statusText);
-                }
-
-            })
-            .catch( (error)  => {
-
-            })
-            .then( () =>  {
+export function publishSolution(url, item, token) {
+    var bearer=  ' Bearer ' +  token;
+    var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': bearer,
+        'Access-Control-Allow-Origin': '*'
+    }
 
 
 
+    axios.post(url, item, {headers: headers})
 
-            });
-    };
+        .then( (response)  => {
+            if (!response.status) {
+                throw Error(response.statusText);
+            }
+
+        })
+        .catch( (error)  => {
+
+        })
+        .then( () =>  {
+
+
+
+
+        });
+
 }
