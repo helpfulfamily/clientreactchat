@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
-import  sendTransaction  from ".././thankcoin/process.js";
 import {getToken} from ".././thankcoin/process";
 
 class ProblemContentForm extends React.Component {
@@ -85,7 +84,6 @@ class ProblemContentForm extends React.Component {
                         editorClassName="demo-editor"
                         onEditorStateChange={this.onEditorStateChange}
                     />
-
 
                     <Button color="primary" onClick={this.handleSubmitProcess}>Publish</Button>{' '}
 

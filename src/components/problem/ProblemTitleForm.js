@@ -11,6 +11,7 @@ import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import problempng from "./problem.png";
 import {getToken} from "../thankcoin/process";
+import ChannelTagComponent from "../common/ChannelTagComponent";
 
 
 
@@ -91,7 +92,7 @@ class ProblemTitleForm extends React.Component {
                             <br/>
 
                             <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
-
+                    <ChannelTagComponent/>
 
                         <br/>
 
@@ -107,7 +108,9 @@ class ProblemTitleForm extends React.Component {
 
 
 
+
                     </div>
+
 
                 </ModalBody>
                 <ModalFooter>

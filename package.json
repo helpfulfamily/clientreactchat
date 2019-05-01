@@ -11,6 +11,8 @@
     "html-to-draftjs": "^1.4.0",
     "keycloak-js": "^4.8.3",
     "react": "^16.8.1",
+    "react-dnd": "^7.4.5",
+    "react-dnd-html5-backend": "^7.4.4",
     "react-dom": "^16.8.1",
     "react-draft-wysiwyg": "^1.13.2",
     "react-icons": "^3.4.0",
