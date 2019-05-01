@@ -5,13 +5,11 @@ namespace=webclient
 build_local_project () {
                 echo ">>>>>>>>>>>>>>>>>>> BUILDING LOCAL PROJECT"
 
-                if [[ $app_name  =~ "client" ]]; then
+                if [[ $app_name  =~ "clientreact" ]]; then
                                  yarn build .
-
-                elif [[ $app_name =~ "service" ]]; then
-                                 mvn clean install
+ 
                     else
-                                 echo "App name contains neither 'client' nor 'service'. Therefore exiting."
+                                 echo "App name contains neither 'clientreact' nor 'service'. Therefore exiting."
                                  exit 0
                      fi
 
@@ -32,10 +30,10 @@ docker_process(){
 }
 openshift_process_route(){
  echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ROUTE"
-if [[ $app_name  =~ "client" ]]; then
+if [[ $app_name  =~ "clientreact" ]]; then
 
 
-            oc create -f clientha.yaml
+            oc create -f clientreact.yaml
 
 oc patch route $app_name \
     -p '{"metadata":{"annotations":{  "kubernetes.io/tls-acme" : "true"   }}}'
@@ -56,52 +54,8 @@ openshift_process(){
 
 
 }
-configmap_process(){
-if [[ $app_name =~ "service" ]]; then
-     echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ConfigMap "
-
- GEN_CONFIG=$(sed  '/^\s*$/d'  config/application-pr.properties \
-             | grep -v "PASSWORD" | grep -v "USER" \
-             | sed -e 's/^/--from-literal=/' | tr "\n" ' ')
 
 
-
-    if [ "X$GEN_CONFIG" = "X" ]; then
-        echo "No config found for prlooking config/application-pr.properties"
-        echo "Exting!"
-        exit 1
-    fi
-
-    oc delete configmap $app_name-config   -n clientha
-    oc create configmap $app_name-config  $GEN_CONFIG   -n clientha
-    oc label  configmap $app_name-config   app=$app_name -n clientha
-
-    echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ENV VARIABLES "
-    oc set env dc/$app_name --from configmap/$app_name-config
-fi
-
-}
-secrets_process(){
-if [[ $app_name =~ "service" ]]; then
-     echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE Secrets file "
-
-  GEN_SECRET=$(grep '^MYSQL' config/application-pr.properties | grep -v "DATABASE" | grep -v "HOST" | grep -v "PORT"  | sed -e 's/^/--from-literal=/' | tr "\n" ' ')
-
-    if [ "X$GEN_SECRET" = "X" ]; then
-        echo "No config found for prlooking config/application-pr.properties"
-        echo "Exting!"
-        exit 1
-    fi
-
-    oc delete secret $app_name-secret  -n clientha
-    oc create secret generic $app_name-secret  $GEN_SECRET   -n clientha
-    oc label  secret $app_name-secret   app=$app_name -n clientha
-
-    echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ENV VARIABLES using Secrets"
-    oc set env dc/$app_name --from secret/$app_name-secret
-
-fi
-}
 if [[ -n "$app_name" ]]; then
         if [[ -n "$app_version" ]]; then
 
@@ -110,16 +64,11 @@ if [[ -n "$app_name" ]]; then
             build_local_project
 
 
+            docker_process
+
+           openshift_process
 
 
-
-        docker_process
-
-        openshift_process
-
-        configmap_process
-
-        secrets_process
 
         else
             echo "Put the app version"

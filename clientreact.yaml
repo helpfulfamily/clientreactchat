@@ -6,11 +6,11 @@ metadata:
     kubernetes.io/tls-acme-awaiting-authorization-owner: 'https://acme-v01.api.letsencrypt.org/acme/reg/55068683'
   creationTimestamp: '2019-04-12T22:46:30Z'
   labels:
-    app: clientha
-  name: clientha
+    app: clientreact
+  name: clientreact
   namespace: webclient
   resourceVersion: '594045459'
-  selfLink: /apis/route.openshift.io/v1/namespaces/webclient/routes/clientha
+  selfLink: /apis/route.openshift.io/v1/namespaces/webclient/routes/clientreact
   uid: d013f5a0-5d74-11e9-aeff-123713f594ec
 spec:
   host: list.helpful.family
@@ -138,7 +138,7 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: clientha
+    name: clientreact
     weight: 100
   wildcardPolicy: None
 status:

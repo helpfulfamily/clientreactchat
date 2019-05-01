@@ -47,7 +47,7 @@ class ProblemTitleList extends Component {
             list= <ListGroup className="problemtitle">
                 {this.props.problemTitles.map((item, index) => (
                     <ListGroupItem  key={item.id}> <Link to={{
-                        pathname: '/problemcontents/' + item.name,
+                        pathname: '/problemcontents/' +encodeURIComponent(item.name),
                         state: {
                             name: item.name
                         }

@@ -24,6 +24,7 @@ import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
 
 var amount=0;
+var titleDecoded="";
 class ProblemContentList extends Component {
     contentToRender = (html) => {
 
@@ -52,7 +53,7 @@ class ProblemContentList extends Component {
 
         if (prevProps.location.pathname != this.props.location.pathname) {
             amount=0;
-            this.props.fetchData(properties.problemtitle_contents +  this.props.match.params.title+ "/"+ amount);
+            this.props.fetchData(properties.problemtitle_contents + this.props.match.params.title + "/"+ amount);
         }
 
     }
@@ -67,7 +68,7 @@ class ProblemContentList extends Component {
         if (totalHeight == scrollTop + clientHeight){
             amount= amount + 10;
             if (typeof this.props.appendList !== 'undefined'){
-                this.props.appendList(properties.problemtitle_contents +  this.props.match.params.title+ "/"+ (amount));
+                this.props.appendList(properties.problemtitle_contents +   this.props.match.params.title+ "/"+ (amount));
 
             }
         }
@@ -89,7 +90,7 @@ class ProblemContentList extends Component {
             },
             objectType:"ProblemContent",
             objectId:objectId,
-            name: this.props.match.params.title
+            name: titleDecoded
         }
         return transaction;
 
@@ -161,8 +162,8 @@ class ProblemContentList extends Component {
         return (
             <div>
 
-                <b>  {this.props.match.params.title} </b>
-                <ProblemContentForm problemTitle={this.props.match.params.title}/>
+                <b>  {titleDecoded} </b>
+                <ProblemContentForm problemTitle={titleDecoded}/>
                 {list}
 
 
