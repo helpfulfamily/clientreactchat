@@ -37,7 +37,6 @@ export default class Home extends Component {
                     <Route exact path="/:username" component={Profile} />
                     <Route exact  path="/*" component={Proso} />
 
-
                 </Switch>
                 <ATopLevelComponent/>
             </div>

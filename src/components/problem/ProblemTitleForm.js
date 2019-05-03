@@ -22,12 +22,14 @@ class ProblemTitleForm extends React.Component {
         this.state = {
             problemTitle: '',
             problemContent: '',
+            channels:[],
             editorState: EditorState.createEmpty()
         };
 
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
+        this.onAnyChangeInChannels = this.onAnyChangeInChannels.bind(this);
 
     }
 
@@ -39,6 +41,23 @@ class ProblemTitleForm extends React.Component {
 
 
     };
+
+
+    onAnyChangeInChannels = (tags) => {
+
+        var channels=[];
+
+        tags.forEach(function(tag) {
+
+            channels.push( {id: parseInt(tag.id), name: tag.text });
+
+        });
+
+        this.setState({
+            channels:channels
+        });
+    };
+
 
     handleChangeTitle(event) {
         this.setState({problemTitle: event.target.value});
@@ -68,7 +87,8 @@ class ProblemTitleForm extends React.Component {
             "name": "",
             "text": this.state.problemContent,
             "problemTitle": {
-                "name": this.state.problemTitle
+                "name": this.state.problemTitle,
+                "channels": this.state.channels
             }
         }
 
@@ -92,7 +112,8 @@ class ProblemTitleForm extends React.Component {
                             <br/>
 
                             <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
-                    <ChannelTagComponent/>
+
+                            <ChannelTagComponent onChange={this.onAnyChangeInChannels}/>
 
                         <br/>
 

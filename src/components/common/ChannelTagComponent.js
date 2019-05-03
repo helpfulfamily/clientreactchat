@@ -25,26 +25,40 @@ export default class ChannelTagComponent extends  Component {
     super(props);
 
     this.state = {
-      tags: [{ id: 'Thailand', text: 'Thailand' }, { id: 'India', text: 'India' }],
+      tags: [],
       suggestions: suggestions,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleTagClick = this.handleTagClick.bind(this);
+    this.onAnyChange = this.onAnyChange.bind(this);
   }
-
+  onAnyChange(tags){
+    this.props.onChange(tags);
+  }
   handleDelete(i) {
     const { tags } = this.state;
+    var currentTags=  tags.filter((tag, index) => index !== i);
+    this.onAnyChange(currentTags);
     this.setState({
-      tags: tags.filter((tag, index) => index !== i),
+      tags:currentTags,
     });
+
   }
 
   handleAddition(tag) {
-   this.setState(state => ({ tags: [...state.tags, tag] }));
-  }
 
+   this.setState(state => ({ tags: this.changeState(state, tag)}));
+
+  }
+  changeState(state, tag){
+    var currentTags= [...state.tags, tag];
+
+    this.onAnyChange(currentTags);
+
+    return currentTags;
+  }
   handleDrag(tag, currPos, newPos) {
     const tags = [...this.state.tags];
     const newTags = tags.slice();
@@ -54,6 +68,7 @@ export default class ChannelTagComponent extends  Component {
 
     // re-render
     this.setState({ tags: newTags });
+    this.onAnyChange(newTags);
   }
 
   handleTagClick(index) {

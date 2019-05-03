@@ -12,12 +12,14 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './solutiontitle.css';
 import solutionpng from './solution.png'
 import {getToken} from "../thankcoin/process";
+import ChannelTagComponent from "../common/ChannelTagComponent";
 class SolutionTitleForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             solutionTitle: '',
             solutionContent: '',
+            channels:[],
             editorState: EditorState.createEmpty()
         };
 
@@ -35,6 +37,22 @@ class SolutionTitleForm extends React.Component {
 
 
     };
+
+    onAnyChangeInChannels = (tags) => {
+
+        var channels=[];
+
+        tags.forEach(function(tag) {
+
+            channels.push( {id: parseInt(tag.id), name: tag.text });
+
+        });
+
+        this.setState({
+            channels:channels
+        });
+    };
+
 
     handleChangeTitle(event) {
         this.setState({solutionTitle: event.target.value});
@@ -64,7 +82,8 @@ class SolutionTitleForm extends React.Component {
             "name": "",
             "text": this.state.solutionContent,
             "solutionTitle": {
-                "name": this.state.solutionTitle
+                "name": this.state.solutionTitle,
+                "channels": this.state.channels
             }
         }
 
@@ -91,6 +110,8 @@ class SolutionTitleForm extends React.Component {
                             <br/>
 
                             <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
+
+                            <ChannelTagComponent onChange={this.onAnyChangeInChannels}/>
 
 
                         <br/>

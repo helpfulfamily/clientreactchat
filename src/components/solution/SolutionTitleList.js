@@ -13,12 +13,23 @@ class SolutionTitleList extends Component {
 
     componentDidMount() {
 
-        this.props.fetchData(properties.solutiontitle_all + "/"+ amount);
+        this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+this.props.channelName);
+}
+    componentDidUpdate(prevProps) {
+
+
+        if ( typeof  this.props.channelName!=="undefined" && prevProps.channelName !=
+            this.props.channelName) {
+
+            this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+this.props.channelName);
+        }
+
     }
 
 
     fetchMoreData = () => {
-        this.props.fetchData(properties.solutiontitle_all + "/"+ (10 + amount));
+        this.props.fetchData(properties.solutiontitle_all + "/"+ (10 + amount)+"/"+this.props.channelName);
+
      };
     getTransaction(receiver, objectId)
     {
@@ -80,6 +91,7 @@ class SolutionTitleList extends Component {
 }
 
 SolutionTitleList.propTypes = {
+    channelName: PropTypes.string.isRequired,
     fetchData: PropTypes.func.isRequired,
     solutionTitles: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -90,7 +102,8 @@ const mapStateToProps = (state) => {
     return {
         solutionTitles: state.solutionTitles,
         hasErrored: state.solutionTitleHasErrored,
-        isLoading: state.solutionTitleIsLoading
+        isLoading: state.solutionTitleIsLoading,
+        channelName: state.channelName
     };
 };
 

@@ -28,7 +28,12 @@ export function transactionSolutionTitle(transaction) {
         transaction
     };
 }
-
+export function transactionChannel(transaction) {
+    return {
+        type: 'TRANSACTION_CHANNEL',
+        transaction
+    };
+}
 export default function dispatcherTransaction(data, store){
 
 
@@ -64,6 +69,11 @@ export default function dispatcherTransaction(data, store){
             case 'SolutionTitle':{
 
                 action= transactionSolutionTitle(transaction);
+                break;
+            }
+            case 'Channel':{
+
+                action= transactionChannel(transaction);
                 break;
             }
         }
@@ -153,6 +163,13 @@ function  loginPromiseResolved(loginUser, store, notificationMessage, transactio
                 notificationMessage= senderUsername + " support and prioritise your Solution Title using 1 Thankcoin";
 
             }
+
+            break;
+        }
+        case 'Channel':{
+
+             notificationMessage= "You support and prioritise this channel using 1 Thankcoin";
+
 
             break;
         }
