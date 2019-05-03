@@ -17,10 +17,10 @@ export function channelIsLoading(state = false, action) {
             return state;
     }
 }
-export function channelName(state = "", action) {
+export function channel(state = {}, action) {
     switch (action.type) {
         case 'CHANNEL_CHANGED':
-            return action.channelName;
+            return action.channel;
 
         default:
             return state;

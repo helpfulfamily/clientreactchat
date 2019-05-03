@@ -20,7 +20,6 @@ import logo from "../../img/logo.svg";
 import {FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
-import {properties} from "../../config/properties";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -98,14 +97,17 @@ class NavbarMenu extends React.Component {
 
         return "/"+ username;
     }
-    getCurrentChannel(channelName) {
 
-        if(channelName!=""){
-            channelName= "#"+ channelName;;
+  getCurrentChannel(channel) {
+        var channelName= "";
+        if( typeof channel.name !=="undefined"  && channel.name!=""){
+            channelName= <h2> {"#"+ channel.name}</h2>;
         }
         return channelName;
     }
+
   navContent="";
+
   render() {
 
       const externalCloseBtnProblemTitle = <a  href="#" onClick={this.toggleProblemTitle}><FaQuestionCircle /> I need help! </a>;
@@ -115,7 +117,7 @@ class NavbarMenu extends React.Component {
 
           this.navContent=(
               <Nav  className="ml-auto main-nav" navbar>
-                  <h2>{this.getCurrentChannel(this.props.channelName)}</h2>
+                  {this.getCurrentChannel(this.props.channel)}
 
                   <NavItem>
                       {externalCloseBtnProblemTitle}
@@ -148,7 +150,7 @@ class NavbarMenu extends React.Component {
       }else {
           this.navContent=(
               <Nav   className="ml-auto" navbar>
-                  <h2>{this.getCurrentChannel(this.props.channelName)}</h2>
+                 {this.getCurrentChannel(this.props.channel)}
                   <NavItem>
                       <NavLink   href="#" onClick={this.handleLogin}><FaUnlockAlt />Login</NavLink>
                   </NavItem>
@@ -193,7 +195,7 @@ class NavbarMenu extends React.Component {
 
 
 NavbarMenu.propTypes = {
-    channelName: PropTypes.string.isRequired,
+    channel: PropTypes.object.isRequired,
     loginUser: PropTypes.object.isRequired,
     loginActionDispatcher: PropTypes.func.isRequired
 };
@@ -201,7 +203,7 @@ NavbarMenu.propTypes = {
 const mapStateToProps = (state) => {
     return {
         loginUser: state.loginReducer,
-        channelName: state.channelName
+        channel: state.channel
     };
 };
 

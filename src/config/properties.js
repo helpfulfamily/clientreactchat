@@ -10,7 +10,7 @@ properties = {
         solutiontitle_all: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_SOLUTION_TITLE + process.env.REACT_APP_ALL,
         solutiontitle_contents: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_SOLUTION_TITLE + process.env.REACT_APP_CONTENTS,
         channels_all: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_CHANNEL + process.env.REACT_APP_ALL,
-
+        channel_by_name: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_CHANNEL,
         user: process.env.REACT_APP_USER,
         changeProfilePhotoUrl: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_USER+ process.env.REACT_APP_CHANGE_PROFILE_PHOTO_URL,
         changeCoverUrl: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_USER+ process.env.REACT_APP_CHANGE_PROFILE_COVER_URL

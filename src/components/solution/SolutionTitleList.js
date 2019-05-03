@@ -12,23 +12,28 @@ var amount=30;
 class SolutionTitleList extends Component {
 
     componentDidMount() {
+        var channelName = "";
+        if ( typeof  this.props.channel.name!=="undefined") {
+            channelName = this.props.channel.name;
+        }
 
-        this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+this.props.channelName);
-}
+        this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+ channelName);
+    }
+
     componentDidUpdate(prevProps) {
 
 
-        if ( typeof  this.props.channelName!=="undefined" && prevProps.channelName !=
-            this.props.channelName) {
+        if ( typeof  this.props.channel.name!=="undefined" && prevProps.channel.name !=
+            this.props.channel.name) {
 
-            this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+this.props.channelName);
+            this.props.fetchData(properties.solutiontitle_all + "/"+ amount+"/"+this.props.channel.name);
         }
 
     }
 
 
     fetchMoreData = () => {
-        this.props.fetchData(properties.solutiontitle_all + "/"+ (10 + amount)+"/"+this.props.channelName);
+        this.props.fetchData(properties.solutiontitle_all + "/"+ (10 + amount)+"/"+this.props.channel.name);
 
      };
     getTransaction(receiver, objectId)
@@ -91,7 +96,7 @@ class SolutionTitleList extends Component {
 }
 
 SolutionTitleList.propTypes = {
-    channelName: PropTypes.string.isRequired,
+    channel: PropTypes.object.isRequired,
     fetchData: PropTypes.func.isRequired,
     solutionTitles: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -103,7 +108,7 @@ const mapStateToProps = (state) => {
         solutionTitles: state.solutionTitles,
         hasErrored: state.solutionTitleHasErrored,
         isLoading: state.solutionTitleIsLoading,
-        channelName: state.channelName
+        channel: state.channel
     };
 };
 

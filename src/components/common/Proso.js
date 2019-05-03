@@ -5,7 +5,7 @@ import ProblemContentList from "../problem/ProblemContentList";
 
 import {Route, Switch} from "react-router-dom";
 
-import {channelChanged} from '../../actions/channel/ChannelAction';
+import {channelGetByName} from '../../actions/channel/ChannelAction';
 import PropTypes from 'prop-types'
 
 
@@ -14,10 +14,9 @@ import Responsive from 'react-responsive';
 import SolutionContentList from "../solution/SolutionContentList";
 import ProsoTab from "./ProsoTab";
 import ChannelList from "../channel/ChannelList";
-import {loginActionDispatcher} from "../../actions/sso";
 import {connect} from "react-redux";
 import ChannelInfo from "../channel/ChannelInfo";
-
+import { properties } from '../../config/properties.js';
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -35,7 +34,9 @@ var channelName="";
             channelName = this.props.match.params[0];
             if (channelName.includes("channel/")) {
                 channelName = channelName.replace("channel/", "");
-                this.props.channelChanged(channelName);
+
+                this.props.channelChanged(properties.channel_by_name+ "/" +channelName);
+
             } else {
                 channelName = "";
             }
@@ -107,8 +108,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        channelChanged: (channelName) => {
-            dispatch(channelChanged(channelName))
+        channelChanged: (url) => {
+            dispatch(channelGetByName(url))
         }
 
     };

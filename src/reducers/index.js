@@ -4,7 +4,7 @@ import { problemContentReducer, problemContentsHasErrored, problemContentsIsLoad
 import { solutionTitleReducer, solutionTitleHasErrored, solutionTitleIsLoading} from './solution/SolutionTitleReducer';
 import { solutionContentReducer, solutionContentsHasErrored, solutionContentsIsLoading } from './solution/SolutionContentReducer';
 import { loginReducer} from './sso';
-import { channelName, channelReducer, channelHasErrored, channelIsLoading} from './channel/ChannelReducer';
+import { channel, channelReducer, channelHasErrored, channelIsLoading} from './channel/ChannelReducer';
 
 
 import {reducer as notificationsReducer} from 'reapop';
@@ -12,7 +12,7 @@ import {reducer as notificationsReducer} from 'reapop';
 export default combineReducers({
 
     notifications: notificationsReducer(),
-    channelName: channelName,
+    channel: channel,
     channels: channelReducer,
     channelHasErrored,
     channelIsLoading,
