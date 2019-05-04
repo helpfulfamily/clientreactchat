@@ -1,8 +1,50 @@
 import axios from "axios";
 import { properties } from '../../config/properties.js';
 
+export function sendObservationRequestSignal(keycloak, observation)
+{
+    getToken(keycloak).then( (token) => startObservationRequestSignal(token, observation))
+        .catch(function(hata){
 
-export default  function sendTransaction(keycloak, transaction)
+            console.log(hata)
+        });
+
+
+}
+function startObservationRequestSignal(token, observation){
+    var bearer=  ' Bearer ' +   token;
+    var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': bearer,
+        'Access-Control-Allow-Origin': '*'
+    }
+
+
+
+    axios.post(properties.serverUrl+"/observation/sendObservationRequestSignal", observation, {headers: headers})
+
+        .then( (response)  => {
+            if (!response.status) {
+                throw Error(response.statusText);
+            }
+            if(response.data!==""){
+
+            }
+
+        })
+        .catch( (error)  => {
+
+        })
+        .then( () =>  {
+
+
+
+
+        });
+}
+
+
+export   function sendTransaction(keycloak, transaction)
 {
     getToken(keycloak).then( (token) => startTransaction(token, transaction))
     .catch(function(hata){

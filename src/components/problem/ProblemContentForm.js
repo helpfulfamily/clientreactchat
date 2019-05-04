@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
-import {getToken} from ".././thankcoin/process";
+import {getToken} from "../common/process";
 
 class ProblemContentForm extends React.Component {
     constructor(props) {

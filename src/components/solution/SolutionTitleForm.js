@@ -11,7 +11,7 @@ import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './solutiontitle.css';
 import solutionpng from './solution.png'
-import {getToken} from "../thankcoin/process";
+import {getToken} from "../common/process";
 import ChannelTagComponent from "../common/ChannelTagComponent";
 class SolutionTitleForm extends React.Component {
     constructor(props) {

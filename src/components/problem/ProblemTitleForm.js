@@ -10,7 +10,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import problempng from "./problem.png";
-import {getToken} from "../thankcoin/process";
+import {getToken} from "../common/process";
 import ChannelTagComponent from "../common/ChannelTagComponent";
 
 

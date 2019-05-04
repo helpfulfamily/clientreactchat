@@ -4,6 +4,7 @@ import { properties } from '../config/properties.js';
 import dispatcherHaProblemContent from './problem/ProblemTitleAction';
 import dispatcherHaSolutionContent from './solution/SolutionTitleAction';
 import dispatcherTransaction from './thankcoin/ThankcoinAction';
+import dispatcherObservation from "./observation/ObservationAction";
 var stompClient = null;
 export default function connect(store) {
     var socket = new SockJS(properties.notificationUrl);
@@ -19,7 +20,9 @@ export default function connect(store) {
         stompClient.subscribe("/topic/sendThankCoin", function (notification) {
             dispatcherTransaction(notification, store)
         });
-
+        stompClient.subscribe("/topic/sendObservationRequestSignal", function (notification) {
+            dispatcherObservation(notification, store)
+        });
     });
 
 }

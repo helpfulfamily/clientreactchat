@@ -6,7 +6,7 @@ import {Button} from 'reactstrap';
 import PropTypes from 'prop-types'
 import {FaThumbsUp} from "react-icons/fa";
 
-import sendTransaction from "./process";
+import {sendTransaction}  from "../common/process";
 
 class ThankcoinPanel extends Component {
 

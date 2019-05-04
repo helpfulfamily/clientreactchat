@@ -21,7 +21,11 @@ export function channel(state = {}, action) {
     switch (action.type) {
         case 'CHANNEL_CHANGED':
             return action.channel;
-
+        case 'OBSERVATION_CHANNEL':
+            var observation= action.observaton;
+            var currentObserverAmount= observation.currentObserverAmount;
+            state.currentObserverAmount= currentObserverAmount;
+            return state;
         default:
             return state;
     }
