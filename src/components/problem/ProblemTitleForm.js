@@ -113,7 +113,7 @@ class ProblemTitleForm extends React.Component {
 
                             <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
 
-                            <ChannelTagComponent onChange={this.onAnyChangeInChannels}/>
+                            <ChannelTagComponent onChange={this.onAnyChangeInChannels} suggestions={this.props.loginUser.channels}/>
 
                         <br/>
 

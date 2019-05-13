@@ -21,7 +21,7 @@ export function loginActionDispatcher(loginUser) {
 
         }
 
-        var url= properties.serverUrl+ properties.user+ loginUser.sso.username;
+        var url= properties.serverUrl+ properties.user+ "/"+loginUser.sso.username;
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
@@ -48,7 +48,7 @@ export function loginActionDispatcher(loginUser) {
             'Content-Type': 'application/json',
 
         }
-        var url= properties.serverUrl+ properties.user+"create";
+        var url= properties.serverUrl+ properties.user+"/create";
 
         axios.post(url, user,{headers: headers})
 

@@ -25,7 +25,7 @@ export function channel(state = {}, action) {
             var observation= action.observaton;
             var currentObserverAmount= observation.currentObserverAmount;
             state.currentObserverAmount= currentObserverAmount;
-            return state;
+            return { ...state };
         default:
             return state;
     }

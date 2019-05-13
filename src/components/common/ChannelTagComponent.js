@@ -1,16 +1,7 @@
-import React, { Component }  from 'react';
-
-import { render } from 'react-dom';
-import {COUNTRIES} from './countries';
+import React, { Component }  from 'react'
 import './channeltagstyle.css';
 import { WithContext as ReactTags } from 'react-tag-input';
 
-const suggestions = COUNTRIES.map((country) => {
-  return {
-    id: country,
-    text: country
-  }
-})
 
 const KeyCodes = {
   comma: 188,
@@ -24,6 +15,16 @@ export default class ChannelTagComponent extends  Component {
   constructor(props) {
     super(props);
 
+    var suggestions=[];
+    if(typeof this.props.suggestions !=="undefined"){
+
+
+      this.props.suggestions.forEach(function(channel) {
+
+        suggestions.push( {id: channel.id+"", text: channel.name });
+
+      });
+    }
     this.state = {
       tags: [],
       suggestions: suggestions,

@@ -24,7 +24,7 @@ import {connect} from "react-redux";
 
             }
 
-            var url= properties.serverUrl+ properties.user+ props.match.params.username;
+            var url= properties.serverUrl+ properties.user+ "/"+props.match.params.username;
 
             axios.get(url,{headers: headers})
                 .then( (response) =>  {

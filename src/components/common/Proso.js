@@ -25,6 +25,15 @@ var channelName="";
   class Proso extends Component {
     constructor(props) {
         super(props);
+        channelName = this.props.match.params[0];
+        if (typeof channelName!=="undefined" && channelName.includes("channel/")) {
+            channelName = channelName.replace("channel/", "");
+
+            this.props.channelChanged(properties.channel_by_name+ "/" +channelName);
+
+        } else {
+            channelName = "";
+        }
     }
 
     componentDidUpdate(prevProps)

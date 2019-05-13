@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import { problemTitleReducer, problemTitleHasErrored, problemTitleIsLoading} from './problem/ProblemTitleReducer';
+import { userReducer, userHasErrored, userIsLoading} from './user/UserReducer';
+
 import { problemContentReducer, problemContentsHasErrored, problemContentsIsLoading } from './problem/ProblemContentReducer';
 import { solutionTitleReducer, solutionTitleHasErrored, solutionTitleIsLoading} from './solution/SolutionTitleReducer';
 import { solutionContentReducer, solutionContentsHasErrored, solutionContentsIsLoading } from './solution/SolutionContentReducer';
@@ -16,6 +18,9 @@ export default combineReducers({
     channels: channelReducer,
     channelHasErrored,
     channelIsLoading,
+    users: userReducer,
+    userHasErrored,
+    userIsLoading,
     problemTitles: problemTitleReducer,
     problemTitleHasErrored,
     problemTitleIsLoading,

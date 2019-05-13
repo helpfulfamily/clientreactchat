@@ -86,7 +86,7 @@ class SolutionContentList extends Component {
             },
             objectType:"SolutionContent",
             objectId:objectId,
-            name: this.props.match.params.title
+            name: decodeURIComponent(this.props.match.params.title)
         }
         return transaction;
 
@@ -154,7 +154,7 @@ class SolutionContentList extends Component {
         return (
             <div>
 
-                <b>  {this.props.match.params.title} </b>
+                <b>  {decodeURIComponent(this.props.match.params.title)} </b>
                 <SolutionContentForm solutionTitle={this.props.match.params.title}/>
 
                 {list}

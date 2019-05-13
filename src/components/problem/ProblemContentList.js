@@ -24,7 +24,7 @@ import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
 
 var amount=0;
-var titleDecoded="";
+
 class ProblemContentList extends Component {
     contentToRender = (html) => {
 
@@ -84,13 +84,14 @@ class ProblemContentList extends Component {
     getTransaction(receiver, objectId)
     {
 
+
         var transaction = {
             receiver:{
                 username:  receiver
             },
             objectType:"ProblemContent",
             objectId:objectId,
-            name: titleDecoded
+            name: decodeURIComponent(this.props.match.params.title)
         }
         return transaction;
 
@@ -162,8 +163,8 @@ class ProblemContentList extends Component {
         return (
             <div>
 
-                <b>  {titleDecoded} </b>
-                <ProblemContentForm problemTitle={titleDecoded}/>
+                <b>  {decodeURIComponent(this.props.match.params.title)} </b>
+                <ProblemContentForm problemTitle={this.props.match.params.title}/>
                 {list}
 
 

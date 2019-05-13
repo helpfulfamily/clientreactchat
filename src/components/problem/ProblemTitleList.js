@@ -22,17 +22,25 @@ class ProblemTitleList extends Component {
 
     componentDidUpdate(prevProps) {
 
+        var channelName = "";
+        if ( typeof  this.props.channel.name!=="undefined") {
+            channelName = this.props.channel.name;
+        }
 
-        if ( typeof  this.props.channel.name!=="undefined" && prevProps.channel.name !=
-                                                                    this.props.channel.name) {
+        if (prevProps.channel.name !=  this.props.channel.name) {
 
-            this.props.fetchData(properties.problemtitle_all + "/"+ amount+"/"+this.props.channel.name);
+            this.props.fetchData(properties.problemtitle_all + "/"+ amount+"/"+channelName);
         }
 
     }
 
     fetchMoreData = () => {
-        this.props.fetchData(properties.problemtitle_all + "/"+ (10 + amount)+"/"+this.props.channel.name);
+        var channelName = "";
+        if ( typeof  this.props.channel.name!=="undefined") {
+            channelName = this.props.channel.name;
+        }
+
+        this.props.fetchData(properties.problemtitle_all + "/"+ (10 + amount)+"/"+channelName);
      };
     getTransaction(receiver, objectId)
     {

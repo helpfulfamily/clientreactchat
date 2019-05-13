@@ -118,8 +118,7 @@ class NavbarMenu extends React.Component {
           this.navContent=(
               <Nav  className="ml-auto main-nav" navbar>
                   {this.getCurrentChannel(this.props.channel)}
-
-                  <NavItem>
+               <NavItem>
                       {externalCloseBtnProblemTitle}
                   </NavItem>
                   <NavItem>

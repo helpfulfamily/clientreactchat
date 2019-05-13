@@ -7,31 +7,24 @@ import ObservationPanel from "../observation/ObservationPanel";
 import {connect} from "react-redux";
 
 
+
+
  class ChannelInfo extends Component {
 
-    componentDidMount() {
 
 
-    }
 
-    getObservation(channelId)
-    {
-
-        var observation = {
-            objectType:"Channel",
-            channelId:channelId,
-
-        }
-        return observation;
-
-    }
 
     render() {
+        var divContext="";
+        if(typeof  this.props.channel !== "undefined"){
+              divContext=   <ObservationPanel   channel={this.props.channel} />;
+        }
 
         return (
             <div>
 
-            <ObservationPanel observation={ this.getObservation(this.props.channel.id)}  currentObserverAmount={this.props.channel.currentObserverAmount} />
+                {divContext}
 
 
             </div>
@@ -46,7 +39,6 @@ ChannelInfo.propTypes = {
 const mapStateToProps = (state) => {
     return {
         channel: state.channel
-
     };
 };
 
