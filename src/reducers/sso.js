@@ -10,7 +10,7 @@ export function loginReducer(state = {}, action) {
             var observation= action.observaton;
             var channelName= observation.channelName;
             var id= observation.channelId;
-            var channel = {id: id, text: channelName};
+            var channel = {id: id, name: channelName};
             if(typeof state.channels == "undefined"){
                 state.channels = [];
             }

@@ -15,10 +15,10 @@ export function channelIsLoading(bool) {
     };
 }
 
-export function channelFetchDataSuccess(problemTitles) {
+export function channelFetchDataSuccess(channels) {
     return {
         type: 'CHANNEL_FETCH_DATA_SUCCESS',
-        problemTitles
+        channels
     };
 }
 export function channelChanged(channel) {

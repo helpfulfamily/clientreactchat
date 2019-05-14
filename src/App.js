@@ -7,7 +7,7 @@ import Home from './components/Home';
 import 'babel-polyfill';
 
 
-const store = configureStore();
+export const store = configureStore();
 class App extends Component {
   render() {
     return (

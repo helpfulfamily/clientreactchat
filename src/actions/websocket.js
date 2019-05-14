@@ -5,8 +5,10 @@ import dispatcherHaProblemContent from './problem/ProblemTitleAction';
 import dispatcherHaSolutionContent from './solution/SolutionTitleAction';
 import dispatcherTransaction from './thankcoin/ThankcoinAction';
 import dispatcherObservation from "./observation/ObservationAction";
+
+import { store } from '../App'
 var stompClient = null;
-export default function connect(store) {
+export default function connect(username) {
     var socket = new SockJS(properties.notificationUrl);
     stompClient = Stomp.over(socket);
 
@@ -20,9 +22,12 @@ export default function connect(store) {
         stompClient.subscribe("/topic/sendThankCoin", function (notification) {
             dispatcherTransaction(notification, store)
         });
-        stompClient.subscribe("/topic/sendObservationRequestSignal", function (notification) {
-            dispatcherObservation(notification, store)
-        });
+        if(typeof username!=="undefined" && username.length>0){
+            stompClient.subscribe("/user/" + username+ "/queue/sendObservationRequestSignal", function (notification) {
+                dispatcherObservation(notification, store)
+            });
+        }
+
     });
 
 }

@@ -3,7 +3,7 @@ import {Navbar, NavbarBrand,
   Nav,
   NavItem,
   NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu} from 'reactstrap';
-
+import connectWebSocket from '../../actions/websocket';
 import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
 
 import {connect} from "react-redux";
@@ -73,6 +73,8 @@ class NavbarMenu extends React.Component {
   loginPromiseResolved(loginUser){
       if(loginUser!=null){
           this.props.loginActionDispatcher(loginUser);
+
+          connectWebSocket(loginUser.sso.username);
       }
   }
   handleLogin(e) {

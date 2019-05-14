@@ -34,7 +34,7 @@ export function channelReducer(state = [], action) {
 
    switch (action.type) {
         case 'CHANNEL_FETCH_DATA_SUCCESS':{
-            return action.problemTitles;
+            return action.channels;
 
         }
        case 'TRANSACTION_CHANNEL':{

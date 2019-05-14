@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
-import connect from '../actions/websocket.js';
 
 export default function configureStore(initialState) {
 
@@ -10,6 +9,6 @@ export default function configureStore(initialState) {
         initialState,
         applyMiddleware(thunk)
     );
-    connect(store);
+
     return store;
 }

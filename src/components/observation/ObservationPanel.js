@@ -16,41 +16,57 @@ class ObservationPanel extends Component {
         super(props);
         this.state = {isAlreadyMember: ""};
     }
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
 
-        this.setState( {isAlreadyMember:  this.isAlreadyMember(this.props.channel)});
+        if(typeof  this.props.channel !=="undefined" &&  typeof  prevProps.channel !=="undefined" &&  this.props.channel!==   prevProps.channel) {
+            this.setState({isAlreadyMember: this.isAlreadyMember(this.props.channel)});
+        }
     }
 
     isAlreadyMember(channelProp) {
+        var returnValue= false;
         if(typeof  this.props.loginUser !=="undefined"){
             var channels= this.props.loginUser.channels;
             if(typeof  channels !=="undefined"){
-                channels.forEach(function(channel) {
-                    var name= channel.name;
-                    if(typeof channelProp!=="undefined"
-                        && channelProp.name==name){
-                        return true;
-                    }
 
-                });
+
+                var BreakException = {};
+
+                try {
+                    channels.forEach(function(channel) {
+                        var name= channel.name;
+                        if(typeof channelProp!=="undefined"
+                            && channelProp.name==name){
+                            throw BreakException;
+                        }
+
+                    });
+                } catch (e) {
+                    if (e === BreakException){
+                        returnValue= true;
+                    }
+                }
+
+
+
             }
         }
-        return false;
 
+            return returnValue;
     }
-    getObservation()
+    getObservation(observe)
     {
 
         var observation = {
             objectType:"Channel",
             channelId:this.props.channel.id,
-            channelName:this.props.channel.name
-
+            channelName:this.props.channel.name,
+            observe:observe
         }
         return observation;
 
     }
-    sendObservationRequestSignal(event)
+    sendObservationRequestSignal(event, observe)
     {
         event.preventDefault();
 
@@ -58,11 +74,11 @@ class ObservationPanel extends Component {
     }
     render() {
         var context= <span>  <FaEye/>  {this.props.currentObserverAmount} Observer(s)</span>;
-        var buttonContext=  <Button color="primary" onClick= {(e) => this.sendObservationRequestSignal(e)} >
+        var buttonContext=  <Button color="primary" onClick= {(e) => this.sendObservationRequestSignal(e, true)} >
             <FaEye/> Observe </Button>;
 
         if(this.state.isAlreadyMember){
-            buttonContext=  <Button color="primary" onClick= {(e) => this.sendObservationRequestSignal(e)} >
+            buttonContext=  <Button color="primary" onClick= {(e) => this.sendObservationRequestSignal(e, false)} >
                 <FaEye/> Unobserve </Button>
         }
 
