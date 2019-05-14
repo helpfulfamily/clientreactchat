@@ -70,7 +70,7 @@ class ObservationPanel extends Component {
     {
         event.preventDefault();
 
-        sendObservationRequestSignal(this.props.loginUser.sso.keycloak, this.getObservation());
+        sendObservationRequestSignal(this.props.loginUser.sso.keycloak, this.getObservation(observe));
     }
     render() {
         var context= <span>  <FaEye/>  {this.props.currentObserverAmount} Observer(s)</span>;

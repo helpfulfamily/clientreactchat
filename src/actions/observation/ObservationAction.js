@@ -41,8 +41,8 @@ export default function dispatcherObservation(data, store){
 
 }
 
-function  loginPromiseResolved(loginUser, store, notificationMessage, observaton) {
-    var objectType=observaton.objectType;
+function  loginPromiseResolved(loginUser, store, notificationMessage, observation) {
+    var objectType=observation.objectType;
 
     var notificationMessage="";
 
@@ -50,8 +50,12 @@ function  loginPromiseResolved(loginUser, store, notificationMessage, observaton
 
 
         case 'Channel':{
+            if(observation.observe){
+                notificationMessage= "You are an observer of #" +observation.channelName + " now!";
+            }else {
+                notificationMessage = "You unobserved  #" +observation.channelName + " now!";
+            }
 
-             notificationMessage= "You are an observer of this channel now!";
 
 
             break;

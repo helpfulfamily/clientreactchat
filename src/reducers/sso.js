@@ -14,8 +14,17 @@ export function loginReducer(state = {}, action) {
             if(typeof state.channels == "undefined"){
                 state.channels = [];
             }
+            if(observation.observe){
+                state.channels.push(channel);
+            }else{
+                state.channels = state.channels.filter(function(value, index, arr){
 
-            state.channels.push(channel);
+                    return value.name!=channelName;
+
+                });
+            }
+
+
             return { ...state };
         default:
             return state;
