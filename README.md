@@ -20,9 +20,9 @@
   If you get an error like this:
 
   
-  C:\Users\Mert\clientha>yarn start
+  C:\Users\Username\clientha>yarn start
 yarn run v1.16.0
-$ export HTTPS=true react-scripts start
+$ export HTTPS=true && react-scripts start
 'export' is not recognized as an internal or external command,
 operable program or batch file.
 error Command failed with exit code 1.
@@ -30,7 +30,7 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 
 In this case, just try SET instead of Export in  package.json like this:
   
-      "start": "set HTTPS=true react-scripts start",
+      "start": "set HTTPS=true && react-scripts start",
 
 
 
