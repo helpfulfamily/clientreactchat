@@ -2,6 +2,8 @@ properties = {
         notificationUrl: process.env.REACT_APP_NOTIFICATION_SERVICE_URL,
         serverUrl: process.env.REACT_APP_SERVICE_URL,
 
+        family_create: process.env.REACT_APP_SERVICE_URL+ process.env.REACT_APP_FAMILY + process.env.REACT_APP_CREATE_FAMILY,
+
         problemtitle_publishContent: process.env.REACT_APP_SERVICE_URL+ process.env.REACT_APP_PROBLEM_TITLE + process.env.REACT_APP_PUBLISH_PROBLEM_CONTENT,
         problemtitle_all: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_PROBLEM_TITLE + process.env.REACT_APP_ALL,
         problemtitle_contents:process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_PROBLEM_TITLE + process.env.REACT_APP_CONTENTS,
