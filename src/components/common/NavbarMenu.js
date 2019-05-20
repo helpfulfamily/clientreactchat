@@ -17,9 +17,10 @@ import SolutionTitleForm from "../solution/SolutionTitleForm";
 import '../../css/style.css';
 
 import logo from "../../img/logo.svg";
-import {FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
+import {FaFacebookMessenger, FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
+import CreateFamilyForm from "../family/CreateFamilyForm";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -31,16 +32,25 @@ class NavbarMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {modalProblemTitle: false,
+        this.state = {
+            modalCreateFamily: false,
+            modalProblemTitle: false,
             modalSolutionTitle: false,
             isOpen: false
 
         };
         this.toggle = this.toggle.bind(this);
 
+        this.toggleCreateFamily = this.toggleCreateFamily.bind(this);
         this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
         this.toggleSolutionTitle = this.toggleSolutionTitle.bind(this);
     }
+    toggleCreateFamily() {
+        this.setState(prevState => ({
+            modalCreateFamily: !prevState.modalCreateFamily
+        }));
+    }
+
     toggleProblemTitle() {
         this.setState(prevState => ({
             modalProblemTitle: !prevState.modalProblemTitle
@@ -111,7 +121,7 @@ class NavbarMenu extends React.Component {
   navContent="";
 
   render() {
-
+      const externalCloseBtnCreateFamily= <a  href="#" onClick={this.toggleCreateFamily}><FaFacebookMessenger /> Create Family! </a>;
       const externalCloseBtnProblemTitle = <a  href="#" onClick={this.toggleProblemTitle}><FaQuestionCircle /> I need help! </a>;
       const externalCloseBtnSolutionTitle = <a href="#" onClick={this.toggleSolutionTitle}><FaRegLightbulb /> I can help! </a>;
 
@@ -120,6 +130,9 @@ class NavbarMenu extends React.Component {
           this.navContent=(
               <Nav  className="ml-auto main-nav" navbar>
                   {this.getCurrentChannel(this.props.channel)}
+                <NavItem>
+                      {externalCloseBtnCreateFamily}
+               </NavItem>
                <NavItem>
                       {externalCloseBtnProblemTitle}
                   </NavItem>
@@ -180,6 +193,12 @@ class NavbarMenu extends React.Component {
                       {this.navContent}
                   </Collapse>
               </Navbar>
+
+             <CreateFamilyForm externalCloseBtn={externalCloseBtnCreateFamily}
+
+                                modal={this.state.modalCreateFamily}
+                                toggle={this.toggleCreateFamily} />
+
               <ProblemTitleForm externalCloseBtn={externalCloseBtnProblemTitle}
 
                                 modal={this.state.modalProblemTitle}
