@@ -73,7 +73,7 @@ class ObservationPanel extends Component {
         sendObservationRequestSignal(this.props.loginUser.sso.keycloak, this.getObservation(observe));
     }
     render() {
-        var context= <span>  <FaEye/>  {this.props.currentObserverAmount} Observer(s)</span>;
+        var context= <span>  <FaEye/>  {this.props.channel.currentObserverAmount} Observer(s)</span>;
         var buttonContext=  <Button color="primary" onClick= {(e) => this.sendObservationRequestSignal(e, true)} >
             <FaEye/> Observe </Button>;
 
