@@ -2,19 +2,15 @@ import React from 'react';
 
 import {properties} from '../../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {publishProblem} from "../../actions/problem/ProblemTitleAction";
+import {publishProblem} from "../../actions/channel/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import problempng from "./problem.png";
+import problempng from "./channel.png";
 import {getToken} from "../common/process";
-import ChannelTagComponent from "../common/ChannelTagComponent";
-
-
-
 
 class ProblemTitleForm extends React.Component {
     constructor(props) {
@@ -22,14 +18,13 @@ class ProblemTitleForm extends React.Component {
         this.state = {
             problemTitle: '',
             problemContent: '',
-            channels:[],
+
             editorState: EditorState.createEmpty()
         };
 
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
-        this.onAnyChangeInChannels = this.onAnyChangeInChannels.bind(this);
 
     }
 
@@ -43,20 +38,6 @@ class ProblemTitleForm extends React.Component {
     };
 
 
-    onAnyChangeInChannels = (tags) => {
-
-        var channels=[];
-
-        tags.forEach(function(tag) {
-
-            channels.push( {id: parseInt(tag.id), name: tag.text });
-
-        });
-
-        this.setState({
-            channels:channels
-        });
-    };
 
 
     handleChangeTitle(event) {
@@ -87,8 +68,7 @@ class ProblemTitleForm extends React.Component {
             "name": "",
             "text": this.state.problemContent,
             "problemTitle": {
-                "name": this.state.problemTitle,
-                "channels": this.state.channels
+                "name": this.state.problemTitle
             }
         }
 
@@ -113,7 +93,6 @@ class ProblemTitleForm extends React.Component {
 
                             <input type="text" size="57" value={this.state.title} onChange={this.handleChangeTitle} />
 
-                            <ChannelTagComponent onChange={this.onAnyChangeInChannels} suggestions={this.props.loginUser.channels}/>
 
                         <br/>
 

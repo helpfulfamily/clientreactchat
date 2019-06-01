@@ -4,7 +4,7 @@ import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
 import {
     publishProblem
-} from "../../actions/problem/ProblemTitleAction";
+} from "../../actions/channel/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {convertToRaw, EditorState} from "draft-js";
@@ -12,12 +12,12 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
 import {getToken} from "../common/process";
 
-class ProblemContentForm extends React.Component {
+class ChannelContentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            problemTitle: '',
-            problemContent: '',
+            channel: '',
+            channelContent: '',
             editorState: EditorState.createEmpty()
         };
 
@@ -31,7 +31,7 @@ class ProblemContentForm extends React.Component {
 
         this.setState({editorState: editorState});
 
-        this.setState({problemContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+        this.setState({channelContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
 
     };
@@ -55,15 +55,15 @@ class ProblemContentForm extends React.Component {
     startPublishProcess = (token) =>
       {
 
-        var apiBaseUrl = properties.problemtitle_publishContent;
+        var apiBaseUrl = properties.channel_publishContent;
 
 
 
         var item = {
             "name": "",
-            "text": this.state.problemContent,
-            "problemTitle": {
-                "name": this.props.problemTitle
+            "text": this.state.channelContent,
+            "channel": {
+                "name": decodeURIComponent(this.props.channelName)
             }
         }
 
@@ -100,7 +100,7 @@ class ProblemContentForm extends React.Component {
     }
 }
 
-ProblemContentForm.propTypes = {
+ChannelContentForm.propTypes = {
     postData: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -122,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProblemContentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelContentForm);

@@ -1,6 +1,6 @@
-export function problemContentsHasErrored(state = false, action) {
+export function channelContentsHasErrored(state = false, action) {
     switch (action.type) {
-        case 'PROBLEM_CONTENTS_HAS_ERRORED':
+        case 'CHANNEL_CONTENTS_HAS_ERRORED':
             return action.hasErrored;
 
         default:
@@ -8,9 +8,9 @@ export function problemContentsHasErrored(state = false, action) {
     }
 }
 
-export function problemContentsIsLoading(state = false, action) {
+export function channelContentsIsLoading(state = false, action) {
     switch (action.type) {
-        case 'PROBLEM_CONTENTS_IS_LOADING':
+        case 'CHANNEL_CONTENTS_IS_LOADING':
             return action.isLoading;
 
         default:
@@ -20,24 +20,24 @@ export function problemContentsIsLoading(state = false, action) {
 function isNeededToUpdateGui(titleFromWebSocket){
     var title= window.location.pathname;
     title = decodeURIComponent(title);
-    title = title.replace("\/problemcontents\/","")
+    title = title.replace("\/channelcontents\/","")
     if(titleFromWebSocket==title){
         return true;
     }else{
         return false;
     }
 }
-export function problemContentReducer(state = [], action) {
+export function channelContentReducer(state = [], action) {
     switch (action.type) {
-        case 'PROBLEM_CONTENTS_FETCH_DATA_SUCCESS':
+        case 'CHANNEL_CONTENTS_FETCH_DATA_SUCCESS':
             return action.contents;
-        case 'PUBLISH_PROBLEM_CONTENT':{
+        case 'PUBLISH_CHANNEL_CONTENT':{
             var data=action.item;
-           if(isNeededToUpdateGui(data.payload.problemTitle.name) ){
+           if(isNeededToUpdateGui(data.payload.channel.name) ){
                 return   [
-
-                    data.payload,
                     ...state,
+                    data.payload,
+
                 ]
 
             }else{
@@ -45,7 +45,7 @@ export function problemContentReducer(state = [], action) {
                 return state;
             }
         }
-        case 'PROBLEM_CONTENTS_APPEND_LIST_SUCCESS':{
+        case 'CHANNEL_CONTENTS_APPEND_LIST_SUCCESS':{
 
             return   [
 
@@ -56,7 +56,7 @@ export function problemContentReducer(state = [], action) {
 
         }
 
-        case 'TRANSACTION_PROBLEM_CONTENT':{
+        case 'TRANSACTION_CHANNEL_CONTENT':{
 
             var transaction= action.transaction;
             if(isNeededToUpdateGui(transaction.name) ) {

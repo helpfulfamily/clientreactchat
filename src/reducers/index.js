@@ -1,12 +1,9 @@
 import { combineReducers } from 'redux';
-import { problemTitleReducer, problemTitleHasErrored, problemTitleIsLoading} from './problem/ProblemTitleReducer';
+import { problemTitleReducer, problemTitleHasErrored, problemTitleIsLoading} from './channel/ProblemTitleReducer';
 import { userReducer, userHasErrored, userIsLoading} from './user/UserReducer';
 
-import { problemContentReducer, problemContentsHasErrored, problemContentsIsLoading } from './problem/ProblemContentReducer';
-import { solutionTitleReducer, solutionTitleHasErrored, solutionTitleIsLoading} from './solution/SolutionTitleReducer';
-import { solutionContentReducer, solutionContentsHasErrored, solutionContentsIsLoading } from './solution/SolutionContentReducer';
+import { channelContentReducer, channelContentsHasErrored, channelContentsIsLoading } from './channel/ProblemContentReducer';
 import { loginReducer} from './sso';
-import { channel, channelReducer, channelHasErrored, channelIsLoading} from './channel/ChannelReducer';
 
 
 import {reducer as notificationsReducer} from 'reapop';
@@ -14,26 +11,17 @@ import {reducer as notificationsReducer} from 'reapop';
 export default combineReducers({
 
     notifications: notificationsReducer(),
-    channel: channel,
-    channels: channelReducer,
-    channelHasErrored,
-    channelIsLoading,
+
     users: userReducer,
     userHasErrored,
     userIsLoading,
     problemTitles: problemTitleReducer,
     problemTitleHasErrored,
     problemTitleIsLoading,
-    problemContents: problemContentReducer,
-    problemContentsHasErrored,
-    problemContentsIsLoading,
-    loginReducer,
-    solutionTitles: solutionTitleReducer,
-    solutionTitleHasErrored,
-    solutionTitleIsLoading,
-    solutionContents: solutionContentReducer,
-    solutionContentsHasErrored,
-    solutionContentsIsLoading
+    channelContents: channelContentReducer,
+    channelContentsHasErrored,
+    channelContentsIsLoading,
+    loginReducer
 
 
 });

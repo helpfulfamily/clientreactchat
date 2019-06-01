@@ -1,9 +1,9 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import ProblemTitleList from "../problem/ProblemTitleList";
-import SolutionTitleList from "../solution/SolutionTitleList";
+import ProblemTitleList from "../channel/ProblemTitleList";
 import {FaQuestionCircle, FaRegLightbulb} from "react-icons/fa";
+import {FaHashtag} from "react-icons/fa/index";
 export default class ProsoTab extends React.Component {
   constructor(props) {
     super(props);
@@ -30,25 +30,16 @@ export default class ProsoTab extends React.Component {
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
             >
-            <FaQuestionCircle/> Problems
+            <FaHashtag/>
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink
-                className={classnames({ active: this.state.activeTab === '2' })}
-                onClick={() => { this.toggle('2'); }}
-            >
-            <FaRegLightbulb/>  Solutions
-            </NavLink>
-          </NavItem>
+
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
              <ProblemTitleList/>
           </TabPane>
-          <TabPane tabId="2">
-            <SolutionTitleList/>
-          </TabPane>
+
         </TabContent>
       </div>
     );

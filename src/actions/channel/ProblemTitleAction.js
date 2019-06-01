@@ -1,33 +1,34 @@
 import axios from "axios";
 
-export function solutionTitleHasErrored(bool) {
+
+export function problemTitleHasErrored(bool) {
     return {
-        type: 'SOLUTION_TITLE_HAS_ERRORED',
+        type: 'PROBLEM_TITLE_HAS_ERRORED',
         hasErrored: bool
     };
 }
 
-export function solutionTitleIsLoading(bool) {
+export function problemTitleIsLoading(bool) {
     return {
-        type: 'SOLUTION_TITLE_IS_LOADING',
+        type: 'PROBLEM_TITLE_IS_LOADING',
         isLoading: bool
     };
 }
 
-export function solutionTitleFetchDataSuccess(solutionTitles) {
+export function problemTitleFetchDataSuccess(problemTitles) {
     return {
-        type: 'SOLUTION_TITLE_FETCH_DATA_SUCCESS',
-        solutionTitles
+        type: 'PROBLEM_TITLE_FETCH_DATA_SUCCESS',
+        problemTitles
     };
 }
-export function publishSolutionSuccess(item) {
+export function publishProblemSuccess(item) {
     return {
-        type: 'PUBLISH_SOLUTION_CONTENT',
+        type: 'PUBLISH_CHANNEL_CONTENT',
         item
     };
 }
 
-export function solutionTitleFetchData(url) {
+export function problemTitleFetchData(url) {
     return (dispatch) => {
       var headers = {
 
@@ -42,40 +43,40 @@ export function solutionTitleFetchData(url) {
                     throw Error(response.statusText);
                 }
                 if(response.data!==""){
-                    dispatch(solutionTitleFetchDataSuccess(response.data))
+                    dispatch(problemTitleFetchDataSuccess(response.data))
                 }
 
             })
             .catch( (error)  => {
-                dispatch(solutionTitleHasErrored(true));
+                dispatch(problemTitleHasErrored(true));
             })
             .then( () =>  {
 
 
-                dispatch(solutionTitleIsLoading(false));
+                dispatch(problemTitleIsLoading(false));
 
             });
     };
 }
 
-export default function dispatcherHaSolutionContent(data, store){
+export default function dispatcherHaProblemContent(data, store){
     data= JSON.parse(data.body);
-    var publishContent= data.headers.publishSolutionContent;
+    var publishChannelContent= data.headers.publishChannelContent;
 
     var action;
 
  
-        switch (publishContent) {
+        switch (publishChannelContent) {
             case 'SUCCESS':{
 
-                action= publishSolutionSuccess(data);
+                action= publishProblemSuccess(data);
             }
         }
        store.dispatch(action);
 
 
 }
-export function publishSolution(url, item, token) {
+export function publishProblem(url, item, token) {
     var bearer=  ' Bearer ' +  token;
     var headers = {
         'Content-Type': 'application/json',
@@ -87,12 +88,12 @@ export function publishSolution(url, item, token) {
 
     axios.post(url, item, {headers: headers})
 
-        .then( (response)  => {
-            if (!response.status) {
-                throw Error(response.statusText);
-            }
+            .then( (response)  => {
+                if (!response.status) {
+                    throw Error(response.statusText);
+                }
 
-        })
+            })
         .catch( (error)  => {
 
         })

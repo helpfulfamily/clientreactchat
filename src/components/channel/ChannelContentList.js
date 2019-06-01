@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    solutionContentsFetchData,
-    solutionContentsAppendList
-} from '../../actions/solution/SolutionContentAction';
-import {ListGroup, ListGroupItem} from 'reactstrap';
+    channelContentsFetchData,
+    channelContentsAppendList
+} from '../../actions/channel/ChannelContentAction';
+import { ListGroup, ListGroupItem} from 'reactstrap';
 import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
-import SolutionContentForm from "./SolutionContentForm";
+import ChannelContentForm from "./ChannelContentForm";
 import defaultavatar from '../user/default-avatar.png';
+
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
-import './solutioncontent.css';
+import './channelcontent.css';
 
 import {
     Row,
     Col } from 'reactstrap';
 import {Link} from "react-router-dom";
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
+import ChannelInfo from "./ChannelInfo";
+
 
 var amount=0;
-class SolutionContentList extends Component {
+
+class ChannelContentList extends Component {
     contentToRender = (html) => {
 
 
@@ -38,38 +42,27 @@ class SolutionContentList extends Component {
 
     componentDidMount() {
 
-        window.addEventListener('scroll', this.onScroll, false);
 
-        this.props.fetchData(properties.solutiontitle_contents+  this.props.match.params.title+ "/"+ amount);
+        this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ amount);
 
 
     }
 
     componentDidUpdate(prevProps) {
 
+        var messageBody = document.querySelector('#messageBody');
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 
         if (prevProps.location.pathname != this.props.location.pathname) {
             amount=0;
-            this.props.fetchData(properties.solutiontitle_contents +  this.props.match.params.title+ "/"+ amount);
+            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ amount);
         }
 
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll, false);
     }
-    onScroll = () => {
-        var totalHeight = document.documentElement.scrollHeight;
-        var clientHeight = document.documentElement.clientHeight;
-        var scrollTop = (document.body && document.body.scrollTop)
-            ? document.body.scrollTop : document.documentElement.scrollTop;
-        if (totalHeight == scrollTop + clientHeight){
-            amount= amount + 10;
-            if (typeof this.props.appendList !== 'undefined'){
-                this.props.appendList(properties.solutiontitle_contents +  this.props.match.params.title+ "/"+ (amount));
 
-            }
-        }
-    }
 
     profilePicture(picture) {
          if(picture===null){
@@ -77,14 +70,16 @@ class SolutionContentList extends Component {
          }
          return picture;
     }
+
     getTransaction(receiver, objectId)
     {
+
 
         var transaction = {
             receiver:{
                 username:  receiver
             },
-            objectType:"SolutionContent",
+            objectType:"ChannelContent",
             objectId:objectId,
             name: decodeURIComponent(this.props.match.params.title)
         }
@@ -101,7 +96,7 @@ class SolutionContentList extends Component {
             console.log("Contents are loading.")
         }
 
-        const list=<ListGroup>
+        const list=<ListGroup className="scrollablediv"  id="messageBody">
 
             {
                 this.props.contents.map((content) => (
@@ -134,6 +129,7 @@ class SolutionContentList extends Component {
                             <Col xs="9">
 
                                 <div className="panel panel-default">
+
                                     <div className="panel-heading"><b>{content.user.username}</b></div>
 
                                     <Editor editorState={this.contentToRender(content.text)}
@@ -141,6 +137,7 @@ class SolutionContentList extends Component {
                                             readOnly={true} toolbarHidden={true} />
 
                                     <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)} currentThankAmount={content.currentThankAmount}/>
+
                                 </div>
 
 
@@ -148,24 +145,25 @@ class SolutionContentList extends Component {
                         </Row>
 
                     </ListGroupItem>
+
+
                 ))}
         </ListGroup>;
 
         return (
             <div>
-
+                <ChannelInfo channel={decodeURIComponent(this.props.match.params.title)}/>
                 <b>  {decodeURIComponent(this.props.match.params.title)} </b>
-                <SolutionContentForm solutionTitle={this.props.match.params.title}/>
 
                 {list}
-
+                <ChannelContentForm channelName={this.props.match.params.title}/>
 
             </div>
         );
     }
 }
 
-SolutionContentList.propTypes = {
+ChannelContentList.propTypes = {
     appendList: PropTypes.func.isRequired,
     fetchData: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
@@ -175,18 +173,19 @@ SolutionContentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        contents: state.solutionContents,
-        hasErrored: state.solutionContentsHasErrored,
-        isLoading: state.solutionContentsIsLoading
+
+        contents: state.channelContents,
+        hasErrored: state.channelContentsHasErrored,
+        isLoading: state.channelContentsIsLoading
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(solutionContentsFetchData(url)),
-        appendList: (url) => dispatch(solutionContentsAppendList(url))
+        fetchData: (url) => dispatch(channelContentsFetchData(url)),
+        appendList: (url) => dispatch(channelContentsAppendList(url))
 
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SolutionContentList);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelContentList);

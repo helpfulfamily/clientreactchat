@@ -9,12 +9,7 @@ export function transactionProblemContent(transaction) {
     };
 }
 
-export function transactionSolutionContent(transaction) {
-    return {
-        type: 'TRANSACTION_SOLUTION_CONTENT',
-        transaction
-    };
-}
+
 
 export function transactionProblemTitle(transaction) {
     return {
@@ -22,18 +17,8 @@ export function transactionProblemTitle(transaction) {
         transaction
     };
 }
-export function transactionSolutionTitle(transaction) {
-    return {
-        type: 'TRANSACTION_SOLUTION_TITLE',
-        transaction
-    };
-}
-export function transactionChannel(transaction) {
-    return {
-        type: 'TRANSACTION_CHANNEL',
-        transaction
-    };
-}
+
+
 export default function dispatcherTransaction(data, store){
 
 
@@ -54,28 +39,15 @@ export default function dispatcherTransaction(data, store){
 
                 break;
             }
-            case 'SolutionContent':{
 
-                action= transactionSolutionContent(transaction);
-
-                break;
-            }
             case 'ProblemTitle':{
 
                   action= transactionProblemTitle(transaction);
                 break;
             }
 
-            case 'SolutionTitle':{
 
-                action= transactionSolutionTitle(transaction);
-                break;
-            }
-            case 'Channel':{
 
-                action= transactionChannel(transaction);
-                break;
-            }
         }
 
     getLoginUser().then( (loginUser) => loginPromiseResolved(loginUser, store, notificationMessage, transaction))
@@ -127,20 +99,7 @@ function  loginPromiseResolved(loginUser, store, notificationMessage, transactio
             }
             break;
         }
-        case 'SolutionContent':{
 
-            if(bothSenderAndReceiver){
-                notificationMessage= "You support and prioritise your own answer using 1 Thankcoin";
-            }else if(isSender){
-                notificationMessage= "You support and prioritise answer of " +receiverUsername +  " using 1 Thankcoin";
-            }else if(isReceiver){
-                notificationMessage= senderUsername + " support and prioritise your answer using 1 Thankcoin";
-
-            }
-
-
-            break;
-        }
         case 'ProblemTitle':{
             if(bothSenderAndReceiver){
                 notificationMessage= "You support and prioritise your own Problem Title using 1 Thankcoin";
@@ -154,25 +113,7 @@ function  loginPromiseResolved(loginUser, store, notificationMessage, transactio
             break;
         }
 
-        case 'SolutionTitle':{
-            if(bothSenderAndReceiver){
-                notificationMessage= "You support and prioritise your own Solution Title using 1 Thankcoin";
-            }else if(isSender){
-                notificationMessage= "You support and prioritise Solution Title of " +receiverUsername +  " using 1 Thankcoin";
-            }else if(isReceiver){
-                notificationMessage= senderUsername + " support and prioritise your Solution Title using 1 Thankcoin";
 
-            }
-
-            break;
-        }
-        case 'Channel':{
-
-             notificationMessage= "You support and prioritise this channel using 1 Thankcoin";
-
-
-            break;
-        }
     }
     var image= transaction.receiver.profilePhotoUrl;
     if(image==null){

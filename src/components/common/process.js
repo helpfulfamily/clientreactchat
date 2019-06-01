@@ -1,6 +1,7 @@
 import axios from "axios";
 import { properties } from '../../config/properties.js';
 
+
 export function sendObservationRequestSignal(keycloak, observation)
 {
     getToken(keycloak).then( (token) => startObservationRequestSignal(token, observation))

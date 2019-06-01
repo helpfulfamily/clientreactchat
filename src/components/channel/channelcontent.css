@@ -24,3 +24,7 @@
     width:81px;
 
 }
+.scrollablediv {
+    height:360px;
+    overflow-y: scroll;
+}
