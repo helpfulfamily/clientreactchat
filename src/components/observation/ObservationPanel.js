@@ -101,7 +101,7 @@ class ObservationPanel extends Component {
     }
 
     render() {
-        var contextChannelNotExist = "";
+        var contextChannelNotExist = "st";
         if(typeof this.props.loginUser.sso !=="undefined"){
 
             contextChannelNotExist = <span>
