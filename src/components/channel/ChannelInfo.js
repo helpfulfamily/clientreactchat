@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 
 
 
- class ChannelInfo extends Component {
+class ChannelInfo extends Component {
 
 
 
@@ -18,7 +18,7 @@ import {connect} from "react-redux";
     render() {
         var divContext="";
         if(typeof  this.props.channel !== "undefined"){
-              divContext=   <ObservationPanel   channel={this.props.channel} />;
+            divContext=   <ObservationPanel channelName={this.props.channelName}  channel={this.props.channel} />;
         }
 
         return (
@@ -33,12 +33,12 @@ import {connect} from "react-redux";
 }
 
 ChannelInfo.propTypes = {
-
+    channel: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-
+        channel: state.channel
     };
 };
 

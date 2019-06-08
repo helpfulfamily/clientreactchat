@@ -3,6 +3,7 @@ import * as Stomp from 'stompjs';
 import { properties } from '../config/properties.js';
 import dispatcherHaProblemContent from './channel/ProblemTitleAction';
 import dispatcherTransaction from './thankcoin/ThankcoinAction';
+import { dispacherChannel } from './channel/ChannelAction';
 
 import { store } from '../App'
 var stompClient = null;
@@ -19,7 +20,9 @@ export default function connect(username) {
             dispatcherTransaction(notification, store)
         });
 
-
+        stompClient.subscribe('/topic/pushNotificationChannel', function (notification) {
+            dispacherChannel(notification, store)
+        });
     });
 
 }

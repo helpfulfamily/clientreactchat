@@ -152,7 +152,7 @@ class ChannelContentList extends Component {
 
         return (
             <div>
-                <ChannelInfo channel={decodeURIComponent(this.props.match.params.title)}/>
+                <ChannelInfo channelName={decodeURIComponent(this.props.match.params.title)}/>
                 <b>  {decodeURIComponent(this.props.match.params.title)} </b>
 
                 {list}
