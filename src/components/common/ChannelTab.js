@@ -1,10 +1,9 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import ProblemTitleList from "../channel/ProblemTitleList";
-import {FaQuestionCircle, FaRegLightbulb} from "react-icons/fa";
+import ChannelNameList from "../channel/ChannelNameList";
 import {FaHashtag} from "react-icons/fa/index";
-export default class ProsoTab extends React.Component {
+export default class ChannelTab extends React.Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +36,7 @@ export default class ProsoTab extends React.Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-             <ProblemTitleList/>
+             <ChannelNameList/>
           </TabPane>
 
         </TabContent>
