@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {problemTitleFetchData} from '../../actions/channel/ProblemTitleAction';
 import {Link} from 'react-router-dom';
 import {ListGroup, ListGroupItem} from 'reactstrap';
-import {properties} from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
@@ -11,7 +10,7 @@ import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
 var amount = 30;
 
-class ProblemTitleList extends Component {
+class ChannelNameList extends Component {
 
     componentDidMount() {
 
@@ -42,6 +41,7 @@ class ProblemTitleList extends Component {
             return <p>Loading…</p>;
         }
         var list = "";
+        var infiniteList="";
         if (typeof this.props.loginUser !== "undefined" && typeof this.props.loginUser.channels !== "undefined" && this.props.loginUser.channels.length > 0) {
             list = <ListGroup className="problemtitle">
                 {this.props.loginUser.channels.map((item, index) => (
@@ -57,6 +57,17 @@ class ProblemTitleList extends Component {
                     </ListGroupItem>
                 ))}
             </ListGroup>;
+
+
+            infiniteList=  <InfiniteScroll
+                dataLength={this.props.loginUser.channels.length}
+                next={this.fetchMoreData}
+                hasMore={true}
+                loader={<br/>}
+                scrollableTarget="scrollableDiv"
+            >
+                {list}
+            </InfiniteScroll>;
         }
 
         return (
@@ -64,22 +75,14 @@ class ProblemTitleList extends Component {
 
                 <div id="scrollableDiv" style={{height: 700, overflow: "auto"}}>
 
-                    <InfiniteScroll
-                        dataLength={this.props.problemTitles.length}
-                        next={this.fetchMoreData}
-                        hasMore={true}
-                        loader={<br/>}
-                        scrollableTarget="scrollableDiv"
-                    >
-                        {list}
-                    </InfiniteScroll>
+                    {infiniteList}
                 </div>
             </div>
         );
     }
 }
 
-ProblemTitleList.propTypes = {
+ChannelNameList.propTypes = {
 
     fetchData: PropTypes.func.isRequired,
     problemTitles: PropTypes.array.isRequired,
@@ -108,4 +111,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProblemTitleList);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelNameList);

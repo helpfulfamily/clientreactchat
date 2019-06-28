@@ -9,7 +9,7 @@ import {channelGetByName} from '../../actions/channel/ChannelAction';
 
 import Responsive from 'react-responsive';
 
-import ProsoTab from "./ProsoTab";
+import ChannelTab from "./ChannelTab";
 import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
@@ -59,7 +59,7 @@ class Proso extends Component {
 
                 <Desktop>
                     <Row>
-                        <Col xs="6" sm="3"> <ProsoTab/> </Col>
+                        <Col xs="6" sm="3"> <ChannelTab/> </Col>
                         <Col xs="6" sm="6">
                             <Switch>
                               <Route exact path="/channelcontents/:title" component={ChannelContentList} />
