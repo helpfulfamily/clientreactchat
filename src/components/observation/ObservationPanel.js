@@ -16,17 +16,19 @@ import {createChannel}  from "../../actions/channel/ChannelAction";
 class ObservationPanel extends Component {
     constructor(props) {
         super(props);
-        this.state = {isAlreadyMember: ""};
+        this.state = {isAlreadyObserved: ""};
     }
-
+    componentDidMount() {
+       this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channelName)});
+    }
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (typeof this.props.channel !== "undefined" && typeof prevProps.channel !== "undefined" && this.props.channel !== prevProps.channel) {
-            this.setState({isAlreadyMember: this.isAlreadyMember(this.props.channel)});
+        if (this.props.channelName !== prevProps.channelName) {
+            this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channelName)});
         }
     }
 
-    isAlreadyMember(channelProp) {
+    isAlreadyObserved(channelName) {
         var returnValue = false;
         if (typeof this.props.loginUser !== "undefined") {
             var channels = this.props.loginUser.channels;
@@ -38,8 +40,7 @@ class ObservationPanel extends Component {
                 try {
                     channels.forEach(function (channel) {
                         var name = channel.name;
-                        if (typeof channelProp !== "undefined"
-                            && channelProp.name == name) {
+                        if (channelName == name) {
                             throw BreakException;
                         }
 
@@ -101,7 +102,7 @@ class ObservationPanel extends Component {
     }
 
     render() {
-        var contextChannelNotExist = "st";
+        var contextChannelNotExist = "";
         if(typeof this.props.loginUser.sso !=="undefined"){
 
             contextChannelNotExist = <span>
@@ -110,19 +111,29 @@ class ObservationPanel extends Component {
         }
 
         var context = "";
+
+        //TODO: If channel has no user as the creator of this channel;
+        // we will suppose that this channel has not created yet.
+
         if (typeof this.props.channel.user == "undefined") {
             context= contextChannelNotExist;
 
         } else {
 
             context = <span>  <FaEye/> {this.props.channel.currentObserverAmount} Observer(s)</span>;
-            var buttonContext = <Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, true)}>
-                <FaEye/> Observe </Button>;
 
-            if (this.state.isAlreadyMember) {
-                buttonContext = <Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, false)}>
-                    <FaEye/> Unobserve </Button>
+            var observeOrUnobserve="";
+
+            if (this.state.isAlreadyObserved) {
+                observeOrUnobserve=  <span><FaEye/> Unobserve</span>;
+
+            }else{
+                observeOrUnobserve =  <span><FaEye/> Observe</span>;
             }
+
+            var buttonContext =<Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, false)}> {observeOrUnobserve} </Button>;
+
+
 
             if (typeof this.props.loginUser.sso !== "undefined") {
                 context = <Row>
