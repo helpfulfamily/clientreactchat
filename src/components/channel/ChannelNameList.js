@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {problemTitleFetchData} from '../../actions/channel/ProblemTitleAction';
 import {Link} from 'react-router-dom';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import PropTypes from 'prop-types'
@@ -8,7 +7,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
-var amount = 30;
 
 class ChannelNameList extends Component {
 
@@ -42,7 +40,9 @@ class ChannelNameList extends Component {
         }
         var list = "";
         var infiniteList="";
-        if (typeof this.props.loginUser !== "undefined" && typeof this.props.loginUser.channels !== "undefined" && this.props.loginUser.channels.length > 0) {
+        if (typeof this.props.loginUser !== "undefined"
+                            && typeof this.props.loginUser.channels !== "undefined"
+                            && this.props.loginUser.channels.length > 0) {
             list = <ListGroup className="problemtitle">
                 {this.props.loginUser.channels.map((item, index) => (
                     <ListGroupItem key={item.id}> <Link to={{
@@ -83,32 +83,14 @@ class ChannelNameList extends Component {
 }
 
 ChannelNameList.propTypes = {
-
-    fetchData: PropTypes.func.isRequired,
-    problemTitles: PropTypes.array.isRequired,
-    hasErrored: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
     return {
-        problemTitles: state.problemTitles,
-        hasErrored: state.problemTitleHasErrored,
-        isLoading: state.problemTitleIsLoading,
         loginUser: state.loginReducer
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-
-        fetchData: (url) => {
-            console.log(url);
-            dispatch(problemTitleFetchData(url))
-        },
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelNameList);
+export default connect(mapStateToProps, {
+} )(ChannelNameList);

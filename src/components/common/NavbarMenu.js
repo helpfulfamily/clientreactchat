@@ -1,10 +1,13 @@
 import React from 'react';
-import {Navbar, NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu} from 'reactstrap';
+import {
+    Navbar, NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu, ListGroupItem
+} from 'reactstrap';
 import connectWebSocket from '../../actions/websocket';
 import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import {connect} from "react-redux";
 import { loginActionDispatcher } from '../../actions/sso';
@@ -37,8 +40,16 @@ class NavbarMenu extends React.Component {
         };
         this.toggle = this.toggle.bind(this);
 
-         this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
+        this.toggleProblemTitle = this.toggleProblemTitle.bind(this);
+
+        this.setCurrentPath = this.setCurrentPath.bind(this);
      }
+    setCurrentPath(event){
+        this.setState({
+            currentPath: event.target.value
+        });
+
+    }
 
     toggleProblemTitle() {
         this.setState(prevState => ({
@@ -158,6 +169,14 @@ class NavbarMenu extends React.Component {
                               <ModalExample buttonLabel="Problems"/>
                           </Nav>
                       </Tablet>
+                      <input type="text" value={this.state.currentPath} onChange={this.setCurrentPath} />
+
+
+                          <Link to={{
+                              pathname:  "/channelcontents/" + this.state.currentPath,
+
+                          }}> Join</Link>
+
                       {this.navContent}
                   </Collapse>
               </Navbar>
