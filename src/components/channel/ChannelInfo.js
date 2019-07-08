@@ -16,15 +16,12 @@ class ChannelInfo extends Component {
 
 
     render() {
-        var divContext="";
-        if(typeof  this.props.channel !== "undefined"){
-            divContext=   <ObservationPanel channelName={this.props.channelName}  channel={this.props.channel} />;
-        }
+
 
         return (
             <div>
 
-                {divContext}
+                <ObservationPanel/>
 
 
             </div>

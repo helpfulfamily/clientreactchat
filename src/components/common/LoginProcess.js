@@ -4,24 +4,27 @@ const keycloak = Keycloak('/keycloak.json');
 
 export  function getLoginUser() {
  return   new Promise(function(resolve, reject) {
+// load previous tokens, saved after successful login of keycloak success callback
+     const token = localStorage.getItem('kc_token');
+     const refreshToken = localStorage.getItem('kc_refreshToken');
 
      var returnValue=null;
-     var initOptions = {
-         responseMode: 'fragment',
-         flow: 'standard',
-         onLoad: 'check-sso'
-     };
-     keycloak.init(initOptions).success((authenticated) => {
+
+     keycloak.init({ onLoad: 'check-sso', token, refreshToken }).success((authenticated) => {
 
          var username="";
-         if(typeof keycloak.idTokenParsed !=="undefined"){
-             username= keycloak.idTokenParsed.preferred_username;
+         if(typeof keycloak.tokenParsed !=="undefined"){
+             username= keycloak.tokenParsed.preferred_username;
 
              var sso = {isAuthenticated: authenticated, username: username, keycloak: keycloak }
              returnValue = {"sso": sso};
+             localStorage.setItem('kc_token', keycloak.token);
+             localStorage.setItem('kc_refreshToken', keycloak.refreshToken);
+             localStorage.setItem('keycloakStorage',JSON.stringify(keycloak));
+             resolve(returnValue);
          }
 
-         resolve(returnValue);
+
      }).error(function () {
          reject("error");
      });

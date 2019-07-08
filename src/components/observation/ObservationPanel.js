@@ -19,12 +19,12 @@ class ObservationPanel extends Component {
         this.state = {isAlreadyObserved: ""};
     }
     componentDidMount() {
-       this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channelName)});
+       this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channel.name)});
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (this.props.channelName !== prevProps.channelName) {
-            this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channelName)});
+        if (this.props.channel.name !== prevProps.channel.name) {
+            this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channel.name)});
         }
     }
 
@@ -106,7 +106,7 @@ class ObservationPanel extends Component {
         if(typeof this.props.loginUser.sso !=="undefined"){
 
             contextChannelNotExist = <span>
-                       There is no channel named: {this.props.channelName}
+                       There is no channel named: {this.props.channel.name}
                 <Button color="primary"  onClick={(e) => this.createChannel(e)}>Create </Button></span>;
         }
 
@@ -115,10 +115,8 @@ class ObservationPanel extends Component {
         //TODO: If channel has no user as the creator of this channel;
         // we will suppose that this channel has not created yet.
 
-        if (typeof this.props.channel.user == "undefined") {
-            context= contextChannelNotExist;
+        if (typeof this.props.channel.user != "undefined" && this.props.channel.user!=null ) {
 
-        } else {
 
             context = <span>  <FaEye/> {this.props.channel.currentObserverAmount} Observer(s)</span>;
 
@@ -150,6 +148,10 @@ class ObservationPanel extends Component {
 
             }
 
+        }else {
+
+            context= contextChannelNotExist;
+
         }
         return (
             <div>
@@ -164,13 +166,15 @@ class ObservationPanel extends Component {
 }
 
 ObservationPanel.propTypes = {
-    loginUser: PropTypes.object.isRequired
+    loginUser: PropTypes.object.isRequired,
+    channel: PropTypes.object.isRequired
+
 };
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer
-
+        loginUser: state.loginReducer,
+        channel: state.channel
     };
 };
 
