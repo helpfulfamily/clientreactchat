@@ -44,9 +44,8 @@ export function channelGetByName(url) {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-                if(response.data!==""){
-                    dispatch(channelChanged(response.data))
-                }
+                     dispatch(channelChanged(response.data))
+
 
             })
             .catch( (error)  => {
