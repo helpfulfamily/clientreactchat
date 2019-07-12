@@ -23,14 +23,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         channelName = this.props.match.params[0];
-        if (typeof channelName!=="undefined" && channelName.includes("channelcontents/")) {
-            channelName = channelName.replace("channelcontents/", "");
-
-            this.props.channelChanged(properties.channel_by_name+ "/" +channelName);
-
-        } else {
-            channelName = "";
-        }
+        this.getChannelProcess(channelName);
     }
 
 
@@ -39,18 +32,25 @@ class Home extends Component {
 
         if (prevProps.match.params[0] !=  this.props.match.params[0]) {
             channelName = this.props.match.params[0];
+            this.getChannelProcess(channelName);
+        }
+
+    }
+    getChannelProcess(channelName)
+    {
+
+
             if (channelName.includes("channelcontents/")) {
                 channelName = channelName.replace("channelcontents/", "");
 
-                this.props.channelChanged(properties.channel_by_name+ "/" +channelName);
+                this.props.channelChanged(properties.channel_by_name+ "/", channelName);
 
             } else {
                 channelName = "";
             }
-        }
+
 
     }
-
     render() {
 
 
@@ -90,8 +90,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        channelChanged: (url) => {
-            dispatch(channelGetByName(url))
+        channelChanged: (url, channelName) => {
+            dispatch(channelGetByName(url, channelName))
         }
 
     };

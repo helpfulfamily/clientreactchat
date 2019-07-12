@@ -23,9 +23,12 @@ class ObservationPanel extends Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (this.props.channel.name !== prevProps.channel.name) {
-            this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channel.name)});
-        }
+       if((this.props.channel.name !== prevProps.channel.name) || (this.props.loginUser !== prevProps.loginUser)){
+           this.setState({isAlreadyObserved: this.isAlreadyObserved(this.props.channel.name)});
+
+       }
+
+
     }
 
     isAlreadyObserved(channelName) {
@@ -94,7 +97,7 @@ class ObservationPanel extends Component {
 
 
         var channel = {
-            "name": this.props.channelName,
+            "name": this.props.channel.name,
         }
 
 
@@ -121,15 +124,16 @@ class ObservationPanel extends Component {
             context = <span>  <FaEye/> {this.props.channel.currentObserverAmount} Observer(s)</span>;
 
             var observeOrUnobserve="";
-
+            var isObserve = false;
             if (this.state.isAlreadyObserved) {
                 observeOrUnobserve=  <span><FaEye/> Unobserve</span>;
 
             }else{
                 observeOrUnobserve =  <span><FaEye/> Observe</span>;
+                isObserve = true;
             }
 
-            var buttonContext =<Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, false)}> {observeOrUnobserve} </Button>;
+            var buttonContext =<Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, isObserve)}> {observeOrUnobserve} </Button>;
 
 
 

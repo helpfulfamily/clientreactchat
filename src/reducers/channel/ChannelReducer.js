@@ -19,12 +19,17 @@ export function channelIsLoading(state = false, action) {
 }
 export function channel(state = {}, action) {
     switch (action.type) {
+        case 'CHANNEL_CREATED':
+            return action.channel;
         case 'CHANNEL_CHANGED':
             return action.channel;
         case 'OBSERVATION_CHANNEL':
-            var observation= action.observaton;
+            var observation= action.observation;
             var currentObserverAmount= observation.currentObserverAmount;
             state.currentObserverAmount= currentObserverAmount;
+ 
+
+
             return { ...state };
         default:
             return state;

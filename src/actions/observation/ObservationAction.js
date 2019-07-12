@@ -2,19 +2,19 @@ import {notify} from 'reapop';
 import {getLoginUser} from "../../components/common/LoginProcess";
 
 
-export function observationChannel(observaton) {
+export function observationChannel(observation) {
     return {
         type: 'OBSERVATION_CHANNEL',
-        observaton
+        observation
     };
 }
 export default function dispatcherObservation(data, store){
 
 
-    var observaton=JSON.parse(data.body);
-    observaton= observaton.payload;
+    var observation=JSON.parse(data.body);
+    observation= observation.payload;
 
-    var objectType=observaton.objectType;
+    var objectType=observation.objectType;
 
     var action;
     var notificationMessage="";
@@ -24,12 +24,12 @@ export default function dispatcherObservation(data, store){
         switch (objectType) {
             case 'Channel':{
 
-                action= observationChannel(observaton);
+                action= observationChannel(observation);
                 break;
             }
         }
 
-    getLoginUser().then( (loginUser) => loginPromiseResolved(loginUser, store, notificationMessage, observaton))
+    getLoginUser().then( (loginUser) => loginPromiseResolved(loginUser, store, notificationMessage, observation))
         .catch(function(hata){
 
         console.log(hata)
