@@ -1,6 +1,7 @@
 import axios from "axios";
 import {notify} from "reapop";
 import defaultavatar from "../../components/user/default-avatar.png";
+import {observationChannel} from "../observation/ObservationAction";
 
 
 export function channelHasErrored(bool) {
@@ -29,8 +30,14 @@ export function channelChanged(channel) {
         channel
     };
 }
+export function channelCreated(channel) {
+    return {
+        type: 'CHANNEL_CREATED',
+        channel
+    };
+}
 
-export function channelGetByName(url) {
+export function channelGetByName(url, channelName) {
     return (dispatch) => {
         var headers = {
 
@@ -38,13 +45,19 @@ export function channelGetByName(url) {
 
         }
 
-        axios.get(url, {headers: headers, params: { }})
+        axios.get(url+channelName, {headers: headers, params: { }})
 
             .then( (response)  => {
                 if (!response.status) {
                     throw Error(response.statusText);
                 }
-                     dispatch(channelChanged(response.data))
+                if(response.data==""){
+                    dispatch(channelChanged({name:channelName}))
+
+                }else{
+                    dispatch(channelChanged(response.data))
+                }
+
 
 
             })
@@ -140,6 +153,9 @@ export   function dispacherChannel(data, store){
         } ],
         allowHTML: true
     }));
+
+    var action= channelCreated(payload);
+    store.dispatch(action)
 
 
 }
