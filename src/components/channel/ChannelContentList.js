@@ -21,7 +21,7 @@ import {
     Col } from 'reactstrap';
 import {Link} from "react-router-dom";
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
-import ChannelInfo from "./ChannelInfo";
+import ObservationPanel from "../observation/ObservationPanel";
 
 
 var amount=0;
@@ -152,7 +152,7 @@ class ChannelContentList extends Component {
 
         return (
             <div>
-                <ChannelInfo channelName={decodeURIComponent(this.props.match.params.title)}/>
+                <ObservationPanel/>
                 <b>  {decodeURIComponent(this.props.match.params.title)} </b>
 
                 {list}
