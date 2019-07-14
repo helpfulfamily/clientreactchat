@@ -24,9 +24,18 @@ import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 import ObservationPanel from "../observation/ObservationPanel";
 
 
-var amount=0;
-
+var pageNumber=0;
+var isScrollBottom=false;
 class ChannelContentList extends Component {
+
+
+
+    constructor(props) {
+        super(props);
+
+        this.listenScrollEvent = this.listenScrollEvent.bind(this);
+    }
+
     contentToRender = (html) => {
 
 
@@ -42,25 +51,53 @@ class ChannelContentList extends Component {
 
     componentDidMount() {
 
+        var messageBody = document.querySelector('#messageBody');
+        this.buttomLength= messageBody.scrollHeight - messageBody.clientHeight;
 
-        this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ amount);
+        this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
 
 
     }
+    listenScrollEvent() {
+
+        var messageBody = document.querySelector('#messageBody');
+
+        var scrollBottonPos= messageBody.scrollHeight - messageBody.clientHeight;
+        if(messageBody.scrollTop< scrollBottonPos){
+            isScrollBottom=false;
+
+        } else if(messageBody.scrollTop == scrollBottonPos){
+            isScrollBottom=true;
+
+        }
+
+        if(messageBody.scrollTop==0){
+
+            pageNumber=pageNumber+1;
+            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+        }
+
+
+    }
+
 
     componentDidUpdate(prevProps) {
 
         var messageBody = document.querySelector('#messageBody');
-        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 
-        if (prevProps.location.pathname != this.props.location.pathname) {
-            amount=0;
-            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ amount);
+
+        if (isScrollBottom &&  prevProps.contents.length !=  this.props.contents.length) {
+
+
+                messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+
         }
 
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll, false);
+        if (prevProps.location.pathname != this.props.location.pathname) {
+            pageNumber=0;
+            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+        }
+
     }
 
 
@@ -96,7 +133,7 @@ class ChannelContentList extends Component {
             console.log("Contents are loading.")
         }
 
-        const list=<ListGroup className="scrollablediv"  id="messageBody">
+        const list=<ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
 
             {
                 this.props.contents.map((content) => (
