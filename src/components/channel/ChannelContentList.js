@@ -51,11 +51,8 @@ class ChannelContentList extends Component {
 
     componentDidMount() {
 
-        var messageBody = document.querySelector('#messageBody');
-        this.buttomLength= messageBody.scrollHeight - messageBody.clientHeight;
-
         this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
-
+        this.toBottom();
 
     }
     listenScrollEvent() {
@@ -74,7 +71,7 @@ class ChannelContentList extends Component {
         if(messageBody.scrollTop==0){
 
             pageNumber=pageNumber+1;
-            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+            this.props.appendList(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
         }
 
 
@@ -82,24 +79,30 @@ class ChannelContentList extends Component {
 
 
     componentDidUpdate(prevProps) {
-
         var messageBody = document.querySelector('#messageBody');
 
 
         if (isScrollBottom &&  prevProps.contents.length !=  this.props.contents.length) {
 
-
-                messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
-
+            this.toBottom();
         }
 
         if (prevProps.location.pathname != this.props.location.pathname) {
             pageNumber=0;
             this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+            this.toBottom()
+
         }
 
     }
 
+
+
+   toBottom(){
+       var messageBody = document.querySelector('#messageBody');
+
+       messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+   }
 
     profilePicture(picture) {
          if(picture===null){
