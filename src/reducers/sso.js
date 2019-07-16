@@ -11,6 +11,36 @@ export function loginReducer(userState = {}, action) {
 
             return { ...userState };
 
+        case 'TRANSACTION_CHANNEL':{
+
+
+            var user= userState;
+
+            if (typeof  user.channels == 'undefined'){
+                user.channels={};
+            }
+
+
+            var transaction= action.transaction;
+
+            var index=-1;
+            const channel =
+                user.channels.find(function(channel) {
+
+                    if(channel.id === transaction.objectId){
+                        index = user.channels.indexOf(channel);
+                        return channel;
+                    }
+                });
+            if(index>-1){
+                channel.currentThankAmount = transaction.lastThankAmountObject;
+                user.channels[index] = channel;
+            }
+
+            return {...user};
+
+        }
+
         case 'OBSERVATION_CHANNEL':
 
                 var user= userState;

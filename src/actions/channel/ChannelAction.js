@@ -133,7 +133,7 @@ export function createChannel(url, item, token) {
 
 
 }
-export   function dispacherChannel(data, store){
+export   function dispatcherChannel(data, store){
     console.log(data);
     var body=  JSON.parse(data.body);
     var payload= body.payload;
