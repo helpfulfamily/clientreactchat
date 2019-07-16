@@ -42,27 +42,7 @@ export function channelReducer(state = [], action) {
             return action.channels;
 
         }
-       case 'TRANSACTION_CHANNEL':{
 
-           var transaction= action.transaction;
-
-               var index=-1;
-               const title =
-                   state.find(function(title) {
-
-                       if(title.id === transaction.objectId){
-                           index = state.indexOf(title);
-                           return title;
-                       }
-                   });
-               if(index>-1){
-                   title.currentThankAmount = transaction.lastThankAmountObject;
-                   state[index] = title;
-               }
-
-            return [...state];
-
-       }
         default:
             return state;
     }

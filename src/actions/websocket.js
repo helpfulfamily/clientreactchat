@@ -3,7 +3,7 @@ import * as Stomp from 'stompjs';
 import { properties } from '../config/properties.js';
 import dispatcherHaProblemContent from './channel/ProblemTitleAction';
 import dispatcherTransaction from './thankcoin/ThankcoinAction';
-import { dispacherChannel } from './channel/ChannelAction';
+import { dispatcherChannel } from './channel/ChannelAction';
 import dispatcherObservation from "./observation/ObservationAction";
 import { store } from '../App'
 var stompClient = null;
@@ -21,7 +21,7 @@ export default function connect(username) {
         });
 
         stompClient.subscribe('/topic/pushNotificationChannel', function (notification) {
-            dispacherChannel(notification, store)
+            dispatcherChannel(notification, store)
         });
         if(typeof username!=="undefined" && username.length>0){
             stompClient.subscribe("/user/" + username+ "/queue/sendObservationRequestSignal", function (notification) {

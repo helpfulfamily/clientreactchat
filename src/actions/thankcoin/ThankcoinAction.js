@@ -2,18 +2,13 @@ import {notify} from 'reapop';
 import {getLoginUser} from "../../components/common/LoginProcess";
 import defaultavatar  from  "../../components/user/default-avatar.png";
 
-export function transactionProblemContent(transaction) {
+ 
+
+
+
+export function transactionChannel(transaction) {
     return {
-        type: 'TRANSACTION_PROBLEM_CONTENT',
-        transaction
-    };
-}
-
-
-
-export function transactionProblemTitle(transaction) {
-    return {
-        type: 'TRANSACTION_PROBLEM_TITLE',
+        type: 'TRANSACTION_CHANNEL',
         transaction
     };
 }
@@ -33,16 +28,10 @@ export default function dispatcherTransaction(data, store){
 
 
         switch (objectType) {
-            case 'ProblemContent':{
 
-                action= transactionProblemContent(transaction);
+            case 'Channel':{
 
-                break;
-            }
-
-            case 'ProblemTitle':{
-
-                  action= transactionProblemTitle(transaction);
+                  action= transactionChannel(transaction);
                 break;
             }
 
