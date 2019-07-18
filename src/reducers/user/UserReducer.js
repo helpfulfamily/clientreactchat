@@ -8,6 +8,15 @@ export function userHasErrored(state = false, action) {
     }
 }
 
+export function  userListArrived(state = [], action)  {
+    switch (action.type) {
+        case 'USER_LIST_ARRIVED':
+            return action.userList;
+
+        default:
+            return state;
+    }
+}
 export function userIsLoading(state = false, action) {
     switch (action.type) {
         case 'USER_IS_LOADING':

@@ -9,6 +9,7 @@ import {Route, Switch} from "react-router-dom";
 import Responsive from 'react-responsive';
 
 import ChannelTab from "./ChannelTab";
+import OnlineUserList from "../user/OnlineUserList";
 
  const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -32,12 +33,13 @@ export default class Proso extends Component {
 
                 <Desktop>
                     <Row>
-                        <Col xs="6" sm="3"> <ChannelTab/> </Col>
-                        <Col xs="6" sm="6">
-                            <Switch>
-                              <Route exact path="/channelcontents/:title" component={ChannelContentList} />
-                            </Switch>
-                        </Col>
+                            <Col xs="6" sm="3"> <ChannelTab/> </Col>
+                            <Col xs="6" sm="6">
+                                <Switch>
+                                    <Route exact path="/channelcontents/:title" component={ChannelContentList} />
+                                </Switch>
+                            </Col>
+                            <Col xs="6" sm="3"> <OnlineUserList/> </Col>
 
                      </Row>
                 </Desktop>
