@@ -1,6 +1,13 @@
 import axios from "axios";
 
 
+export function  userListArrived(userList) {
+    return {
+        type: 'USER_LIST_ARRIVED',
+        userList: userList
+    };
+}
+
 export function  userHasErrored(bool) {
     return {
         type: 'USER_HAS_ERRORED',
@@ -52,4 +59,18 @@ export function userFetchData(url) {
 
             });
     };
+}
+
+export   function dispatcherUserList(data, store){
+    console.log(data);
+    var body=  JSON.parse(data.body);
+    var payload= body.payload;
+
+
+         var action= userListArrived(payload);
+        store.dispatch(action)
+
+
+
+
 }

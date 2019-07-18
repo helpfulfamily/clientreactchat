@@ -6,7 +6,8 @@ import dispatcherTransaction from './thankcoin/ThankcoinAction';
 import { dispatcherChannel } from './channel/ChannelAction';
 import dispatcherObservation from "./observation/ObservationAction";
 import { store } from '../App'
-var stompClient = null;
+import {dispatcherUserList} from "./user/UserAction";
+ var stompClient = null;
 export default function connect(username) {
     var socket = new SockJS(properties.notificationUrl);
     stompClient = Stomp.over(socket);
@@ -23,6 +24,12 @@ export default function connect(username) {
         stompClient.subscribe('/topic/pushNotificationChannel', function (notification) {
             dispatcherChannel(notification, store)
         });
+        stompClient.subscribe('/topic/pushNotificationUserLoggedIn', function (userList) {
+            dispatcherUserList(userList, store);
+
+        });
+
+
         if(typeof username!=="undefined" && username.length>0){
             stompClient.subscribe("/user/" + username+ "/queue/sendObservationRequestSignal", function (notification) {
                 dispatcherObservation(notification, store)

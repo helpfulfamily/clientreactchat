@@ -36,12 +36,35 @@ export function loginActionDispatcher(loginUser) {
                 }
 
                 dispatch(loginAction(loginUser));
+
+                userLoggedIn(loginUser.sso.username);
+
+
             })
             .catch( (error)  => {
 
             });
 
     };
+    function userLoggedIn(username){
+        var headers = {
+
+            'Content-Type': 'application/json',
+
+        }
+
+        var url= properties.serverUrl+ properties.user+ "/userLoggedIn/" +username;
+
+        axios.get(url,{headers: headers})
+            .then( (response) =>  {
+
+            })
+            .catch( (error)  => {
+
+            });
+
+
+    }
     function createUser(user){
         var headers = {
 
