@@ -45,10 +45,7 @@ class Home extends Component {
 
                 this.props.channelChanged(properties.channel_by_name+ "/", channelName);
 
-            } else {
-                channelName = "";
-            }
-
+            }  
 
     }
     render() {

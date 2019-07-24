@@ -1,7 +1,6 @@
 import axios from "axios";
 import {notify} from "reapop";
 import defaultavatar from "../../components/user/default-avatar.png";
-import {observationChannel} from "../observation/ObservationAction";
 
 
 export function channelHasErrored(bool) {
@@ -18,12 +17,7 @@ export function channelIsLoading(bool) {
     };
 }
 
-export function channelFetchDataSuccess(channels) {
-    return {
-        type: 'CHANNEL_FETCH_DATA_SUCCESS',
-        channels
-    };
-}
+
 export function channelChanged(channel) {
     return {
         type: 'CHANNEL_CHANGED',
@@ -73,36 +67,6 @@ export function channelGetByName(url, channelName) {
     };
 }
 
-export function channelFetchData(url) {
-    return (dispatch) => {
-      var headers = {
-
-            'Content-Type': 'application/json',
-
-        }
-
-        axios.get(url, {headers: headers, params: { }})
-
-            .then( (response)  => {
-                if (!response.status) {
-                    throw Error(response.statusText);
-                }
-                if(response.data!==""){
-                    dispatch(channelFetchDataSuccess(response.data))
-                }
-
-            })
-            .catch( (error)  => {
-                dispatch(channelHasErrored(true));
-            })
-            .then( () =>  {
-
-
-                dispatch(channelIsLoading(false));
-
-            });
-    };
-}
 
 export function createChannel(url, item, token) {
     var bearer = ' Bearer ' + token;

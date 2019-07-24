@@ -12,25 +12,7 @@ import defaultavatar from "./default-avatar.png";
 var amount=30;
 class OnlineUserList extends Component {
 
-    componentDidMount() {
-        var channelName = "";
-        if ( typeof  this.props.channel.name!=="undefined") {
-            channelName = this.props.channel.name;
-        }
 
-        this.props.fetchData(properties.users_all + "/"+ amount+"/"+ channelName);
-    }
-
-    componentDidUpdate(prevProps) {
-
-
-        if ( typeof  this.props.channel.name!=="undefined" && prevProps.channel.name !=
-                                                                    this.props.channel.name) {
-
-            this.props.fetchData(properties.users_all + "/"+ amount+"/"+this.props.channel.name);
-        }
-
-    }
     profilePicture(picture) {
         if(picture===null){
             picture= defaultavatar;
