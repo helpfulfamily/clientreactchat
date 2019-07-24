@@ -22,6 +22,7 @@ import {
 import {Link} from "react-router-dom";
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 import ObservationPanel from "../observation/ObservationPanel";
+import axios from "axios";
 
 
 var pageNumber=0;
@@ -53,6 +54,7 @@ class ChannelContentList extends Component {
 
         this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
         this.toBottom();
+        this.getOnlineUserList();
 
     }
     listenScrollEvent() {
@@ -88,6 +90,8 @@ class ChannelContentList extends Component {
         }
 
         if (prevProps.location.pathname != this.props.location.pathname) {
+
+            this.getOnlineUserList();
             pageNumber=0;
             this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
             this.toBottom()
@@ -96,7 +100,32 @@ class ChannelContentList extends Component {
 
     }
 
+    getOnlineUserList(){
+        var channelName= this.props.location.pathname;
+        channelName = decodeURIComponent(channelName);
+        channelName = channelName.replace("\/channelcontents\/","")
+        this.userLoggedIn(this.props.loginUser.sso.username, channelName);
+    }
 
+     userLoggedIn(username, channelName){
+        var headers = {
+
+            'Content-Type': 'application/json',
+
+        }
+
+        var url= properties.serverUrl+ properties.user+ "/userLoggedIn/" +username+ "/"+ channelName;
+
+        axios.get(url,{headers: headers})
+            .then( (response) =>  {
+
+            })
+            .catch( (error)  => {
+
+            });
+
+
+    }
 
    toBottom(){
        var messageBody = document.querySelector('#messageBody');
@@ -208,15 +237,17 @@ ChannelContentList.propTypes = {
     fetchData: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
+    loginUser: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
-
         contents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
-        isLoading: state.channelContentsIsLoading
+        isLoading: state.channelContentsIsLoading,
+        loginUser: state.loginReducer
+
     };
 };
 

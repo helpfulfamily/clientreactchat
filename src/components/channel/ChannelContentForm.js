@@ -7,7 +7,7 @@ import {
 } from "../../actions/channel/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
-import {convertToRaw, EditorState} from "draft-js";
+import {convertToRaw, EditorState, ContentState} from "draft-js";
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
 import {getToken} from "../common/process";
@@ -24,6 +24,7 @@ class ChannelContentForm extends React.Component {
 
         this.handleSubmitProcess = this.handleSubmitProcess.bind(this);
 
+        this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
     }
 
@@ -40,7 +41,10 @@ class ChannelContentForm extends React.Component {
 
     handleSubmitProcess(event) {
 
-        event.preventDefault();
+        if(typeof event!="undefined"){
+            event.preventDefault();
+        }
+
 
         getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
             .catch(function(hata){
@@ -67,11 +71,24 @@ class ChannelContentForm extends React.Component {
             }
         }
 
+        this.clearForm();
 
         this.props.postData(apiBaseUrl, item, token);
     }
+    handleKeyCommand(command: string): DraftHandleValue {
+        if (command === 'split-block') {
+            // Perform a request to save your contents, set
+            // a new `editorState`, etc.
+            this.handleSubmitProcess();
+        }
+        return 'not-handled';
+    }
 
 
+    clearForm(){
+        const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''));
+        this.setState({editorState: editorState});
+    }
     render() {
         if((typeof this.props.loginUser.sso!=="undefined") && this.props.loginUser.sso.isAuthenticated){
             return (
@@ -83,6 +100,7 @@ class ChannelContentForm extends React.Component {
                         wrapperClassName="demo-wrapper"
                         editorClassName="demo-editor"
                         onEditorStateChange={this.onEditorStateChange}
+                        handleKeyCommand={this.handleKeyCommand}
                     />
 
                     <Button color="primary" onClick={this.handleSubmitProcess}>Publish</Button>{' '}
