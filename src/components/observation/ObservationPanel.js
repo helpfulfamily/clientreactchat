@@ -136,7 +136,6 @@ class ObservationPanel extends Component {
             var buttonContext =<Button color="primary" onClick={(e) => this.sendObservationRequestSignal(e, isObserve)}> {observeOrUnobserve} </Button>;
 
 
-
             if (typeof this.props.loginUser.sso !== "undefined") {
                 context = <Row>
                     <Col xs="3">
@@ -147,6 +146,7 @@ class ObservationPanel extends Component {
                         {buttonContext}
 
                     </Col>
+
                 </Row>
                 ;
 

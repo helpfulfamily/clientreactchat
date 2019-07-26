@@ -24,7 +24,7 @@ export default function connect(username) {
         stompClient.subscribe('/topic/pushNotificationChannel', function (notification) {
             dispatcherChannel(notification, store)
         });
-        stompClient.subscribe('/topic/pushNotificationUserLoggedIn', function (userList) {
+        stompClient.subscribe('/topic/pushNotificationUserChannelJoinPart', function (userList) {
             dispatcherUserList(userList, store);
 
         });
