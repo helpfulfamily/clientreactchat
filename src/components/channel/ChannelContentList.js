@@ -4,7 +4,7 @@ import {
     channelContentsFetchData,
     channelContentsAppendList
 } from '../../actions/channel/ChannelContentAction';
-import { ListGroup, ListGroupItem} from 'reactstrap';
+import {Button, ListGroup, ListGroupItem} from 'reactstrap';
 import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import ChannelContentForm from "./ChannelContentForm";
@@ -54,7 +54,7 @@ class ChannelContentList extends Component {
 
         this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
         this.toBottom();
-        this.getOnlineUserList();
+        this.getOnlineUserList("join");
 
     }
     listenScrollEvent() {
@@ -91,7 +91,7 @@ class ChannelContentList extends Component {
 
         if (prevProps.location.pathname != this.props.location.pathname) {
 
-            this.getOnlineUserList();
+            this.getOnlineUserList("join");
             pageNumber=0;
             this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
             this.toBottom()
@@ -100,21 +100,21 @@ class ChannelContentList extends Component {
 
     }
 
-    getOnlineUserList(){
+    getOnlineUserList(actionType){
         var channelName= this.props.location.pathname;
         channelName = decodeURIComponent(channelName);
         channelName = channelName.replace("\/channelcontents\/","")
-        this.userLoggedIn(this.props.loginUser.sso.username, channelName);
+        this.userChannelJoinPart(this.props.loginUser.sso.username, channelName, actionType);
     }
 
-     userLoggedIn(username, channelName){
+    userChannelJoinPart(username, channelName, actionType){
         var headers = {
 
             'Content-Type': 'application/json',
 
         }
 
-        var url= properties.serverUrl+ properties.user+ "/userLoggedIn/" +username+ "/"+ channelName;
+        var url= properties.serverUrl+ properties.user+ "/userChannelJoinPart/" +username+ "/"+ channelName + "/" + actionType;
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
@@ -125,6 +125,10 @@ class ChannelContentList extends Component {
             });
 
 
+    }
+    partChannel(event) {
+        event.preventDefault();
+        this.getOnlineUserList("part");
     }
 
    toBottom(){
@@ -164,6 +168,8 @@ class ChannelContentList extends Component {
         if (this.props.isLoading) {
             console.log("Contents are loading.")
         }
+        var buttonPartChannel =<Button color="primary" onClick={(e) => this.partChannel(e)}> Part Channel </Button>;
+
 
         const list=<ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
 
@@ -223,7 +229,7 @@ class ChannelContentList extends Component {
             <div>
                 <ObservationPanel/>
                 <b>  {decodeURIComponent(this.props.match.params.title)} </b>
-
+                {buttonPartChannel}
                 {list}
                 <ChannelContentForm channelName={this.props.match.params.title}/>
 
