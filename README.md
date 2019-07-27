@@ -39,7 +39,13 @@ In this case, just try SET instead of Export in  package.json like this:
 
 Bir kanala girme işlemi Join buttonu ile yapılır.
 
----- Burada Join buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
+NavbarMenu.js componenti içerisinde şöyle bir Link componenti vardır:
+```
+ <Link to={{
+                              pathname:  "/channelcontents/" + this.state.currentPath,
+
+                          }}> Join</Link>
+```
 
 
 # KANAL YARATMA
