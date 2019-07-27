@@ -1,4 +1,4 @@
-  #CONFIGURATION:
+  # CONFIGURATION:
  
   You need to install Node.js first.
  Then, you need to install Yarn using Npm like this:
@@ -35,14 +35,14 @@ In this case, just try SET instead of Export in  package.json like this:
       "start": "set HTTPS=true && react-scripts start",
 
 
-#KANALA GİRME:
+# KANALA GİRME:
 
 Bir kanala girme işlemi Join buttonu ile yapılır.
 
 ---- Burada Join buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
 
 
-#KANAL YARATMA
+# KANAL YARATMA
 
 Kanala girdikten sonra, kanal bilgileri çekilir. Eğer kanal veritabanında yoksa veya veritabanında olmasına rağmen bir sahibi yoksa "Create" buttonu görüntülenir. (Aksi takdirde Observe buttonu görüntülenir.)
 
