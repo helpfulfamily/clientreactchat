@@ -48,8 +48,11 @@ Kanala girdikten sonra, kanal bilgileri çekilir. Eğer kanal veritabanında yok
 
 ---- Burada Create buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
 
+# KANALI OBSERVE ETME
 
+Bir kanal yaratılmışsa, onu Observe etmek mümkündür. Dolayısı ile bu durumda Observe buttonu görünür.
 
+---- Burada Observe buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
 
   
   
