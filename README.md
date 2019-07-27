@@ -47,6 +47,7 @@ NavbarMenu.js componenti içerisinde şöyle bir Link componenti vardır:
                           }}> Join</Link>
 ```
 
+Bu linke tıklandığında ilgili kanal sayfasına yönleniyor.
 
 # KANAL YARATMA
 
