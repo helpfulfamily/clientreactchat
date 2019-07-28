@@ -37,7 +37,7 @@ In this case, just try SET instead of Export in  package.json like this:
  # Üst düzey ilişki görseli
  If you want to embed images, this is how you do it:
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/60473125_204786917164054_756205996929449984_o.jpg?raw=true)
 
 # KANALA GİRME:
 
