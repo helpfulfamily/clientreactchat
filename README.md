@@ -34,6 +34,10 @@ In this case, just try SET instead of Export in  package.json like this:
   
       "start": "set HTTPS=true && react-scripts start",
 
+ # Üst düzey ilişki görseli
+ If you want to embed images, this is how you do it:
+
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
 # KANALA GİRME:
 
