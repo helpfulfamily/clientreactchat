@@ -66,4 +66,7 @@ Bir kanal yaratılmışsa, onu Observe etmek mümkündür. Dolayısı ile bu dur
 ---- Burada Observe buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
 
   
-  
+# KANALI UNOBSERVE ETME 
+Bir kanal Observe listenizde ise, onu Unobserve ederek listenizden çıkarmak mümkündür. Dolayısı ile Observe edilen kanala girildiğinde Unobserve buttonu görünür. 
+
+----Burada Unobserve buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
