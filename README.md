@@ -57,8 +57,61 @@ Bu linke tıklandığında ilgili kanal sayfasına yönleniyor.
 
 Kanala girdikten sonra, kanal bilgileri çekilir. Eğer kanal veritabanında yoksa veya veritabanında olmasına rağmen bir sahibi yoksa "Create" buttonu görüntülenir. (Aksi takdirde Observe buttonu görüntülenir.)
 
----- Burada Create buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
+ Create buttonuna basıldığında, Gateway tarafındaki "createChannel" REST methodu çağrılacak.
+ Bu method parametre olarak Channel nesnesi alıyor.
+ 
+ Javadaki karşılığı şu şekildedir:
+ ```
+    @PostMapping("/createChannel")
+    @ApiOperation(value = "Create Channel")
+    @ApiImplicitParams(@ApiImplicitParam(name = "Authorization", value = "JWT authorization token",
+            required = true, dataType = "string", paramType = "header"))
+    @ApiResponses({@ApiResponse(code = 200, message = "Create Channel OK")})
+    public void createChannel(KeycloakAuthenticationToken kat, @RequestBody Channel channelObject)
+    
+```
 
+Bu Java REST methodu, ReactJS tarafında şu şekilde çağrılır.
+ObservationPanel.js içerisindeki şu button aracılığı ile, süreç başlar:
+```
+                   <Button color="primary"  onClick={(e) => this.createChannel(e)}>Create </Button></span>;
+ 
+```
+
+ Yukarıda görüldüğü üzere, buttona tıklayınca  createChannel(event) adlı JavaScript fonksiyon çağrılıyor.
+ Bu method aşağıdaki gibidir:
+ ``` 
+  createChannel(event) {
+        event.preventDefault();
+
+
+            getToken(this.props.loginUser.sso.keycloak).then((token) => this.startCreateChannelProcess(token))
+                .catch(function (hata) {
+
+                    console.log(hata)
+                });
+
+
+    }
+    startCreateChannelProcess = (token) => {
+
+        var apiBaseUrl = properties.channel_create;
+
+       //Channel JSON objesi
+        var channel = {
+            "name": this.props.channel.name,
+        }
+
+
+        this.props.postData(apiBaseUrl, channel, token);
+    }
+```
+ Yukarıdaki kodda, "Create" buttonuna tıklanınca çağrılan ilk fonksiyon:  createChannel(event) olmasına rağmen, bu fonksiyon içerisinde ilk önce Keycloak kullanıcı yönetim sisteminden, bir anahtar istenir. Çünkü kanal yaratma işlemi, ancak kullanıcı olanların yapabileceği bir işlemdir.
+  Eğer anahtar almada bir sıkıntı olmazsa, ikinci fonksiyon olan startCreateChannelProcess, bu ilk method içerisinde çağrılır.
+  startCreateChannelProcess fonksiyonu içerisinde, minimum bir "channel" JSON nesnesi tanımlanarak, kanal ismi burada verilir.
+  
+  Bu channel JSON objesi, token ile birlikte apiBaseUrl ile belirtilen (Java tarafındaki) createChannel methoduna gönderilir.
+  
 # KANALI OBSERVE ETME
 
 Bir kanal yaratılmışsa, onu Observe etmek mümkündür. Dolayısı ile bu durumda Observe buttonu görünür.
