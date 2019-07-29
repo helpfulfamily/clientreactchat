@@ -74,7 +74,7 @@ Kanala girdikten sonra, kanal bilgileri çekilir. Eğer kanal veritabanında yok
 Bu Java REST methodu, ReactJS tarafında şu şekilde çağrılır.
 ObservationPanel.js içerisindeki şu button aracılığı ile, süreç başlar:
 ```
-                   <Button color="primary"  onClick={(e) => this.createChannel(e)}>Create </Button></span>;
+   <Button color="primary"  onClick={(e) => this.createChannel(e)}>Create </Button></span>;
  
 ```
 
@@ -107,6 +107,7 @@ ObservationPanel.js içerisindeki şu button aracılığı ile, süreç başlar:
     }
 ```
  Yukarıdaki kodda, "Create" buttonuna tıklanınca çağrılan ilk fonksiyon:  createChannel(event) olmasına rağmen, bu fonksiyon içerisinde ilk önce Keycloak kullanıcı yönetim sisteminden, bir anahtar istenir. Çünkü kanal yaratma işlemi, ancak kullanıcı olanların yapabileceği bir işlemdir.
+  
   Eğer anahtar almada bir sıkıntı olmazsa, ikinci fonksiyon olan startCreateChannelProcess, bu ilk method içerisinde çağrılır.
   startCreateChannelProcess fonksiyonu içerisinde, minimum bir "channel" JSON nesnesi tanımlanarak, kanal ismi burada verilir.
   
