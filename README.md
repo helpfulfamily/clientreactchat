@@ -1,4 +1,7 @@
-  # CONFIGURATION:
+ # DEMO:
+ https://clientreactchat-webclient.b9ad.pro-us-east-1.openshiftapps.com
+ 
+ # CONFIGURATION:
  
   You need to install Node.js first.
  Then, you need to install Yarn using Npm like this:
