@@ -127,3 +127,60 @@ Bir kanal yaratılmışsa, onu Observe etmek mümkündür. Dolayısı ile bu dur
 Bir kanal Observe listenizde ise, onu Unobserve ederek listenizden çıkarmak mümkündür. Dolayısı ile Observe edilen kanala girildiğinde Unobserve buttonu görünür. 
 
 ----Burada Unobserve buttonunun nasıl çalıştığı, hangi React componentleri içerisinde kodlandığı anlatılacak.
+
+# KANAL NESNESİ İLE KANALA GÖNDERİLEN MESAJ İLİŞKİSİ İLİŞKİSİ
+Kanal Java tarafında Channel sınıfı ile temsil ediliyor. Kanal içeriği olan mesajlar ise ChannelContent ile temsil edilir.
+Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar Gateway aracılığı ile çekilir.
+
+# KANAL LİSTESİ
+  Kanal listesi, kullanıcının observe ettiği kanalların listesidir.
+  ChannelNameList.js componenti içerisinde kodlanmıştır.
+
+```
+     <ListGroup className="problemtitle">
+                {this.props.loginUser.channels.map((item, index) => (
+                    <ListGroupItem key={item.id}> <Link to={{
+                        pathname: '/channelcontents/' + encodeURIComponent(item.name),
+                        state: {
+                            name: item.name
+                        }
+                    }}> #{item.name}</Link>
+                        
+                    </ListGroupItem>
+                ))}
+            </ListGroup>
+```
+
+# KANAL LİSTESİNE TIKLANDIĞINDA MESAJLARIN YÜKLENMESİ:
+
+   Yukarıdaki, ChannelNameList.js kod parçacığında görülen Link componenti, kanalın tıklandığı yerdir. 
+   Kanala tıklandığında, /channelcontents/[kanaladı] yoluna yönlenir. 
+   Bu yolun karşılığı olan route componenti aşağıda görüldüğü gibidir:
+   ```
+      <Route exact path="/channelcontents/:title" component={ChannelContentList} />
+   ```
+   Bu ne demektir?  Bu patterne (kalıp, örüntü, desen) sahip bir URL çağrıldığında ChannelContentList.js componenti yüklenir.
+   
+   ChannelContentList componenti ilk yüklendiğinde, Gateway'e gidip kanal mesajlarını çekecek olan fonksiyon aşağıdaki gibi çağırılır.
+   
+   ```
+  componentDidUpdate(prevProps) {
+
+         ....
+         
+        // Yeni bir kanala girilip girilmediği bu şekilde öğrenilir.
+        if (prevProps.location.pathname != this.props.location.pathname) {
+            
+             ... 
+
+            // Kanaldaki mesajları çeker.
+            pageNumber=0;
+            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+       
+            ....
+
+        }
+
+    }
+
+   ```
