@@ -184,3 +184,6 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     }
 
    ```
+
+    Yukarıdaki kodda Gateway modülündeki /contents/{name}/{amount}  REST methodu çağrılarak, kanal mesajları listelenir.
+    
