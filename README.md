@@ -200,7 +200,7 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
    
    
     
-       <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
+      <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
    
  
     
@@ -211,7 +211,6 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
  
  
  
- ```
   listenScrollEvent() {
            ...
 
@@ -224,5 +223,4 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
 
 
     }
- 
- ```
+  
