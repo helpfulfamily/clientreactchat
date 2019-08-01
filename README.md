@@ -196,21 +196,22 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     Scroll'un hareketini tesbit eden method nedir?
     
     Öncelikle, bahsedilen scroll, ChannelContentList.js componenti içerisindeki ListGroup componentinin scrolludur.
-    
+   
+   
    
     ``` 
-   <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
-    ```
+       <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
+   
+     ```
     
     
      Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
            
        Bu fonksiyon aşağıdaki gibidir.
-       
-   
-     
-     
-  ```
+ 
+ 
+ 
+ ```
   listenScrollEvent() {
            ...
 
@@ -223,4 +224,5 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
 
 
     }
-  ```
+ 
+ ```
