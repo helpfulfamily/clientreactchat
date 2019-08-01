@@ -59,6 +59,11 @@ class ChannelContentList extends Component {
     }
     listenScrollEvent() {
 
+
+         // Bu kimse, eğer scrollu yukarılara çekip, geçmiş mesajlara bakmakta ise
+         // yeni bir mesaj geldiğinde, scroll otomatik olarak aşağı inmesin diye
+         // aşağıdaki isScrollBottom değişkenini oluşturup işaret olarak kullanıyoruz.
+         // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
         var messageBody = document.querySelector('#messageBody');
 
         var scrollBottonPos= messageBody.scrollHeight - messageBody.clientHeight;
@@ -70,6 +75,7 @@ class ChannelContentList extends Component {
 
         }
 
+        // Scroll, en yukarı değdiğinde geçmiş mesajlar çağrılıyor.
         if(messageBody.scrollTop==0){
 
             pageNumber=pageNumber+1;
@@ -81,19 +87,28 @@ class ChannelContentList extends Component {
 
 
     componentDidUpdate(prevProps) {
+
+        // Scroll ayarlaması ile ilgili kısım.
         var messageBody = document.querySelector('#messageBody');
 
 
+        // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
         if (isScrollBottom &&  prevProps.contents.length !=  this.props.contents.length) {
 
             this.toBottom();
         }
 
+        // Yeni bir kanala girilip girilmediği bu şekilde öğrenilir.
         if (prevProps.location.pathname != this.props.location.pathname) {
 
+            // Kanaldaki online kullanıcı listesini bu şekilde alır.
             this.getOnlineUserList("join");
+
+            // Kanaldaki mesajları çeker.
             pageNumber=0;
             this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+
+            // Yeni kanala girildiği için, scrollu en aşağı atar.
             this.toBottom()
 
         }

@@ -49,8 +49,9 @@ export function channelContentReducer(state = [], action) {
 
             return   [
 
-                 ...state,
-                ...action.contents
+
+                ...action.contents,
+                ...state
             ]
 
 
