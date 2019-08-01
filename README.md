@@ -198,8 +198,9 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     
     Öncelikle, bahsedilen scroll, ChannelContentList.js componenti içerisindeki ListGroup componentinin scrolludur.
     
-   ```
-    <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
+   
+    ``` 
+   <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
     ```
     
     
@@ -211,7 +212,7 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
      
      
   ```
-   listenScrollEvent() {
+  listenScrollEvent() {
            ...
 
         // Scroll, en yukarı değdiğinde geçmiş mesajlar çağrılıyor.
