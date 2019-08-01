@@ -200,8 +200,7 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     
    ```
     <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
-   
-   ```
+    ```
     
     
      Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
