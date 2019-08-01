@@ -163,8 +163,8 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
    
    ChannelContentList componenti ilk yüklendiğinde, Gateway'e gidip kanal mesajlarını çekecek olan fonksiyon aşağıdaki gibi çağırılır.
    
-   ```
-  componentDidUpdate(prevProps) {
+           ```
+   componentDidUpdate(prevProps) {
 
          ....
          
@@ -182,35 +182,38 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
         }
 
     }
-   ```
+            ```
 
-    Yukarıdaki kodda Gateway modülündeki /contents/{name}/{amount}  REST methodu çağrılarak, kanal mesajları listelenir.
+  Yukarıdaki kodda Gateway modülündeki /contents/{name}/{amount}  REST methodu çağrılarak, kanal mesajları listelenir.
     
     
 # KANALDAKİ SONSUZ SCROLL İLE MESAJLARIN SAYFALANMASI:
     
-    Kanala ilk kez girildiğinde, yukarıda anlatılan işlemler sonucunda en son gönderilen 10 mesaj listelenir.
+   
+   Kanala ilk kez girildiğinde, yukarıda anlatılan işlemler sonucunda en son gönderilen 10 mesaj listelenir.
     
-    Scroll en yukarı çıkarıldıkça, 10'ar 10'ar geçmişe dönük mesajlar yüklenmeye devam eder.
+   
+   Scroll en yukarı çıkarıldıkça, 10'ar 10'ar geçmişe dönük mesajlar yüklenmeye devam eder.
     
-    Scroll'un hareketini tesbit eden method nedir?
+   
+   Scroll'un hareketini tesbit eden method nedir?
     
-    Öncelikle, bahsedilen scroll, ChannelContentList.js componenti içerisindeki ListGroup componentinin scrolludur.
+   Öncelikle, bahsedilen scroll, ChannelContentList.js componenti içerisindeki ListGroup componentinin scrolludur.
    
    
    
     
-      <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
+   <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
    
  
     
     
-     Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
+   Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
            
-       Bu fonksiyon aşağıdaki gibidir.
+   Bu fonksiyon aşağıdaki gibidir.
  
  
- 
+ ```
   listenScrollEvent() {
            ...
 
@@ -224,3 +227,4 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
 
     }
   
+```
