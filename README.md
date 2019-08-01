@@ -203,6 +203,11 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
    
    ```
     
+    
+     Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
+           
+       Bu fonksiyon aşağıdaki gibidir.
+       
    
      
      
