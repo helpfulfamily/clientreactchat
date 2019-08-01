@@ -219,5 +219,4 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
 
 
     }
-
-    ```
+  ```
