@@ -206,6 +206,21 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     ```
  
     
+ ```
+  listenScrollEvent() {
+           ...
+
+        // Scroll, en yukarı değdiğinde geçmiş mesajlar çağrılıyor.
+        if(messageBody.scrollTop==0){
+
+            pageNumber=pageNumber+1;
+            this.props.appendList(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+        }
+
+
+    }
+  
+```
     
    Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
            
