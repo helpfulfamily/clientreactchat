@@ -164,7 +164,7 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
    ChannelContentList componenti ilk yüklendiğinde, Gateway'e gidip kanal mesajlarını çekecek olan fonksiyon aşağıdaki gibi çağırılır.
    
            ```
-   componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
 
          ....
          
@@ -201,26 +201,11 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
    Öncelikle, bahsedilen scroll, ChannelContentList.js componenti içerisindeki ListGroup componentinin scrolludur.
    
    
-    ```
-         <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
-    ```
+     
+   <ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
  
-    
- ```
-  listenScrollEvent() {
-           ...
-
-        // Scroll, en yukarı değdiğinde geçmiş mesajlar çağrılıyor.
-        if(messageBody.scrollTop==0){
-
-            pageNumber=pageNumber+1;
-            this.props.appendList(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
-        }
-
-
-    }
+ 
   
-```
     
    Yukarıdaki onScroll={this.listenScrollEvent} ifâdesi, herhangi bir scroll hareketi esnâsında çağrılacak olan fonksiyonu belirtir.
            
