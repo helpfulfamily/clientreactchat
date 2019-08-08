@@ -37,6 +37,25 @@ In this case, just try SET instead of Export in  package.json like this:
   
       "start": "set HTTPS=true && react-scripts start",
 
+ # Problem Çözme Yöntemleri
+  
+  1- Bir dedektif gibi, gözlem yapmak ve eldeki verilerden yararlanarak bazı varsayımlarda bulunmak gerekir.
+  
+  2- Arayüzdeki herhangi bir bileşenin, arka tarafta çalışan koduna, bu varsayımlar aracılığı ile erişmemiz gerekir.
+  
+  3- Örnek:
+  
+    Arayüzde "Unobserve" diye bir button var. Bu buttonun arkada çalışan JS koduna nasıl erişiriz?
+   "Unobserve" kelimesini, Intellij IDEA içerisinde "Alt-Shift-F" kombinasyonu ile açılan kutuda (Find in Path) ararız.
+    Karşımıza çıkan sonuçlar içerisinde, akla en yatkın olanını buluruz. Buradaki örnek için: ObservationPanel.js JS kodu.
+  
+  4- Bunun için tarayıcıların kendi developer araçları kullanılabilir. Örnek: Chrome Inspect.
+  
+  5- Yukarıdaki mimari çizime bakılarak, sorunun hangi modülde olduğu tahmin edilebilir.
+  
+  6- Bir buttona basıldığında çağrılan REST methodu incelenebilir. (Chrome Inspect-> Network)
+   
+   
  # Üst düzey ilişki görseli
  If you want to embed images, this is how you do it:
 
