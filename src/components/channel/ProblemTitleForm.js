@@ -83,7 +83,7 @@ class ProblemTitleForm extends React.Component {
                    external={this.props.externalCloseBtn}>
 
                 <ModalHeader>
-                    <img src={problempng} height="54" width="54"/>  <label>  I need help! </label>
+                    <img src={problempng} height="54" width="54" alt=""/>  <label>  I need help! </label>
                 </ModalHeader>
                 <ModalBody>
 
