@@ -22,7 +22,10 @@ import {
 import {Link} from "react-router-dom";
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 import ObservationPanel from "../observation/ObservationPanel";
-import axios from "axios";
+
+import {getOnlineUserList} from "./OnlineUserUtil";
+import OnlineUserList from "../user/OnlineUserList";
+
 
 
 var pageNumber=0;
@@ -54,9 +57,12 @@ class ChannelContentList extends Component {
 
         this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
         this.toBottom();
-        this.getOnlineUserList("join");
+
+
+
 
     }
+
     listenScrollEvent() {
 
 
@@ -101,8 +107,12 @@ class ChannelContentList extends Component {
         // Yeni bir kanala girilip girilmediği bu şekilde öğrenilir.
         if (prevProps.location.pathname != this.props.location.pathname) {
 
+            var channelName= this.props.location.pathname;
+            channelName = decodeURIComponent(channelName);
+            channelName = channelName.replace("\/channelcontents\/","")
+
             // Kanaldaki online kullanıcı listesini bu şekilde alır.
-            this.getOnlineUserList("join");
+            getOnlineUserList(this.props.loginUser.sso.username,"join", channelName);
 
             // Kanaldaki mesajları çeker.
             pageNumber=0;
@@ -115,35 +125,10 @@ class ChannelContentList extends Component {
 
     }
 
-    getOnlineUserList(actionType){
-        var channelName= this.props.location.pathname;
-        channelName = decodeURIComponent(channelName);
-        channelName = channelName.replace("\/channelcontents\/","")
-        this.userChannelJoinPart(this.props.loginUser.sso.username, channelName, actionType);
-    }
 
-    userChannelJoinPart(username, channelName, actionType){
-        var headers = {
-
-            'Content-Type': 'application/json',
-
-        }
-
-        var url= properties.serverUrl+ properties.user+ "/userChannelJoinPart/" +username+ "/"+ channelName + "/" + actionType;
-
-        axios.get(url,{headers: headers})
-            .then( (response) =>  {
-
-            })
-            .catch( (error)  => {
-
-            });
-
-
-    }
     partChannel(event) {
         event.preventDefault();
-        this.getOnlineUserList("part");
+        getOnlineUserList("part");
     }
 
    toBottom(){
@@ -240,15 +225,29 @@ class ChannelContentList extends Component {
                 ))}
         </ListGroup>;
 
-        return (
-            <div>
-                <ObservationPanel/>
-                <b>  {decodeURIComponent(this.props.match.params.title)} </b>
-                {buttonPartChannel}
-                {list}
-                <ChannelContentForm channelName={this.props.match.params.title}/>
 
-            </div>
+        return (
+
+
+                <Row>
+                    <Col xs="6" sm="9">
+                        <ObservationPanel/>
+                        <b>  {decodeURIComponent(this.props.match.params.title)} </b>
+                        {buttonPartChannel}
+                        {list}
+
+
+                        <ChannelContentForm channelName={this.props.match.params.title}/>
+                    </Col>
+
+                    <Col xs="2" sm="3">
+                        { (typeof this.props.loginUser.sso!="undefined" &&  this.props.isWebSocketConnected)  ?  <OnlineUserList/> : ''}
+
+                    </Col>
+
+
+                </Row>
+
         );
     }
 }
@@ -259,7 +258,8 @@ ChannelContentList.propTypes = {
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired,
+    isWebSocketConnected: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -267,7 +267,8 @@ const mapStateToProps = (state) => {
         contents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
         isLoading: state.channelContentsIsLoading,
-        loginUser: state.loginReducer
+        loginUser: state.loginReducer,
+        isWebSocketConnected: state.isWebSocketConnected
 
     };
 };

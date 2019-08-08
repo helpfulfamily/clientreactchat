@@ -35,6 +35,15 @@ export default function connect(username) {
                 dispatcherObservation(notification, store)
             });
         }
+
+        store.dispatch(isWebSocketConnected(true))
+
     });
 
+}
+export function isWebSocketConnected(isWebSocketConnected) {
+    return {
+        type: 'IS_WEBSOCKET_CONNECTED',
+        isWebSocketConnected
+    };
 }

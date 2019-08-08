@@ -4,6 +4,8 @@ import { userListArrived, userReducer, userHasErrored, userIsLoading} from './us
 
 import { channelContentReducer, channelContentsHasErrored, channelContentsIsLoading } from './channel/ProblemContentReducer';
 import { loginReducer} from './sso';
+import { isWebSocketConnected} from './WebSocketReducer';
+
 import { channel, channelReducer, channelHasErrored, channelIsLoading} from './channel/ChannelReducer';
 
 import {reducer as notificationsReducer} from 'reapop';
@@ -26,6 +28,7 @@ export default combineReducers({
     channelContentsIsLoading,
     loginReducer,
     onlineUserList:userListArrived,
+    isWebSocketConnected: isWebSocketConnected
 
 
 });
