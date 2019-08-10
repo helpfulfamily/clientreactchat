@@ -74,36 +74,20 @@ class OnlineUserList extends Component {
                     <ListGroupItem  key={user.id} className="content-img" >
 
                             <div className="content-img"  style={{ height: 99 , overflow: "auto" }}>
-                                <Row>
-                                    <Col xs="3">
-                                        <Link to={{
-                                            pathname: '/' +  user.username,
-                                            state: {
-                                                username: user.username
-                                            }
-                                        }} >
-                                            <img     src={this.profilePicture(user.profilePhotoUrl) } alt=""   />
-                                        </Link>
-                                    </Col>
-                                    <Col xs="7">
-                                        <label className="align-content-center">{user.username}</label>
-                                    </Col>
-                                </Row>
 
 
 
 
+                                <Link to={{
+                                    pathname:    "/dialogcontents/" + user.username ,
+
+                                }}>  <img     src={this.profilePicture(user.profilePhotoUrl) } alt=""   /> </Link>
 
 
 
+                            </div>
 
-
-
-
-                                </div>
-
-
-
+                        <label className="align-content-center">{user.username}</label>
 
                     </ListGroupItem>
                 ))}
