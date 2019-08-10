@@ -7,14 +7,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
-
+// Bu component sol tarafta, kanalların listelendiği componenttir.
 class ChannelNameList extends Component {
 
-    componentDidMount() {
-
-
-    }
-
+    // Bu fonksiyon receiver (ThankCoin'i alacak kullanıcı)
+    // ve objectId ( hangi obje üzerinden Thankcoin alacağı)
+    // parametrelerini alarak, bir transaction objesi yaratır
+    // return ile, çağrıldığı yere gönderir.
 
     getTransaction(receiver, objectId) {
 
@@ -43,6 +42,9 @@ class ChannelNameList extends Component {
         if (typeof this.props.loginUser !== "undefined"
                             && typeof this.props.loginUser.channels !== "undefined"
                             && this.props.loginUser.channels.length > 0) {
+
+
+
             list = <ListGroup className="problemtitle">
                 {this.props.loginUser.channels.map((item, index) => (
                     <ListGroupItem key={item.id}> <Link to={{
@@ -56,6 +58,8 @@ class ChannelNameList extends Component {
 
                     </ListGroupItem>
                 ))}
+
+
             </ListGroup>;
 
 
