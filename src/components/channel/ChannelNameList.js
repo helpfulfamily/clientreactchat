@@ -7,13 +7,29 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 
-// Bu component sol tarafta, kanalların listelendiği componenttir.
+/*
+Kanal listesinin componentidir.
+Kanal listesi ile ilgili işlemler bu component üzerinden yapılır.
+ */
+
 class ChannelNameList extends Component {
 
-    // Bu fonksiyon receiver (ThankCoin'i alacak kullanıcı)
-    // ve objectId ( hangi obje üzerinden Thankcoin alacağı)
-    // parametrelerini alarak, bir transaction objesi yaratır
-    // return ile, çağrıldığı yere gönderir.
+
+    /*
+
+    Transaction metoduna receiver ve objectId olmak üzere iki parametre girilmiştir.
+
+    receiver: Thankcoin'in transfer edileceği kullanıcı.
+    objectId: Thankcoin transfer edilecek olan nesnenin id'si. (Veritabanındaki, kimlik numarası)
+
+    Thankcoin aktarma işlemi için gereken veriyi hazırlar.
+
+    Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki sendTransaction() fonksiyonu aracılığı ile
+    bir (Gateway'deki bir) REST servisine aktarılır.
+    Örneğin gene bu component içerisinde şu kod ile çağırılmıştır;
+    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)}  ... />
+
+     */
 
     getTransaction(receiver, objectId) {
 
@@ -21,28 +37,56 @@ class ChannelNameList extends Component {
             receiver: {
                 username: receiver
             },
-            objectType: "Channel",
+            objectType: "Channel",    // Transfer işlemi yapılacak nesnenin türü. (örn: ChannelContent türünde nesne)
             objectId: objectId,
             name: ""
         }
-        return transaction;
+        return transaction
 
     }
 
+
+
+     /* render() methodu React yaşam döngüsü fonksiyonlarındandır.
+         Render şu anlamda kullanılan bir kelimedir: Örn. HTML etiketleri olarak yazılmış bir kodun
+         kullanıcı ekranlarında, etkileşim içine girilebilecek buttonlara, yazı kutularına dönüştürülme işlemidir.
+
+      */
     render() {
+
+         // Yükleme hatası olursa döndürelecek bir mesaj belirtilmiştir.
+
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
 
+
+
+        // Yükleme hatası olmamışsa, yüklenene kadar gösterilen yazı.
+
         if (this.props.isLoading) {
             return <p>Loading…</p>;
         }
+
+
+        /* Yükleme sırasında döndürülecek mesaj belirtilmiştir.  */
+
         var list = "";
         var infiniteList="";
-        if (typeof this.props.loginUser !== "undefined"
-                            && typeof this.props.loginUser.channels !== "undefined"
-                            && this.props.loginUser.channels.length > 0) {
 
+        /*
+          Bu if içerisinde:
+
+            (kullanıcı tanımlanmış mı?
+              && kullanıcının kanal listesi tanımlanmış mı?
+              && kullanıcının kanal listesinin boyutu 0'dan büyük mü?)
+
+          eğer bu şartları sağlıyorsa, map() methodu ile döngü oluşturulur ve kanallar listelenir.
+         */
+
+        if (typeof this.props.loginUser !== "undefined"
+            && typeof this.props.loginUser.channels !== "undefined"
+            && this.props.loginUser.channels.length > 0) {
 
 
             list = <ListGroup className="problemtitle">
@@ -53,12 +97,13 @@ class ChannelNameList extends Component {
                             name: item.name
                         }
                     }}> #{item.name}</Link>
+
+                         // Kanallara Thankcoin transfer etmek için gereken panel.
                         <ThankcoinPanel transaction={this.getTransaction(this.props.loginUser.username, item.id)}
                                         currentThankAmount={item.currentThankAmount}/>
 
                     </ListGroupItem>
                 ))}
-
 
             </ListGroup>;
 
@@ -77,7 +122,8 @@ class ChannelNameList extends Component {
         return (
             <div>
 
-                <div id="scrollableDiv" style={{height: 700, overflow: "auto"}}>
+                <div
+                    id="scrollableDiv" style={{height: 700, overflow: "auto"}}>
 
                     {infiniteList}
                 </div>
