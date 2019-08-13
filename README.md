@@ -54,7 +54,7 @@ In this case, just try SET instead of Export in  package.json like this:
  
   8- Pull Request'in diğer bir yazılımcı tarafından Review-Approve yapılmasını bekle. 
   
-  9- Approve edilmiş (kabûl edilmiş) kendi branchini, Master branch ile merge et (birleştir). Kendi branchini, hem Local'de hem de Remote'da sil.
+  9- Approve edilmiş (kabûl edilmiş) kendi branchini, Master branch ile merge et (birleştir). Uzak depodaki kendi branchini sil ve yerel depoda "master" branchine geçip, master'ı güncelledikten sonra, yerel depodaki kendi branchini de sil.
 
  # Problem Çözme Yöntemleri
   
