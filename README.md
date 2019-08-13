@@ -39,15 +39,22 @@ In this case, just try SET instead of Export in  package.json like this:
       
  # Kodu değiştirip, uzak depoya aktarma işlemi.
   1- Master branchinde olduğuna emin ol.
+  
   2- Master branchini güncelle.
+  
   3- Kendi branchini yarat ve bu branchte kal.
-  3- Kodlama yap ve hata hata vermediğinden emin ol. (Yarn start ile kontrol et.)
-  4- Kodlamayı bitirdi ise ve hata yoksa, yerel depoya COMMIT yap.
-  5- Commitlediğin kodu, uzak depoya PUSH yap.
-  6- Pull Request oluştur.
-  7- Pull Request'in diğer bir yazılımcı tarafından Review-Approve yapılmasını bekle. 
-  8- Approve edilmiş (kabûl edilmiş) kendi branchini, Master branch ile merge et (birleştir)
-  9- Kendi branchini, hem Local'de hem de Remote'da sil.
+  
+  4- Kodlama yap ve hata hata vermediğinden emin ol. (Yarn start ile kontrol et.)
+  
+  5- Kodlamayı bitirdi ise ve hata yoksa, yerel depoya COMMIT yap.
+
+  6- Commitlediğin kodu, uzak depoya PUSH yap.
+  
+  7- Pull Request oluştur.
+ 
+  8- Pull Request'in diğer bir yazılımcı tarafından Review-Approve yapılmasını bekle. 
+  
+  9- Approve edilmiş (kabûl edilmiş) kendi branchini, Master branch ile merge et (birleştir). Kendi branchini, hem Local'de hem de Remote'da sil.
 
  # Problem Çözme Yöntemleri
   
