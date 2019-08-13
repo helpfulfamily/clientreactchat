@@ -98,7 +98,7 @@ class ChannelNameList extends Component {
                         }
                     }}> #{item.name}</Link>
 
-                         // Kanallara Thankcoin transfer etmek için gereken panel.
+
                         <ThankcoinPanel transaction={this.getTransaction(this.props.loginUser.username, item.id)}
                                         currentThankAmount={item.currentThankAmount}/>
 
