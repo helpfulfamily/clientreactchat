@@ -36,6 +36,18 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 In this case, just try SET instead of Export in  package.json like this:
   
       "start": "set HTTPS=true && react-scripts start",
+      
+ # Kodu değiştirip, uzak depoya aktarma işlemi.
+  1- Master branchinde olduğuna emin ol.
+  2- Master branchini güncelle.
+  3- Kendi branchini yarat ve bu branchte kal.
+  3- Kodlama yap ve hata hata vermediğinden emin ol. (Yarn start ile kontrol et.)
+  4- Kodlamayı bitirdi ise ve hata yoksa, yerel depoya COMMIT yap.
+  5- Commitlediğin kodu, uzak depoya PUSH yap.
+  6- Pull Request oluştur.
+  7- Pull Request'in diğer bir yazılımcı tarafından Review-Approve yapılmasını bekle. 
+  8- Approve edilmiş (kabûl edilmiş) kendi branchini, Master branch ile merge et (birleştir)
+  9- Kendi branchini, hem Local'de hem de Remote'da sil.
 
  # Problem Çözme Yöntemleri
   
