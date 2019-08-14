@@ -24,7 +24,7 @@ class ChannelNameList extends Component {
 
     Thankcoin aktarma işlemi için gereken veriyi hazırlar.
 
-    Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki sendTransaction() fonksiyonu aracılığı ile
+    Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki getTokenForSendTransaction() fonksiyonu aracılığı ile
     bir (Gateway'deki bir) REST servisine aktarılır.
     Örneğin gene bu component içerisinde şu kod ile çağırılmıştır;
     <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)}  ... />

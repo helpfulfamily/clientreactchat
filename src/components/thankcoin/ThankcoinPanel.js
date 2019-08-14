@@ -7,26 +7,34 @@ import PropTypes from 'prop-types'
 import {FaThumbsUp} from "react-icons/fa";
 
  /*
+Thankcoin gönderme işlemlerinin yapıldığı paneldir.
+Bu panelde Thankcoin buttonu bulunmaktadır.
 Thankcoin aktarma işlemi için gereken veriyi hazırlayan metot çağırılmıştır.
-(sendTransaction)
+(getTokenForSendTransaction)
+
  */
 
-import {sendTransaction}  from "../common/process";
+import {getTokenForSendTransaction}  from "../common/TransactionProcess";
 
 class ThankcoinPanel extends Component {
 
   /*
-   sendTransaction metodunun bizim istediğimiz eklentilerle çalışması için öncelikle "event.preventDefault();" ile
-   içeriğinin çalışması durdurulmuştur. Bu sayede sonradan eklenen kodlar ile çalışması sağlanmıştır.
-   sendTransaction metoduna eklenen "(this.props.loginUser.sso.keycloak, this.props.transaction);" bu denklem
+   Aşağıdaki buttona basıldığında çağrılan fonksiyondur.
+   sendTransactionEvent metoduna eklenen "(this.props.loginUser.sso.keycloak, this.props.transaction);" bu denklem
    sayesinde artık bu metot kullanıcı login olduğunda çalışacaktır.
 
  */
-    sendTransaction(event)
+    sendTransactionEvent(event)
     {
+        /*
+        Sayfa ilk yüklendiğinde, sanki buttona basılmış gibi getTokenForSendTransaction fonksiyonu kendiliğinden çalışıyordu.
+         Bunu önlemek için, event parametresinin içerisindeki preventDefault() fonksiyonunu çağırmamız gerekir
+         */
         event.preventDefault();
 
-        sendTransaction(this.props.loginUser.sso.keycloak, this.props.transaction);
+
+         // Transaction göndermek için token alıp, transaction gönderme işlemini çağıran fonksiyon.
+        getTokenForSendTransaction(this.props.loginUser.sso.keycloak, this.props.transaction);
     }
 
     /*
@@ -35,7 +43,7 @@ class ThankcoinPanel extends Component {
     render() {
         var context= <span>  <FaThumbsUp/>  {this.props.currentThankAmount}T</span>;
         if(typeof this.props.loginUser.sso !== "undefined"){
-          context=         <Button color="link" onClick= {(e) => this.sendTransaction(e)} > <FaThumbsUp/>  {this.props.currentThankAmount}T</Button>;
+          context=         <Button color="link" onClick= {(e) => this.sendTransactionEvent(e)} > <FaThumbsUp/>  {this.props.currentThankAmount}T</Button>;
         }
         return (
             <div>
