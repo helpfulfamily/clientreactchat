@@ -6,7 +6,7 @@ import {Button} from 'reactstrap';
 import {getToken} from "../common/process";
 import PropTypes from 'prop-types'
 
-import {sendObservationRequestSignal} from "../common/process";
+import {sendObservationRequestSignal} from "../common/ObservationProcess";
 import {FaEye} from "react-icons/fa";
 import UserListModal from "../user/UserListModal";
 import Row from "reactstrap/es/Row";
