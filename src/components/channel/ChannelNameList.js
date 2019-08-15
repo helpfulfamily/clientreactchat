@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
+import {getTransaction} from "../common/TransactionProcess";
 
 /*
 Kanal listesinin componentidir.
@@ -15,35 +16,6 @@ Kanal listesi ile ilgili işlemler bu component üzerinden yapılır.
 class ChannelNameList extends Component {
 
 
-    /*
-
-    Transaction metoduna receiver ve objectId olmak üzere iki parametre girilmiştir.
-
-    receiver: Thankcoin'in transfer edileceği kullanıcı.
-    objectId: Thankcoin transfer edilecek olan nesnenin id'si. (Veritabanındaki, kimlik numarası)
-
-    Thankcoin aktarma işlemi için gereken veriyi hazırlar.
-
-    Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki getTokenForSendTransaction() fonksiyonu aracılığı ile
-    bir (Gateway'deki bir) REST servisine aktarılır.
-    Örneğin gene bu component içerisinde şu kod ile çağırılmıştır;
-    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)}  ... />
-
-     */
-
-    getTransaction(receiver, objectId) {
-
-        var transaction = {
-            receiver: {
-                username: receiver
-            },
-            objectType: "Channel",    // Transfer işlemi yapılacak nesnenin türü. (örn: ChannelContent türünde nesne)
-            objectId: objectId,
-            name: ""
-        }
-        return transaction
-
-    }
 
 
 
@@ -99,7 +71,7 @@ class ChannelNameList extends Component {
                     }}> #{item.name}</Link>
 
 
-                        <ThankcoinPanel transaction={this.getTransaction(this.props.loginUser.username, item.id)}
+                        <ThankcoinPanel transaction={getTransaction(this.props.loginUser.username, item.id, "Channel" , item.name)}
                                         currentThankAmount={item.currentThankAmount}/>
 
                     </ListGroupItem>

@@ -25,6 +25,7 @@ import ObservationPanel from "../observation/ObservationPanel";
 
 import {getOnlineUserList} from "./OnlineUserUtil";
 import OnlineUserList from "../user/OnlineUserList";
+import {getTransaction} from "../common/TransactionProcess";
 
 
 
@@ -144,21 +145,7 @@ class ChannelContentList extends Component {
          return picture;
     }
 
-    getTransaction(receiver, objectId)
-    {
 
-
-        var transaction = {
-            receiver:{
-                username:  receiver
-            },
-            objectType:"ChannelContent",
-            objectId:objectId,
-            name: decodeURIComponent(this.props.match.params.title)
-        }
-        return transaction;
-
-    }
     render() {
 
         if (this.props.hasErrored) {
@@ -211,7 +198,10 @@ class ChannelContentList extends Component {
 
                                             readOnly={true} toolbarHidden={true} />
 
-                                    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)} currentThankAmount={content.currentThankAmount}/>
+                                    <ThankcoinPanel transaction={ getTransaction(content.user.username
+                                                                    , content.id, "ChannelContent", decodeURIComponent(this.props.match.params.title) )}
+
+                                                    currentThankAmount={content.currentThankAmount}/>
 
                                 </div>
 
