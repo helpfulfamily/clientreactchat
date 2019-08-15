@@ -1,19 +1,18 @@
 import {notify} from 'reapop';
-import {getLoginUser} from "../../components/common/LoginProcess";
 import defaultavatar  from  "../../components/user/default-avatar.png";
 
  
 
 
-
+// Kargo (action) nesnesi.
 export function transactionChannel(transaction) {
     return {
-        type: 'TRANSACTION_CHANNEL',
-        transaction
+        type: 'TRANSACTION_CHANNEL',   // Kargonun türü, başlığı
+        transaction   // Kargo kutusunun içindeki şey.
     };
 }
 
-
+// Notification modülünden gelen Transaction-başarılı mesajını Websocket.js karşılar. Bu fonksiyona yönlendirir.
 export default function dispatcherTransaction(data, store){
 
 
@@ -26,11 +25,11 @@ export default function dispatcherTransaction(data, store){
     var notificationMessage="";
 
 
-
+        // Şimdilik sadece Kanal için Thankcoin transferi mesajı gönsteriliyor.
         switch (objectType) {
 
             case 'Channel':{
-
+                  // Kargo (action) hazırlanıyor.
                   action= transactionChannel(transaction);
                 break;
             }
@@ -39,92 +38,57 @@ export default function dispatcherTransaction(data, store){
 
         }
 
-    getLoginUser().then( (loginUser) => loginPromiseResolved(loginUser, store, notificationMessage, transaction))
-        .catch(function(hata){
+        // Ekrana kargonun içindeki mesaj gösteriliyor.
+       showNotificationForTransaction(store, notificationMessage, transaction)
 
-        console.log(hata)
-    });
-
-
+       // Kargo  adrese (Reducer'a. Thankcoin için ise: ThankcoinReducer) postalanıyor.
        store.dispatch(action);
 
 
 }
-function isSenderUser(loginUsername, senderUsername){
-    if(loginUsername=== senderUsername){
-        return true;
-    }
-}
-function isReceiverUser(loginUsername, receiverUsername){
-    if(loginUsername=== receiverUsername){
-        return true;
-    }
-}
 
-function  loginPromiseResolved(loginUser, store, notificationMessage, transaction) {
+// Ekrana, o transaction işlemi ile ilgili notification mesajı çıkarır.
+function  showNotificationForTransaction(store, notificationMessage, transaction) {
     var objectType=transaction.objectType;
-    var senderUsername= transaction.sender.username;
-    var receiverUsername=  transaction.receiver.username;
-
-    var isSender=  isSenderUser(loginUser.sso.username, senderUsername);
-    var isReceiver= isReceiverUser(loginUser.sso.username, receiverUsername);
-    var bothSenderAndReceiver= isSender && isReceiver;
+    var channelName= transaction.name;
 
 
-    var notificationMessage="";
+    var notificationMessage="You supported #" + channelName+ " channel!";
 
     switch (objectType) {
-        case 'ProblemContent':{
+        case 'Channel':{
 
-
-            if(bothSenderAndReceiver){
-
-                notificationMessage= "You support and prioritise your own answer using 1 Thankcoin";
-            }else if(isSender){
-                notificationMessage= "You support and prioritise answer of " +receiverUsername +  " using 1 Thankcoin";
-            }else if(isReceiver){
-                notificationMessage= senderUsername + " support and prioritise your answer using 1 Thankcoin";
-
+            var image= transaction.receiver.profilePhotoUrl;
+            if(image==null){
+                image=defaultavatar;
             }
+            console.log(defaultavatar);
+
+            /*
+                Bunu notify kütüphanesinin kullanılma şekli olarak kabul edelim. Notify, ekrana notification gösteren kütüphanedir.
+             */
+            store.dispatch(   notify({
+                title: "Thank you!",
+                message: notificationMessage,
+                image: image,
+                status: "success",
+                dismissible: false,
+                dismissAfter: 0,
+                buttons: [{
+                    name: 'OK',
+                    primary: true
+                } ],
+                allowHTML: true
+            }));
+
+
             break;
         }
 
-        case 'ProblemTitle':{
-            if(bothSenderAndReceiver){
-                notificationMessage= "You support and prioritise your own Problem Title using 1 Thankcoin";
-            }else if(isSender){
-                notificationMessage= "You support and prioritise Problem Title of " +receiverUsername +  " using 1 Thankcoin";
-            }else if(isReceiver){
-                notificationMessage= senderUsername + " support and prioritise your Problem Title using 1 Thankcoin";
-
-            }
-
-            break;
-        }
 
 
     }
-    var image= transaction.receiver.profilePhotoUrl;
-    if(image==null){
-        image=defaultavatar;
-    }
-    console.log(defaultavatar);
-    if(loginUser!=null){
-
-        store.dispatch(   notify({
-            title: "Thank you!",
-            message: notificationMessage,
-            image: image,
-            status: "success",
-            dismissible: false,
-            dismissAfter: 0,
-            buttons: [{
-                name: 'OK',
-                primary: true
-            } ],
-            allowHTML: true
-        }));
 
 
-    }
+
 }
