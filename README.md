@@ -295,7 +295,9 @@ bulunur.
  Redux= Piyanist.
  
  Store= Piyano
+ 
  Action= Nota (Mesela "Do" notası) 
+ 
  Reducer= Tuş
  
  
