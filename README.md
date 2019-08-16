@@ -265,3 +265,42 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
     }
   
 ```
+# REDUX
+# Uygulama belleğinin, yani verilerin o ânki hâlinin Redux ile yönetimi
+Redux, bir servis çağrısından dönen veriyi, bir "Action" nesnesine indirger. 
+
+Store: Uygulamadaki tüm verilerin tutulduğu global bir depo veya bir bellek olarak düşünülebilir.
+Bizim uygulamamızda, configureStore.js içerisinde bir kereliğine tanımlanır ve kullanılır. Her uygulamada bir adet "store"
+bulunur.
+```
+     import { createStore, applyMiddleware } from 'redux';
+     import thunk from 'redux-thunk';
+     import rootReducer from '../reducers';
+
+     export default function configureStore(initialState) {
+
+         var store= createStore(
+             rootReducer,
+             initialState,
+             applyMiddleware(thunk)
+         );
+
+         return store;
+     }
+
+```
+# Piyano örneği ile Redux olayını anlatalım.
+ 
+
+ Redux= Piyanist.
+ 
+ Store= Piyano
+ Action= Nota (Mesela "Do" notası) 
+ Reducer= Tuş
+ 
+ 
+ Nota kağıdına bakmak=  Bir servis çağırmak. Yani, nota kağıdındaki müziği piyanoya aktarma işlemini (action) başlatmak.
+ Mesela "Do" notası görüldü, piyanoda "Do" tuşuna (reducer) basılacaktır.
+ 
+ Tuşlara basmak=  Herhangi bir servis çağırarak, store'un (piyanonun) o ânki hâlini (ritmini) değiştirmek.
+  
