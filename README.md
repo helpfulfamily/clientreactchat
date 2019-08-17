@@ -269,6 +269,26 @@ Clientreactchat tarafında bir kanala tıklandığında, o kanala ait mesajlar G
 # Uygulama belleğinin, yani verilerin o ânki hâlinin Redux ile yönetimi
 Redux, bir servis çağrısından dönen veriyi, bir "Action" nesnesine indirger. 
 
+Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir: 
+1- Axios kullanılarak yapılan REST çağrısı ile bir talepte (request) bulunur ve hemen ardından bir cevap (response) döner.
+   Dolayısı ile dönen cevabın alındığı yer, yine REST çağrısının yapıldığı ve Axios kullanılan yerdir.
+2- Gene Rest çağrısı ile başlatılsa da, cevabın WebSocket aracılığı ile alındığı durum.
+   Buna örnek olarak Thancoin transferi verilebilir.
+   Bunda algoritma şöyle işler:
+       1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda (TransactionProcess.js -> getTransaction() fonksiyonunda) yaratılır. 
+       2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
+       3- Gateway bu transaction JSON objesini Persist modülüne iletir.
+       4- Transaction kaydedilip, ilgili göndericiden 1 Thankcoin silinip, alıcıya başarılı bir şekilde aktarılırsa, buna dâir bilgi, Notification modülüne aktarılır.
+       5- Notification, Websocket dağıtımının yapıldığı modüldür. İşlemin başarılı olduğu bilgisini, Thankcoin'i gönderen ve alan kişilere bildirir. 
+       6- Dolayısı ile, uygulamanın verisindeki değişiklik "Websocket.js" içerisindeki şu noktada başlar:
+ ```      
+       stompClient.subscribe("/topic/sendThankCoin", function (notification) {
+            dispatcherTransaction(notification, store)
+        });
+  ```     
+       
+       
+       
 Store: Uygulamadaki tüm verilerin tutulduğu global bir depo veya bir bellek olarak düşünülebilir.
 Bizim uygulamamızda, configureStore.js içerisinde bir kereliğine tanımlanır ve kullanılır. Her uygulamada bir adet "store"
 bulunur.
