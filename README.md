@@ -275,9 +275,7 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
   
    Dolayısı ile dönen cevabın alındığı yer, yine REST çağrısının yapıldığı ve Axios kullanılan yerdir.
 
-2- Gene Rest çağrısı ile başlatılsa da, cevabın WebSocket aracılığı ile alındığı durum.
-   
-   Buna örnek olarak Thancoin transferi verilebilir.
+2- Gene Rest çağrısı ile başlatılsa da, cevabın WebSocket aracılığı ile alındığı durum. Buna örnek olarak Thancoin transferi verilebilir.
    
 
 Bunda algoritma şöyle işler:
