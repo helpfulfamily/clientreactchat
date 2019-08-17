@@ -282,25 +282,25 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
 
 Bunda algoritma şöyle işler:
 
-       1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda (TransactionProcess.js -> getTransaction() fonksiyonunda) yaratılır. 
+  1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda (TransactionProcess.js -> getTransaction() fonksiyonunda) yaratılır. 
        
-       2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
+  2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
        
-       3- Gateway bu transaction JSON objesini Persist modülüne iletir.
+  3- Gateway bu transaction JSON objesini Persist modülüne iletir.
        
-       4- Transaction kaydedilip, ilgili göndericiden 1 Thankcoin silinip, alıcıya başarılı bir şekilde aktarılırsa, buna dâir bilgi, Notification modülüne aktarılır.
+  4- Transaction kaydedilip, ilgili göndericiden 1 Thankcoin silinip, alıcıya başarılı bir şekilde aktarılırsa, buna dâir bilgi, Notification modülüne aktarılır.
        
-       5- Notification, Websocket dağıtımının yapıldığı modüldür. İşlemin başarılı olduğu bilgisini, Thankcoin'i gönderen ve alan kişilere bildirir. 
+  5- Notification, Websocket dağıtımının yapıldığı modüldür. İşlemin başarılı olduğu bilgisini, Thankcoin'i gönderen ve alan kişilere bildirir. 
        
-       6- Dolayısı ile, uygulamanın verisindeki değişiklik "Websocket.js" içerisindeki şu noktada başlar:
+  6- Dolayısı ile, uygulamanın verisindeki değişiklik "Websocket.js" içerisindeki şu noktada başlar:
  
  
-   
-    ```     
-    stompClient.subscribe("/topic/sendThankCoin", function (notification) {
-            dispatcherTransaction(notification, store)
-        });
-    ```     
+     
+           ```     
+               stompClient.subscribe("/topic/sendThankCoin", function (notification) {
+                 dispatcherTransaction(notification, store)
+                 });
+           ```     
        
        
        
