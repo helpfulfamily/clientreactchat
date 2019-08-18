@@ -1,3 +1,5 @@
+import {showNotificationForTransaction} from "../actions/notification/NotificationProcess";
+
 export function loginReducer(userState = {}, action) {
     switch (action.type) {
 
@@ -36,7 +38,8 @@ export function loginReducer(userState = {}, action) {
                 channel.currentThankAmount = transaction.lastThankAmountObject;
                 user.channels[index] = channel;
             }
-
+            // Ekrana kargonun içindeki mesaj gösteriliyor.
+            showNotificationForTransaction(transaction)
             return {...user};
 
         }
