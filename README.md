@@ -277,12 +277,25 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
 
 2- Gene Rest çağrısı ile başlatılsa da, cevabın WebSocket aracılığı ile alındığı durum. Buna örnek olarak Thancoin transferi verilebilir.
    
+    clientreactchat(transaction) -> 
+                       gateway (Message(Transaction)) -> 
+                                  persit(Message(Transaction)) -> 
+                                               notification((Message(Transaction)) )-> 
+                                                               clientreactchat {
+                                                           websocket.js{store()} 
+                                                                           -> TransactionProcess.js {dispatcherTransaction()}
+                                                                           ->  sso{loginReducer()}
+                                                                     }
 
 Bunda algoritma şöyle işler:
 
-  1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda (TransactionProcess.js -> getTransaction() fonksiyonunda) yaratılır. 
-       
-  2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
+  1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda yaratılır. 
+     transaction =  TransactionProcess.js { getTransaction() } 
+   
+   Demek ki yukarıdaki clientreactchat(transaction) kısmını şuna çevirebiliriz.
+      clientreactchat(TransactionProcess.js { getTransaction() } )
+ 
+ 2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
        
   3- Gateway bu transaction JSON objesini Persist modülüne iletir.
        
