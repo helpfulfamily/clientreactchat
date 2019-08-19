@@ -278,32 +278,37 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
 2- Gene Rest çağrısı ile başlatılsa da, cevabın WebSocket aracılığı ile alındığı durum. Buna örnek olarak Thancoin transferi verilebilir.
    
     clientreactchat(transaction) -> 
-                       gateway (Message(Transaction)) -> 
-                                  persit(Message(Transaction)) -> 
-                                               notification((Message(Transaction)) )-> 
+                       gateway (Message<Transaction>) -> 
+                                  persist(Message<Transaction>)) -> 
+                                               notification(Message<Transaction> )-> 
                                                                clientreactchat {
-                                                           websocket.js{store()} 
+                                                           
+                                                                  websocket.js{
+                                                                             store()
+                                                                        } 
                                                                            -> TransactionProcess.js {dispatcherTransaction()}
-                                                                           ->  sso{loginReducer()}
+                                                                           ->  sso.ja {loginReducer()}
                                                                      }
 
 Bunda algoritma şöyle işler:
 
-  1- Kullanıcı Thank you buttonuna basar ve bir transaction arka planda yaratılır. 
-     transaction =  TransactionProcess.js { getTransaction() } 
+  1- ThankcoinPanel, teşekkür buttonunun olduğu bileşendir. Bu bileşen yüklendiği ânda bir transaction şu şekilde yaratılır:
+  
+  
+    transaction =  TransactionProcess.js { getTransaction() } 
    
-   Demek ki yukarıdaki clientreactchat(transaction) kısmını şuna çevirebiliriz.
-      clientreactchat(TransactionProcess.js { getTransaction() } )
- 
- 2- Bu transaction, Axios kullanılarak Gateway modülüne ilerilir. (TransactionProcess.js -> startTransaction() fonksiyonunda) 
+   
+ 2- Bu transaction, teşekkür buttonuna basıldığında Axios kullanılarak Gateway modülüne ilerilir. 
+   
+    TransactionProcess.js { startTransaction()} 
        
-  3- Gateway bu transaction JSON objesini Persist modülüne iletir.
+3- Gateway bu transaction JSON objesini Persist modülüne iletir.
        
-  4- Transaction kaydedilip, ilgili göndericiden 1 Thankcoin silinip, alıcıya başarılı bir şekilde aktarılırsa, buna dâir bilgi, Notification modülüne aktarılır.
+4- Transaction kaydedilip, ilgili göndericiden 1 Thankcoin silinip, alıcıya başarılı bir şekilde aktarılırsa, buna dâir bilgi, Notification modülüne aktarılır.
        
-  5- Notification, Websocket dağıtımının yapıldığı modüldür. İşlemin başarılı olduğu bilgisini, Thankcoin'i gönderen ve alan kişilere bildirir. 
-       
-  6- Dolayısı ile, uygulamanın verisindeki değişiklik "Websocket.js" içerisindeki şu noktada başlar:
+5- Notification, Websocket dağıtımının yapıldığı modüldür. İşlemin başarılı olduğu bilgisini, Thankcoin'i gönderen ve alan kişilere bildirir. 
+      
+6- Dolayısı ile, uygulamanın verisindeki değişiklik "Websocket.js" içerisindeki şu noktada başlar:
  
  
      
