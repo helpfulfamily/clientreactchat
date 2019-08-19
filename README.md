@@ -284,10 +284,16 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
                                                                clientreactchat {
                                                            
                                                                   websocket.js{
-                                                                             store()
+                                                                             connect()
                                                                         } 
-                                                                           -> TransactionProcess.js {dispatcherTransaction()}
-                                                                           ->  sso.ja {loginReducer()}
+                                                                           -> TransactionProcess.js 
+                                                                                 {
+                                                                                   dispatcherTransaction()
+                                                                                   }
+                                                                                    
+                                                                                     ~ sso.js {
+                                                                                            loginReducer()
+                                                                                            }
                                                                      }
 
 Bunda algoritma şöyle işler:
