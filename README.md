@@ -354,17 +354,16 @@ System serisinin System18 adlı kitabındaki Aru, Deniz, Eren karakterleri üzer
 
 Aru evde tek başına iken, Eren ve Deniz nefes nefese kalmış bir şekilde Aru'nun kapısını çalar.
 Aru ne olduğunu sorar ama bu ikisi heyecândan ne diyecekleri bilemez.
-Dolayısı ile, Aru önce oturup bir şeyler yiyelim, çay içerken rahat rahat konuşuruz der.
+Dolayısı ile, Aru önce oturup bir şeyler yiyelim, çay içerken rahat rahat konuşuruz der. Eren çok aç olmadığını söyler. 
+Aru da, "Ben de pek aç değlim. Hatırladığım kadarı ile, sen de benim gibi soğansız yiyordun. O hâlde bir döner söyleyeyim, bölüşelim" diye cevap verir. Eren tebessüm eder ve "Tamamdır!" der.
 
-Aru evde tek başına olduğundan ve yemek yapmaya zamân bulamayacağından ötürü.
-"Dışarıdan" (external service) döner sipariş etmeye karâr verir.
+Aru evde tek başına olduğundan ve yemek yapmaya zamân bulamayacağından ötürü, dışarıdan" (external service) döner sipariş etmeye karâr verir.
 
 Dönerciye telefon eder (axios ile bir servis çağrısı yapar); siparişlere dâir bilgileri iletir. (Transaction datasının, servis tarafına aktarılması) 
 
 Aru (Bey): soğansız, çift ekmekli, ayran
 Deniz (Hanım): her şey bol ve acılı, şalgam
-Erden (Bey): her şey bol, çift ekmekli, ayran
-
+ 
 Dönerci'de telefonu açan kişiye (gateway) bu siparişler veriliyor ama, dönerci (servis tarafı) bu kimselerin adlarını bilmek zorunda değil.
 O sâdece dönerlerin içeriği ile ilgilenir. (Yani servis tarafına gönderilen datadaki bilgi ile ilgilenir)
 
@@ -388,18 +387,17 @@ Sipariş sırasında nasıl söylendi ise o şekilde yazıyor. Ama, dönerci sip
  Haydi gençler, bu kadar muhabbet yeter. Şimdi karnınızı doyurma zamânı diyor. 
  Dönerlerin içeriklerini kontrol ederek, ilgili kişilere veriyor.
  (Switch-case)
- "Aru sen soğansız yediğine göre, bu kesin senindir. BUYUR_ARU"
- 
- "Herşey bol, acılı ve yanında şalgam olduğuna göre, bu senin olmalı Eren?" diye soruyor ama Deniz biraz mahçup olarak, hayır benim diyor.
- "O hâlde, BUYUR_DENİZ"
-  "Bu da senin, BUYUR_EREN" 
-  
 
+  "Herşey bol, acılı ve yanında şalgam olduğuna göre, bu senin olmalı Eren? Peki sen aç değil misin Deniz?" diye soruyor ama Deniz biraz mahçup olarak, hayır benim diyor.
+ "O hâlde, BUYUR_DENİZ"
+
+ Umay "Peki ya Eren aç mı kalacak?" diye sorunca, Aru: "Onunla bölüşeceğiz" diye karşılık verince; Umay "BUYRUN_BEYLER" diyerek dönerin yarısını Aru'nun tabağına (reducer), yarısını ise Eren'in tabağına koyar.
+ 
   Yukarıdaki hikâyedeki benzetmeler:
 
   Dönerci: Servis tarafı. (Gateway -> Persist -> Notification {Websocket-server}
   Sipariş eden (Aru) : Client tarafı (Clientreactchat.)
-  Siparişi alan (Umay) : Redux. Umay, nasıl ki gelen dönerin içeriğine bakarak ilgili kişilere dağıtıyorsa; Redux da, action ve reducer aracılığı ile bunu yapar. Burada action'ı şöyle düşünebiliriz. BUYUR_ARU, BUYUR_DENİZ, BUYUR_EREN gibi komutlar Action içerisindeki "type" değerine karşılık gelir. Burada, dönerleri dağıtma işinin kendisini "Reducer" gibi düşünebiliriz.
+  Siparişi alan (Umay) : Redux. Umay, nasıl ki gelen dönerin içeriğine bakarak ilgili kişilere dağıtıyorsa; Redux da, action ve reducer aracılığı ile bunu yapar. Burada action'ı şöyle düşünebiliriz. BUYRUN_BEYLER, BUYUR_DENİZ gibi komutlar Action içerisindeki "type" değerine karşılık gelir. Burada, tek bir Action'ın (BUYRUN_BEYLER tipinde bir aksiyon) birden fazla reducer'ı (tabağı) etkilediği görülür.
    
    Transaction için action örneği:
    
