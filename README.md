@@ -346,7 +346,73 @@ bulunur.
      }
 
 ```
-# Piyano örneği ile Redux olayını anlatalım.
+
+# Dönerci Metaforu
+Dönerci metaforu üzerinden Thankcoin aktarma işlemi sırasındaki veri akışını Redux ile nasıl kontrol ettiğimiz kolaylıkla anlatılabileceği gibi, ileriki projelerde de, bu metafor üzerinden iletişim kurmamız kolaylaşabilir.
+
+System serisinin System18 adlı kitabındaki Aru, Deniz, Eren karakterleri üzerinden bu metaforu oluşturabiliriz.
+
+Aru evde tek başına iken, Eren ve Deniz nefes nefese kalmış bir şekilde Aru'nun kapısını çalar.
+Aru ne olduğunu sorar ama bu ikisi heyecândan ne diyecekleri bilemez.
+Dolayısı ile, Aru önce oturup bir şeyler yiyelim, çay içerken rahat rahat konuşuruz der.
+
+Aru evde tek başına olduğundan ve yemek yapmaya zamân bulamayacağından ötürü.
+"Dışarıdan" (external service) döner sipariş etmeye karâr verir.
+
+Dönerciye telefon eder (axios ile bir servis çağrısı yapar); siparişlere dâir bilgileri iletir. (Transaction datasının, servis tarafına aktarılması) 
+
+Aru (Bey): soğansız, çift ekmekli, ayran
+Deniz (Hanım): her şey bol ve acılı, şalgam
+Erden (Bey): her şey bol, çift ekmekli, ayran
+
+Dönerci'de telefonu açan kişiye (gateway) bu siparişler veriliyor ama, dönerci (servis tarafı) bu kimselerin adlarını bilmek zorunda değil.
+O sâdece dönerlerin içeriği ile ilgilenir. (Yani servis tarafına gönderilen datadaki bilgi ile ilgilenir)
+
+Siparişler, (servis tarafındaki) değişik ustalar (persist: döneri hazırlıyor, notification: paketi hazırlıyor)   tarafından hazırlanır. 
+
+Bu arada, kapı çalar ve Aru'nun annesi Umay eve gelir. Annesine de aç olup olmadığını sorarlar. Aç olmadığını söyler.  
+
+Notification, paketi hazırlayıp mobilet ile döner siparişini adrese götürecek olan dağıtımcıya (WebSocket) verir.
+
+(Not: (REST çağrısının yeterli olduğu durum) Eğer döner evde değil de dönercide yenecek olup, bir sipariş dağıtımı gerekmese idi, dağıtımcıya da gerek olmazdı.
+Dönercide sipariş verir ve orada yerdik.)
+
+
+Dağıtıcı elindeki adrese ("/topic/sendThankCoin") bakarak siparişi bırakır.
+
+Diğerleri "ormanda olup bitenlerle ilgili" derin bir muhabbete daldıkları için kapıyı Aru'nun annesi Umay açar.
+
+Umay siparişi alır. Döner paketlerinin üzerinde, dönerlerin içerikleri yazmaktadır.
+Sipariş sırasında nasıl söylendi ise o şekilde yazıyor. Ama, dönerci sipariş edenlerin isimlerini bilmediği için, ilgili kimselere dönerleri vermek Umay'a düşüyor.
+ 
+ Haydi gençler, bu kadar muhabbet yeter. Şimdi karnınızı doyurma zamânı diyor. 
+ Dönerlerin içeriklerini kontrol ederek, ilgili kişilere veriyor.
+ (Switch-case)
+ "Aru sen soğansız yediğine göre, bu kesin senindir. BUYUR_ARU"
+ 
+ "Herşey bol, acılı ve yanında şalgam olduğuna göre, bu senin olmalı Eren?" diye soruyor ama Deniz biraz mahçup olarak, hayır benim diyor.
+ "O hâlde, BUYUR_DENİZ"
+  "Bu da senin, BUYUR_EREN" 
+  
+
+  Yukarıdaki hikâyedeki benzetmeler:
+
+  Dönerci: Servis tarafı. (Gateway -> Persist -> Notification {Websocket-server}
+  Sipariş eden (Aru) : Client tarafı (Clientreactchat.)
+  Siparişi alan (Umay) : Redux. Umay, nasıl ki gelen dönerin içeriğine bakarak ilgili kişilere dağıtıyorsa; Redux da, action ve reducer aracılığı ile bunu yapar. Burada action'ı şöyle düşünebiliriz. BUYUR_ARU, BUYUR_DENİZ, BUYUR_EREN gibi komutlar Action içerisindeki "type" değerine karşılık gelir. Burada, dönerleri dağıtma işinin kendisini "Reducer" gibi düşünebiliriz.
+   
+   Transaction için action örneği:
+   
+   export function transactionChannel(transaction) {
+    return {
+        type: 'TRANSACTION_CHANNEL',   // Kargonun türü, başlığı
+        transaction   // Kargo kutusunun içindeki şey.
+    };
+}
+
+   
+   
+# Piyano metaforu ile Redux olayını anlatalım.
  
 
  Redux= Piyanist.
