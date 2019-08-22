@@ -409,11 +409,11 @@ Sipariş sırasında nasıl söylendi ise o şekilde yazıyor. Ama, dönerci sip
 }
 
    
-#Dönerci Metaforu - Kanala Giriş
+# Dönerci Metaforu - Kanala Giriş
 
 Eren stresli bir gün geçirdiğini ve bunun da kendisini iyice acıktırdığını söyler. Aru ise geçen sefer sipariş verdikleri yerden tekrar döner sipariş etmeyi teklif eder. O sırada Deniz de yanlarına gelir ve dahil olur.
 
-Aru siparişleri kağıda yazıp kasiyerin yanına gider ve kağıtta yazılanları sipariş etmesini rica eder. Kasiyer dönerciyi arayıp (axios ile bir servis çağrısı yapar); siparişleri verir. (Transaction oluşturulur ve aktarılır.) Dönerciye çok yakın olduklarını ve dışarıdaki elemanın Uyum Cafe'ye dönerken siparişleri teslim alacağını söyler. (Yani websocket burada devreye girmez.)
+Aru siparişleri kağıda yazıp Uyum Cafe çalışanlarından birine verir ve kağıtta yazılanları sipariş etmesini rica eder. Cafe çalışanı dönerciye gidip (axios ile bir servis çağrısı yapar) siparişleri verir. (Transaction oluşturulur ve aktarılır. Siparişi veren taraf paketi alacağı için dönercinin kuryesine, yani websocket'e ihtiyaç duyulmaz.)
 
 Aru (Bey): Sebzesiz, çift ekmek, ayran
 Eren (Bey): Soğansız, ayran
@@ -421,7 +421,7 @@ Deniz (Hanım): Her şeyi bol, acılı, şalgam
 
 Dönerlerin hazırlanabilmesi için siparişi alan kişi(Gateway) siparişleri ustaya (Persist) verir. Usta dönerleri yaptıktan sonra paketlenir.
 
-Uyum Cafe çalışanlarından biri cafenin ihtiyaçları için zaten alışverişe çıkmıştır ve geri dönmektedir. Dönerken Aru'nun isteği üzerine kasiyerin verdiği siparişleri de alıp gelir. 
+Paketleme işi bittikten sonra Uyum Cafe çalışanı siparişleri alıp geri döner.  
 
 Aru'nun annesi Umay (Switch-Case) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu sefer dönerlerinizi dağıtırken hata yapmayacağım." deyip tebessüm eder. Paketi eline alıp siparişleri kontrol ederek dağıtır. 
 
