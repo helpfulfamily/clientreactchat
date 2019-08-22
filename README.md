@@ -423,7 +423,7 @@ Dönerlerin hazırlanabilmesi için siparişi alan kişi(Gateway) siparişleri u
 
 Paketleme işi bittikten sonra Uyum Cafe çalışanı siparişleri alıp geri döner.  
 
-Aru'nun annesi Umay (Switch-Case) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu sefer dönerlerinizi dağıtırken hata yapmayacağım." deyip tebessüm eder. Paketi eline alıp siparişleri kontrol ederek dağıtır. 
+Aru'nun annesi Umay (Redux) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu sefer dönerlerinizi dağıtırken hata yapmayacağım." deyip tebessüm eder. Paketi eline alıp siparişleri kontrol eder (Switch-Case) ve dağıtmaya başlar. 
 
 "Her şeyi bol, acılı, şalgam siparişini yine Deniz vermiş olmalı." der ve Deniz; "Evet bu sefer doğru." diyerek tebessüm eder. Umay; "O halde, BUYUR_DENİZ" der.
 
