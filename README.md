@@ -435,9 +435,35 @@ Aru'nun annesi Umay (Redux) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu s
 
 "Geriye bir tane kaldığına göre o da Eren'in olmalı." de ve "O halde, BUYUR_EREN" der.
 
+       clientreactchat{
+                  componentDidMount {
+                        fetchData-> ChannelContentAction.js { channelContentsFetchData { axios } } 
+                      }
+                  
+                  } 
+                    -> gateway(kanaladı, sayfasayısı) 
+                      ->  persist(mesajlistesi) 
+                         ->gateway(mesajlistesi)
+                           ->clientreactchat {
+                                  ChannelContentAction.js {
+                                  componentDidMount(){
+                                      channelContentsFetchData() { 
+                                                                    axios {
+                                                                                                                                                                                          dispatch(channelContentsFetchDataSuccess(contents))) 
+                                                                                                                                                                                            ~ChannelContentReducer.js {channelContentReducer () }
+                                                                                                                                                                                          
+                                                                                                                                                                                              }
+                                                                                      } 
+                                                          } 
+                                               }                               
+                                         }
 
 
+not: 
 
+dispatch, bir aksiyonu Reducer'a ileten fonksiyon. 
+
+channelContentsFetchDataSuccess ise, CHANNEL_CONTENTS_FETCH_DATA_SUCCESS türünde bir Action yaratıyor. Bu türü taşıyan Reducer çağrılıyor.
 
 # Piyano metaforu ile Redux olayını anlatalım.
  
