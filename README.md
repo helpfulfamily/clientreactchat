@@ -347,7 +347,7 @@ bulunur.
 
 ```
 
-# Dönerci Metaforu
+# Dönerci Metaforu - Thankcoin Aktarma
 Dönerci metaforu üzerinden Thankcoin aktarma işlemi sırasındaki veri akışını Redux ile nasıl kontrol ettiğimiz kolaylıkla anlatılabileceği gibi, ileriki projelerde de, bu metafor üzerinden iletişim kurmamız kolaylaşabilir.
 
 System serisinin System18 adlı kitabındaki Aru, Deniz, Eren karakterleri üzerinden bu metaforu oluşturabiliriz.
@@ -361,7 +361,7 @@ Aru evde tek başına olduğundan ve yemek yapmaya zamân bulamayacağından öt
 
 Dönerciye telefon eder (axios ile bir servis çağrısı yapar); siparişlere dâir bilgileri iletir. (Transaction datasının, servis tarafına aktarılması) 
 
-Aru (Bey): soğansız, çift ekmekli, ayran
+Aru (Bey): sebzesiz, çift ekmekli, ayran
 Deniz (Hanım): her şey bol ve acılı, şalgam
  
 Dönerci'de telefonu açan kişiye (gateway) bu siparişler veriliyor ama, dönerci (servis tarafı) bu kimselerin adlarını bilmek zorunda değil.
@@ -388,7 +388,7 @@ Sipariş sırasında nasıl söylendi ise o şekilde yazıyor. Ama, dönerci sip
  Dönerlerin içeriklerini kontrol ederek, ilgili kişilere veriyor.
  (Switch-case)
 
-  "Herşey bol, acılı ve yanında şalgam olduğuna göre, bu senin olmalı Eren? Peki sen aç değil misin Deniz?" diye soruyor ama Deniz biraz mahçup olarak, hayır benim diyor.
+  "Her şey bol, acılı ve yanında şalgam olduğuna göre, bu senin olmalı Eren? Peki sen aç değil misin Deniz?" diye soruyor ama Deniz biraz mahçup olarak, hayır benim diyor.
  "O hâlde, BUYUR_DENİZ"
 
  Umay "Peki ya Eren aç mı kalacak?" diye sorunca, Aru: "Onunla bölüşeceğiz" diye karşılık verince; Umay "BUYRUN_BEYLER" diyerek dönerin yarısını Aru'nun tabağına (reducer), yarısını ise Eren'in tabağına koyar.
@@ -409,7 +409,32 @@ Sipariş sırasında nasıl söylendi ise o şekilde yazıyor. Ama, dönerci sip
 }
 
    
-   
+#Dönerci Metaforu - Kanala Giriş
+
+Eren stresli bir gün geçirdiğini ve bunun da kendisini iyice acıktırdığını söyler. Aru ise geçen sefer sipariş verdikleri yerden tekrar döner sipariş etmeyi teklif eder. O sırada Deniz de yanlarına gelir ve dahil olur.
+
+Aru siparişleri kağıda yazıp kasiyerin yanına gider ve kağıtta yazılanları sipariş etmesini rica eder. Kasiyer dönerciyi arayıp (axios ile bir servis çağrısı yapar); siparişleri verir. (Transaction oluşturulur ve aktarılır.) Dönerciye çok yakın olduklarını ve dışarıdaki elemanın Uyum Cafe'ye dönerken siparişleri teslim alacağını söyler. (Yani websocket burada devreye girmez.)
+
+Aru (Bey): Sebzesiz, çift ekmek, ayran
+Eren (Bey): Soğansız, ayran
+Deniz (Hanım): Her şeyi bol, acılı, şalgam
+
+Dönerlerin hazırlanabilmesi için siparişi alan kişi(Gateway) siparişleri ustaya (Persist) verir. Usta dönerleri yaptıktan sonra paketlenir.
+
+Uyum Cafe çalışanlarından biri cafenin ihtiyaçları için zaten alışverişe çıkmıştır ve geri dönmektedir. Dönerken Aru'nun isteği üzerine kasiyerin verdiği siparişleri de alıp gelir. 
+
+Aru'nun annesi Umay (Switch-Case) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu sefer dönerlerinizi dağıtırken hata yapmayacağım." deyip tebessüm eder. Paketi eline alıp siparişleri kontrol ederek dağıtır. 
+
+"Her şeyi bol, acılı, şalgam siparişini yine Deniz vermiş olmalı." der ve Deniz; "Evet bu sefer doğru." diyerek tebessüm eder. Umay; "O halde, BUYUR_DENİZ" der.
+
+"Sebzesiz, çift ekmek, ayran ise Aru'nun siparişi olmalı." der ve Aru; "Evet, her zamanki gibi." der. Umay; "O halde, BUYUR_ARU" der.
+
+"Geriye bir tane kaldığına göre o da Eren'in olmalı." de ve "O halde, BUYUR_EREN" der.
+
+
+
+
+
 # Piyano metaforu ile Redux olayını anlatalım.
  
 
