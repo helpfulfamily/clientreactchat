@@ -4,12 +4,13 @@ import defaultavatar  from  "../../components/user/default-avatar.png";
 import { store } from '../../App'
 
 // Ekrana, o transaction işlemi ile ilgili notification mesajı çıkarır.
+var notificationMessage="";
 export function  showNotificationForTransaction(transaction) {
     var objectType=transaction.objectType;
     var channelName= transaction.name;
 
 
-    var notificationMessage="You supported #" + channelName+ " channel!";
+    notificationMessage="You supported #" + channelName+ " channel!";
 
     switch (objectType) {
         case 'Channel':{

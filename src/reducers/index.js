@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { problemTitleReducer, problemTitleHasErrored, problemTitleIsLoading} from './channel/ProblemTitleReducer';
 import { userListArrived, userReducer, userHasErrored, userIsLoading} from './user/UserReducer';
 
-import { channelContentReducer, channelContentsHasErrored, channelContentsIsLoading } from './channel/ProblemContentReducer';
+import { channelContentReducer, channelContentsHasErrored, channelContentsIsLoading } from './channel/ChannelContentReducer';
 import { loginReducer} from './sso';
 import { isWebSocketConnected} from './WebSocketReducer';
 

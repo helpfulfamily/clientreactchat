@@ -39,7 +39,7 @@ export function loginReducer(userState = {}, action) {
                 user.channels[index] = channel;
             }
             // Ekrana kargonun içindeki mesaj gösteriliyor.
-            showNotificationForTransaction(transaction)
+            showNotificationForTransaction(transaction);
             return {...user};
 
         }
