@@ -416,14 +416,18 @@ Eren stresli bir gün geçirdiğini ve bunun da kendisini iyice acıktırdığı
 Aru siparişleri kağıda yazıp Uyum Cafe çalışanlarından birine verir ve kağıtta yazılanları sipariş etmesini rica eder. Cafe çalışanı dönerciye gidip (axios ile bir servis çağrısı yapar) siparişleri verir. (Transaction oluşturulur ve aktarılır. Siparişi veren taraf paketi alacağı için dönercinin kuryesine, yani websocket'e ihtiyaç duyulmaz.)
 
 Aru (Bey): Sebzesiz, çift ekmek, ayran
+
 Eren (Bey): Soğansız, ayran
+
 Deniz (Hanım): Her şeyi bol, acılı, şalgam
 
-Dönerlerin hazırlanabilmesi için siparişi alan kişi(Gateway) siparişleri ustaya (Persist) verir. Usta dönerleri yaptıktan sonra paketlenir.
+Dönerlerin hazırlanabilmesi için, dönerci tarafında siparişi alan kişi(Gateway) siparişleri ustaya (Persist) verir. Usta dönerleri yaptıktan sonra sipariş (Gateway tarafından) paketlenir.
+
 
 Paketleme işi bittikten sonra Uyum Cafe çalışanı siparişleri alıp geri döner.  
 
 Aru'nun annesi Umay (Redux) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu sefer dönerlerinizi dağıtırken hata yapmayacağım." deyip tebessüm eder. Paketi eline alıp siparişleri kontrol eder (Switch-Case) ve dağıtmaya başlar. 
+
 
 "Her şeyi bol, acılı, şalgam siparişini yine Deniz vermiş olmalı." der ve Deniz; "Evet bu sefer doğru." diyerek tebessüm eder. Umay; "O halde, BUYUR_DENİZ" der.
 
