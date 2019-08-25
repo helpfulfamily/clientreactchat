@@ -42,22 +42,5 @@ export function channelContentsAppendList(url) {
             .catch(() => console.log("Error: contentsFetchData"));
     };
 }
-export function channelContentsFetchData(url) {
-    return (dispatch) => {
-        dispatch(channelContentsIsLoading(true));
 
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
 
-                dispatch(channelContentsIsLoading(false));
-
-                return response;
-            })
-            .then((response) => response.json())
-            .then((contents) => dispatch(channelContentsFetchDataSuccess(contents)))
-            .catch(() => dispatch(channelContentsHasErrored(true)));
-    };
-}

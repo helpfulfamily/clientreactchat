@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    channelContentsFetchData,
     channelContentsAppendList
 } from '../../actions/channel/ChannelContentAction';
 import {Button, ListGroup, ListGroupItem} from 'reactstrap';
@@ -26,6 +25,7 @@ import ObservationPanel from "../observation/ObservationPanel";
 import {getOnlineUserList} from "./OnlineUserUtil";
 import OnlineUserList from "../user/OnlineUserList";
 import {getTransaction} from "../common/TransactionProcess";
+import {getChannelContentsOut} from "../../door/ChannelContentDoor";
 
 
 
@@ -56,7 +56,8 @@ class ChannelContentList extends Component {
 
     componentDidMount() {
 
-        this.props.fetchData(properties.channel_contents+  this.props.match.params.title+ "/"+ pageNumber);
+        this.props.getChannelContentsOut(this.props.match.params.title, pageNumber);
+
         this.toBottom();
 
 
@@ -117,7 +118,7 @@ class ChannelContentList extends Component {
 
             // Kanaldaki mesajları çeker.
             pageNumber=0;
-            this.props.fetchData(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+            this.props.getChannelContentsOut(this.props.match.params.title, pageNumber);
 
             // Yeni kanala girildiği için, scrollu en aşağı atar.
             this.toBottom()
@@ -244,7 +245,7 @@ class ChannelContentList extends Component {
 
 ChannelContentList.propTypes = {
     appendList: PropTypes.func.isRequired,
-    fetchData: PropTypes.func.isRequired,
+    getChannelContentsOut: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
@@ -265,7 +266,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(channelContentsFetchData(url)),
+        getChannelContentsOut: (channelName, pageNumber) => dispatch(getChannelContentsOut(channelName, pageNumber)),
         appendList: (url) => dispatch(channelContentsAppendList(url))
 
     };

@@ -120,7 +120,6 @@ class OnlineUserList extends Component {
 
 OnlineUserList.propTypes = {
     channel: PropTypes.object.isRequired,
-    fetchData: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired,
