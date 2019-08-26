@@ -450,7 +450,7 @@ Aru'nun annesi Umay (Redux) "Yine döner yiyeceksiniz anlaşılan." der ve "Bu s
                                   componentDidMount(){
                                       channelContentsFetchData() { 
                                                                     axios {
-                                                                                                                                                                                          dispatch(channelContentsFetchDataSuccess(contents))) 
+                                                                                                                                                                                          dispatch(getChannelContentsAction(contents))) 
                                                                                                                                                                                             ~ChannelContentReducer.js {channelContentReducer () }
                                                                                                                                                                                           
                                                                                                                                                                                               }
@@ -464,7 +464,7 @@ not:
 
 dispatch, bir aksiyonu Reducer'a ileten fonksiyon. 
 
-channelContentsFetchDataSuccess ise, CHANNEL_CONTENTS_FETCH_DATA_SUCCESS türünde bir Action yaratıyor. Bu türü taşıyan Reducer çağrılıyor.
+getChannelContentsAction ise, GET_CHANNEL_CONTENTS türünde bir Action yaratıyor. Bu türü taşıyan Reducer çağrılıyor.
 
 # Piyano metaforu ile Redux olayını anlatalım.
  

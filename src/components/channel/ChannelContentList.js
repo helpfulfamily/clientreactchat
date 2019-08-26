@@ -4,7 +4,6 @@ import {
     channelContentsAppendList
 } from '../../actions/channel/ChannelContentAction';
 import {Button, ListGroup, ListGroupItem} from 'reactstrap';
-import { properties } from '../../config/properties.js';
 import PropTypes from 'prop-types'
 import ChannelContentForm from "./ChannelContentForm";
 import defaultavatar from '../user/default-avatar.png';
@@ -25,7 +24,8 @@ import ObservationPanel from "../observation/ObservationPanel";
 import {getOnlineUserList} from "./OnlineUserUtil";
 import OnlineUserList from "../user/OnlineUserList";
 import {getTransaction} from "../common/TransactionProcess";
-import {getChannelContentsOut} from "../../door/ChannelContentDoor";
+import {getChannelContentsOut} from "../../door/GetChannelContentsDoor";
+import {appendChannelContentsOut} from "../../door/AppendChannelContentsDoor";
 
 
 
@@ -87,7 +87,7 @@ class ChannelContentList extends Component {
         if(messageBody.scrollTop==0){
 
             pageNumber=pageNumber+1;
-            this.props.appendList(properties.channel_contents + this.props.match.params.title + "/"+ pageNumber);
+            this.props.appendChannelContentsOut(this.props.match.params.title, pageNumber);
         }
 
 
@@ -249,7 +249,6 @@ ChannelContentList.propTypes = {
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     isWebSocketConnected: PropTypes.bool.isRequired,
 };
 
@@ -257,7 +256,6 @@ const mapStateToProps = (state) => {
     return {
         contents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
-        isLoading: state.channelContentsIsLoading,
         loginUser: state.loginReducer,
         isWebSocketConnected: state.isWebSocketConnected
 
@@ -267,7 +265,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getChannelContentsOut: (channelName, pageNumber) => dispatch(getChannelContentsOut(channelName, pageNumber)),
-        appendList: (url) => dispatch(channelContentsAppendList(url))
+        appendChannelContentsOut: (channelName, pageNumber) => dispatch(appendChannelContentsOut(channelName, pageNumber))
 
     };
 };
