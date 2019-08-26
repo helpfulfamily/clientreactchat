@@ -8,15 +8,7 @@ export function channelContentsHasErrored(state = false, action) {
     }
 }
 
-export function channelContentsIsLoading(state = false, action) {
-    switch (action.type) {
-        case 'CHANNEL_CONTENTS_IS_LOADING':
-            return action.isLoading;
 
-        default:
-            return state;
-    }
-}
 function isNeededToUpdateGui(titleFromWebSocket){
     var title= window.location.pathname;
     title = decodeURIComponent(title);
@@ -29,7 +21,7 @@ function isNeededToUpdateGui(titleFromWebSocket){
 }
 export function channelContentReducer(state = [], action) {
     switch (action.type) {
-        case 'CHANNEL_CONTENTS_FETCH_DATA_SUCCESS':
+        case 'GET_CHANNEL_CONTENTS':
             return action.contents;
         case 'PUBLISH_CHANNEL_CONTENT':{
             var data=action.item;
@@ -45,7 +37,7 @@ export function channelContentReducer(state = [], action) {
                 return state;
             }
         }
-        case 'CHANNEL_CONTENTS_APPEND_LIST_SUCCESS':{
+        case 'APPEND_CHANNEL_CONTENTS':{
 
             return   [
 

@@ -1,33 +1,40 @@
 import {
-    channelContentsFetchDataSuccess,
-    channelContentsHasErrored,
-    channelContentsIsLoading
+    getChannelContentsAction,
+    channelContentsHasErrored
 } from "../actions/channel/ChannelContentAction";
 import {properties} from "../config/properties";
+import axios from "axios";
 
 export function getChannelContentsOut(channelName, pageNumber) {
     var url= properties.channel_contents+  channelName+ "/"+ pageNumber;
     return (dispatch) => {
-        dispatch(channelContentsIsLoading(true));
 
-        fetch(url)
+        var headers = {
+
+            'Content-Type': 'application/json',
+
+        }
+
+        axios.get(url,{headers: headers})
             .then((response) => {
-                if (!response.ok) {
+                if (response.status!=200) {
                     throw Error(response.statusText);
+                }else {
+                    const contents=  response.data;
+                    dispatch(getChannelContentsIn(contents));
                 }
 
-                dispatch(channelContentsIsLoading(false));
 
-                return response;
+
             })
-            .then((response) => response.json())
-            .then((contents) => dispatch(getChannelContentsIn(contents)))
+
             .catch(() => dispatch(channelContentsHasErrored(true)));
+
     };
 }
 
 export function getChannelContentsIn(contents) {
-    var action=  channelContentsFetchDataSuccess(contents);
+    const action=  getChannelContentsAction(contents);
     return action;
 
 }
