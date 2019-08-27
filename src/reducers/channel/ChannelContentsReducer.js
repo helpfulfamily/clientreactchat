@@ -19,10 +19,26 @@ function isNeededToUpdateGui(titleFromWebSocket){
         return false;
     }
 }
-export function channelContentReducer(state = [], action) {
+export function channelContentsReducer(state = [], action) {
     switch (action.type) {
+        //O kanala ait mesajları getiren aksiyon.
         case 'GET_CHANNEL_CONTENTS':
             return action.contents;
+
+        //Kanalda scroll tavana değdikçe, bir önceki 10 mesajı getiren aksiyon.
+        case 'APPEND_CHANNEL_CONTENTS':{
+
+            return   [
+
+
+                ...action.contents,
+                ...state
+            ]
+
+
+        }
+
+        //Kanala mesaj yayınlayan aksiyon.
         case 'PUBLISH_CHANNEL_CONTENT':{
             var data=action.item;
            if(isNeededToUpdateGui(data.payload.channel.name) ){
@@ -37,18 +53,8 @@ export function channelContentReducer(state = [], action) {
                 return state;
             }
         }
-        case 'APPEND_CHANNEL_CONTENTS':{
 
-            return   [
-
-
-                ...action.contents,
-                ...state
-            ]
-
-
-        }
-
+        // Kanaldaki bir mesaja teşekkür gönderen fonksiyon.
         case 'TRANSACTION_CHANNEL_CONTENT':{
 
             var transaction= action.transaction;

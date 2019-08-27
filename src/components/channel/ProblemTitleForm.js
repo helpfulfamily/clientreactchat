@@ -2,7 +2,7 @@ import React from 'react';
 
 import {properties} from '../../config/properties.js';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {publishProblem} from "../../actions/channel/ProblemTitleAction";
+import {publishChannelContent} from "../../actions/channel/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {EditorState, convertToRaw} from 'draft-js';
@@ -142,7 +142,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item, token) => {console.log(url); publishProblem(url, item, token)}
+        postData: (url, item, token) => {console.log(url); publishChannelContent(url, item, token)}
     };
 };
 
