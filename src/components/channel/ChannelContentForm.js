@@ -3,7 +3,7 @@ import React from 'react';
 import {properties} from '../../config/properties.js';
 import {Button} from "reactstrap";
 import {
-    publishProblem
+    publishChannelContent
 } from "../../actions/channel/ProblemTitleAction";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
@@ -136,7 +136,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item, token) => {console.log(url);  publishProblem(url, item, token)}
+        postData: (url, item, token) => {console.log(url);  publishChannelContent(url, item, token)}
     };
 };
 

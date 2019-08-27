@@ -76,7 +76,7 @@ export default function dispatcherHaProblemContent(data, store){
 
 
 }
-export function publishProblem(url, item, token) {
+export function publishChannelContent(url, item, token) {
     var bearer=  ' Bearer ' +  token;
     var headers = {
         'Content-Type': 'application/json',
