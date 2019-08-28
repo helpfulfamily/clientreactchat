@@ -7,16 +7,16 @@ export function channelContentsHasErrored(bool) {
 
 
 
-export function getChannelContentsAction(contents) {
+export function getChannelContentsAction(channelContents) {
     return {
         type: 'GET_CHANNEL_CONTENTS',
-        contents
+        channelContents
     };
 }
-export function appendChannelContentsAction(contents) {
+export function appendChannelContentsAction(channelContents) {
     return {
         type: 'APPEND_CHANNEL_CONTENTS',
-        contents
+        channelContents
     };
 }
 
