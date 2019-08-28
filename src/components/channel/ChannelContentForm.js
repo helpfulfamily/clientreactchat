@@ -1,16 +1,16 @@
 import React from 'react';
 
-import {properties} from '../../config/properties.js';
+
 import {Button} from "reactstrap";
-import {
-    publishChannelContent
-} from "../../actions/channel/ProblemTitleAction";
+
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 import {convertToRaw, EditorState, ContentState} from "draft-js";
-import { Editor } from 'react-draft-wysiwyg';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { Editor} from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
 import {getToken} from "../common/process";
+import {publishChannelContentOut} from "../../door/PublishChannelContentDoor";
 
 class ChannelContentForm extends React.Component {
     constructor(props) {
@@ -59,11 +59,8 @@ class ChannelContentForm extends React.Component {
     startPublishProcess = (token) =>
       {
 
-        var apiBaseUrl = properties.channel_publishContent;
 
-
-
-        var item = {
+        var content = {
             "name": "",
             "text": this.state.channelContent,
             "channel": {
@@ -73,9 +70,9 @@ class ChannelContentForm extends React.Component {
 
         this.clearForm();
 
-        this.props.postData(apiBaseUrl, item, token);
+        this.props.publishChannelContentOut(content, token);
     }
-    handleKeyCommand(command: string): DraftHandleValue {
+    handleKeyCommand(command) {
         if (command === 'split-block') {
             // Perform a request to save your contents, set
             // a new `editorState`, etc.
@@ -119,7 +116,7 @@ class ChannelContentForm extends React.Component {
 }
 
 ChannelContentForm.propTypes = {
-    postData: PropTypes.func.isRequired,
+    publishChannelContentOut: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -136,7 +133,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        postData: (url, item, token) => {console.log(url);  publishChannelContent(url, item, token)}
+        publishChannelContentOut: (content, token) => { publishChannelContentOut(content, token)}
     };
 };
 

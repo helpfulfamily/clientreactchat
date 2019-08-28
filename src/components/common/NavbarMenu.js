@@ -6,7 +6,7 @@ import {
     NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu, ListGroupItem
 } from 'reactstrap';
 import connectWebSocket from '../../actions/websocket';
-import {FaHireAHelper, FaQuestionCircle, FaUnlockAlt} from "react-icons/fa";
+import {FaUnlockAlt} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import {connect} from "react-redux";
@@ -15,11 +15,11 @@ import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
 import Responsive from 'react-responsive';
-import ProblemTitleForm from "../channel/ProblemTitleForm";
+
 import '../../css/style.css';
 
 import logo from "../../img/logo.svg";
-import {FaFacebookMessenger, FaLightbulb, FaRegLightbulb, FaUserCog} from "react-icons/fa/index";
+import {FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
 

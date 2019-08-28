@@ -40,11 +40,11 @@ export function channelContentsReducer(state = [], action) {
 
         //Kanala mesaj yayınlayan aksiyon.
         case 'PUBLISH_CHANNEL_CONTENT':{
-            var data=action.item;
-           if(isNeededToUpdateGui(data.payload.channel.name) ){
+
+           if(isNeededToUpdateGui(action.content.channel.name) ){
                 return   [
                     ...state,
-                    data.payload,
+                    action.content,
 
                 ]
 

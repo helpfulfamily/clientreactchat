@@ -244,7 +244,7 @@ class ChannelContentList extends Component {
 }
 
 ChannelContentList.propTypes = {
-    appendList: PropTypes.func.isRequired,
+    appendChannelContentsOut: PropTypes.func.isRequired,
     getChannelContentsOut: PropTypes.func.isRequired,
     contents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
