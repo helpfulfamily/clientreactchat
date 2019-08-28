@@ -101,7 +101,7 @@ class ChannelContentList extends Component {
 
 
         // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
-        if (isScrollBottom &&  prevProps.contents.length !=  this.props.contents.length) {
+        if (isScrollBottom &&  prevProps.channelContents.length !=  this.props.channelContents.length) {
 
             this.toBottom();
         }
@@ -162,7 +162,7 @@ class ChannelContentList extends Component {
         const list=<ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
 
             {
-                this.props.contents.map((content) => (
+                this.props.channelContents.map((content) => (
                     <ListGroupItem key={content.id}>
 
                         <Row>
@@ -246,7 +246,7 @@ class ChannelContentList extends Component {
 ChannelContentList.propTypes = {
     appendChannelContentsOut: PropTypes.func.isRequired,
     getChannelContentsOut: PropTypes.func.isRequired,
-    contents: PropTypes.array.isRequired,
+    channelContents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
     isWebSocketConnected: PropTypes.bool.isRequired,
@@ -254,7 +254,7 @@ ChannelContentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        contents: state.channelContents,
+        channelContents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
         loginUser: state.loginReducer,
         isWebSocketConnected: state.isWebSocketConnected

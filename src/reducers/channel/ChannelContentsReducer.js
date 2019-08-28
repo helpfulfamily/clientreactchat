@@ -23,7 +23,7 @@ export function channelContentsReducer(state = [], action) {
     switch (action.type) {
         //O kanala ait mesajları getiren aksiyon.
         case 'GET_CHANNEL_CONTENTS':
-            return action.contents;
+            return action.channelContents;
 
         //Kanalda scroll tavana değdikçe, bir önceki 10 mesajı getiren aksiyon.
         case 'APPEND_CHANNEL_CONTENTS':{
@@ -31,7 +31,7 @@ export function channelContentsReducer(state = [], action) {
             return   [
 
 
-                ...action.contents,
+                ...action.channelContents,
                 ...state
             ]
 
