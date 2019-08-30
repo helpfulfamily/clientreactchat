@@ -9,6 +9,7 @@ import {Route, Switch} from "react-router-dom";
 import Responsive from 'react-responsive';
 
 import ChannelTab from "./ChannelTab";
+import ChannelFrame from "../channel/ChannelFrame";
 
 
  const Desktop = props => <Responsive {...props} minWidth={992} />;
@@ -39,7 +40,7 @@ export default class Proso extends Component {
                             <Col xs="6" sm="3"> <ChannelTab/> </Col>
                             <Col xs="6" sm="6">
                                 <Switch>
-                                    <Route exact path="/channelcontents/:title" component={ChannelContentList} />
+                                    <Route exact path="/channelcontents/:title" component={ChannelFrame} />
                                 </Switch>
                             </Col>
 
@@ -50,7 +51,7 @@ export default class Proso extends Component {
                     <Row>
                       <Col>
                           <Switch>
-                               <Route exact path="/channelcontents/:title" component={ChannelContentList} />
+                               <Route exact path="/channelcontents/:title" component={ChannelFrame} />
                           </Switch>
                        </Col>
                     </Row>
@@ -59,7 +60,7 @@ export default class Proso extends Component {
                     <Row>
                         <Col>
                             <Switch>
-                                 <Route exact path="/channelcontents/:title" component={ChannelContentList} />
+                                 <Route exact path="/channelcontents/:title" component={ChannelFrame} />
                             </Switch>
                          </Col>
                     </Row>

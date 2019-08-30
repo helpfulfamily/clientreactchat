@@ -1,38 +1,33 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
     channelContentsAppendList
 } from '../../actions/channel/ChannelContentAction';
-import {Button, ListGroup, ListGroupItem} from 'reactstrap';
-import PropTypes from 'prop-types'
-import ChannelContentForm from "./ChannelContentForm";
+import {ListGroup, ListGroupItem} from 'reactstrap';
+import PropTypes from 'prop-types';
 import defaultavatar from '../user/default-avatar.png';
 
 
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, ContentState } from 'draft-js';
+import {Editor} from 'react-draft-wysiwyg';
+import {EditorState, ContentState} from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 import './channelcontent.css';
 
 import {
     Row,
-    Col } from 'reactstrap';
-import {Link} from "react-router-dom";
+    Col
+} from 'reactstrap';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
-import ObservationPanel from "../observation/ObservationPanel";
-
-import {getOnlineUserList} from "./OnlineUserUtil";
-import OnlineUserList from "../user/OnlineUserList";
 import {getTransaction} from "../common/TransactionProcess";
 import {getChannelContentsOut} from "../../door/GetChannelContentsDoor";
 import {appendChannelContentsOut} from "../../door/AppendChannelContentsDoor";
+import ProfilePicture from "../common/ProfilePicture";
 
 
+var pageNumber = 0;
+var isScrollBottom = false;
 
-var pageNumber=0;
-var isScrollBottom=false;
 class ChannelContentList extends Component {
-
 
 
     constructor(props) {
@@ -56,11 +51,9 @@ class ChannelContentList extends Component {
 
     componentDidMount() {
 
-        this.props.getChannelContentsOut(this.props.match.params.title, pageNumber);
+        this.props.getChannelContentsOut(this.props.title, pageNumber);
 
         this.toBottom();
-
-
 
 
     }
@@ -68,26 +61,26 @@ class ChannelContentList extends Component {
     listenScrollEvent() {
 
 
-         // Bu kimse, eğer scrollu yukarılara çekip, geçmiş mesajlara bakmakta ise
-         // yeni bir mesaj geldiğinde, scroll otomatik olarak aşağı inmesin diye
-         // aşağıdaki isScrollBottom değişkenini oluşturup işaret olarak kullanıyoruz.
-         // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
+        // Bu kimse, eğer scrollu yukarılara çekip, geçmiş mesajlara bakmakta ise
+        // yeni bir mesaj geldiğinde, scroll otomatik olarak aşağı inmesin diye
+        // aşağıdaki isScrollBottom değişkenini oluşturup işaret olarak kullanıyoruz.
+        // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
         var messageBody = document.querySelector('#messageBody');
 
-        var scrollBottonPos= messageBody.scrollHeight - messageBody.clientHeight;
-        if(messageBody.scrollTop< scrollBottonPos){
-            isScrollBottom=false;
+        var scrollBottonPos = messageBody.scrollHeight - messageBody.clientHeight;
+        if (messageBody.scrollTop < scrollBottonPos) {
+            isScrollBottom = false;
 
-        } else if(messageBody.scrollTop == scrollBottonPos){
-            isScrollBottom=true;
+        } else if (messageBody.scrollTop == scrollBottonPos) {
+            isScrollBottom = true;
 
         }
 
         // Scroll, en yukarı değdiğinde geçmiş mesajlar çağrılıyor.
-        if(messageBody.scrollTop==0){
+        if (messageBody.scrollTop == 0) {
 
-            pageNumber=pageNumber+1;
-            this.props.appendChannelContentsOut(this.props.match.params.title, pageNumber);
+            pageNumber = pageNumber + 1;
+            this.props.appendChannelContentsOut(this.props.title, pageNumber);
         }
 
 
@@ -101,24 +94,20 @@ class ChannelContentList extends Component {
 
 
         // isScrollBottom== true ise, kullanıcı o an, chatleşme hâlindedir. Scroll en aşağıdadır.
-        if (isScrollBottom &&  prevProps.channelContents.length !=  this.props.channelContents.length) {
+        if (isScrollBottom && prevProps.channelContents.length != this.props.channelContents.length) {
 
             this.toBottom();
         }
 
         // Yeni bir kanala girilip girilmediği bu şekilde öğrenilir.
-        if (prevProps.location.pathname != this.props.location.pathname) {
+        if (prevProps.title != this.props.title) {
 
-            var channelName= this.props.location.pathname;
-            channelName = decodeURIComponent(channelName);
-            channelName = channelName.replace("\/channelcontents\/","")
+            var channelName = this.props.title;
 
-            // Kanaldaki online kullanıcı listesini bu şekilde alır.
-            getOnlineUserList(this.props.loginUser.sso.username,"join", channelName);
 
             // Kanaldaki mesajları çeker.
-            pageNumber=0;
-            this.props.getChannelContentsOut(this.props.match.params.title, pageNumber);
+            pageNumber = 0;
+            this.props.getChannelContentsOut(this.props.title, pageNumber);
 
             // Yeni kanala girildiği için, scrollu en aşağı atar.
             this.toBottom()
@@ -128,22 +117,17 @@ class ChannelContentList extends Component {
     }
 
 
-    partChannel(event) {
-        event.preventDefault();
-        getOnlineUserList("part");
+    toBottom() {
+        var messageBody = document.querySelector('#messageBody');
+
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
     }
 
-   toBottom(){
-       var messageBody = document.querySelector('#messageBody');
-
-       messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
-   }
-
     profilePicture(picture) {
-         if(picture===null){
-             picture= defaultavatar;
-         }
-         return picture;
+        if (picture === null) {
+            picture = defaultavatar;
+        }
+        return picture;
     }
 
 
@@ -156,10 +140,9 @@ class ChannelContentList extends Component {
         if (this.props.isLoading) {
             console.log("Contents are loading.")
         }
-        var buttonPartChannel =<Button color="primary" onClick={(e) => this.partChannel(e)}> Part Channel </Button>;
 
 
-        const list=<ListGroup className="scrollablediv"  id="messageBody"  onScroll={this.listenScrollEvent}>
+        const list = <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
 
             {
                 this.props.channelContents.map((content) => (
@@ -168,24 +151,7 @@ class ChannelContentList extends Component {
                         <Row>
                             <Col xs="2">
 
-                                <div className="content-img" >
-
-
-                                    <Link to={{
-                                        pathname: '/' + content.user.username,
-                                        state: {
-                                            username: content.user.username
-                                        }
-                                    }} >
-                                     <span>
-                                     <img     src={this.profilePicture(content.user.profilePhotoUrl) } alt=""   />
-                                     </span>
-                                    </Link>
-
-
-
-                                </div>
-
+                                <ProfilePicture user={content.user}/>
 
 
                             </Col>
@@ -197,10 +163,10 @@ class ChannelContentList extends Component {
 
                                     <Editor editorState={this.contentToRender(content.text)}
 
-                                            readOnly={true} toolbarHidden={true} />
+                                            readOnly={true} toolbarHidden={true}/>
 
-                                    <ThankcoinPanel transaction={ getTransaction(content.user.username
-                                                                    , content.id, "ChannelContent", decodeURIComponent(this.props.match.params.title) )}
+                                    <ThankcoinPanel transaction={getTransaction(content.user.username
+                                        , content.id, "ChannelContent", decodeURIComponent(this.props.title))}
 
                                                     currentThankAmount={content.currentThankAmount}/>
 
@@ -219,25 +185,10 @@ class ChannelContentList extends Component {
 
         return (
 
+            <div>
+                {list}
 
-                <Row>
-                    <Col xs="6" sm="9">
-                        <ObservationPanel/>
-                        <b>  {decodeURIComponent(this.props.match.params.title)} </b>
-                        {buttonPartChannel}
-                        {list}
-
-
-                        <ChannelContentForm channelName={this.props.match.params.title}/>
-                    </Col>
-
-                    <Col xs="2" sm="3">
-                        { (typeof this.props.loginUser.sso!="undefined" &&  this.props.isWebSocketConnected)  ?  <OnlineUserList/> : ''}
-
-                    </Col>
-
-
-                </Row>
+            </div>
 
         );
     }
@@ -248,16 +199,14 @@ ChannelContentList.propTypes = {
     getChannelContentsOut: PropTypes.func.isRequired,
     channelContents: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
-    loginUser: PropTypes.object.isRequired,
-    isWebSocketConnected: PropTypes.bool.isRequired,
+    loginUser: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
         channelContents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
-        loginUser: state.loginReducer,
-        isWebSocketConnected: state.isWebSocketConnected
+        loginUser: state.loginReducer
 
     };
 };
