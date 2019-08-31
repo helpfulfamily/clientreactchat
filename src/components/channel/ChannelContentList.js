@@ -8,20 +8,12 @@ import PropTypes from 'prop-types';
 import defaultavatar from '../user/default-avatar.png';
 
 
-import {Editor} from 'react-draft-wysiwyg';
-import {EditorState, ContentState} from 'draft-js';
-import htmlToDraft from 'html-to-draftjs';
 import './channelcontent.css';
 
-import {
-    Row,
-    Col
-} from 'reactstrap';
-import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
-import {getTransaction} from "../common/TransactionProcess";
 import {getChannelContentsOut} from "../../door/GetChannelContentsDoor";
 import {appendChannelContentsOut} from "../../door/AppendChannelContentsDoor";
-import ProfilePicture from "../common/ProfilePicture";
+
+import ChannelContent from "./ChannelContent";
 
 
 var pageNumber = 0;
@@ -36,18 +28,6 @@ class ChannelContentList extends Component {
         this.listenScrollEvent = this.listenScrollEvent.bind(this);
     }
 
-    contentToRender = (html) => {
-
-
-        const contentBlock = htmlToDraft(html);
-
-        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks,
-            contentBlock.entityMap);
-        const editorState = EditorState.createWithContent(contentState);
-
-        return editorState;
-
-    }
 
     componentDidMount() {
 
@@ -142,53 +122,25 @@ class ChannelContentList extends Component {
         }
 
 
-        const list = <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
 
-            {
-                this.props.channelContents.map((content) => (
-                    <ListGroupItem key={content.id}>
-
-                        <Row>
-                            <Col xs="2">
-
-                                <ProfilePicture user={content.user}/>
-
-
-                            </Col>
-                            <Col xs="9">
-
-                                <div className="panel panel-default">
-
-                                    <div className="panel-heading"><b>{content.user.username}</b></div>
-
-                                    <Editor editorState={this.contentToRender(content.text)}
-
-                                            readOnly={true} toolbarHidden={true}/>
-
-                                    <ThankcoinPanel transaction={getTransaction(content.user.username
-                                        , content.id, "ChannelContent", decodeURIComponent(this.props.title))}
-
-                                                    currentThankAmount={content.currentThankAmount}/>
-
-                                </div>
-
-
-                            </Col>
-                        </Row>
-
-                    </ListGroupItem>
-
-
-                ))}
-        </ListGroup>;
 
 
         return (
+            <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
 
-            <div>
-                {list}
+                {
+                    this.props.channelContents.map((content) => (
+                        <ListGroupItem key={content.id}>
 
-            </div>
+                            <ChannelContent content={content}/>
+
+
+
+                        </ListGroupItem>
+
+
+                    ))}
+            </ListGroup>
 
         );
     }

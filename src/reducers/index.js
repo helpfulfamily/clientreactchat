@@ -25,7 +25,6 @@ export default combineReducers({
     problemTitleIsLoading,
     channelContents: channelContentsReducer,
     channelContentsHasErrored,
-
     loginReducer,
     onlineUserList:userListArrived,
     isWebSocketConnected: isWebSocketConnected
