@@ -9,11 +9,12 @@ import PropTypes from 'prop-types'
 
 import Profile from "./user/Profile";
 import NavbarMenu from "./common/NavbarMenu";
-import Proso from "./common/Proso";
+import MainFrame from "./common/MainFrame";
 import ATopLevelComponent from "./common/ATopLevelComponent";
 import {channelGetByName} from "../actions/channel/ChannelAction";
 import {connect} from "react-redux";
 import {properties} from "../config/properties";
+import UyumNotation from "./common/UyumNotation";
 
 
 var channelName="";
@@ -63,7 +64,9 @@ class Home extends Component {
 
                 <Switch>
                     <Route exact path="/:username" component={Profile} />
-                    <Route exact  path="/*" component={Proso} />
+                    <Route exact  path="/uyum/notation" component={UyumNotation} />
+                    <Route exact  path="/*" component={MainFrame} />
+
 
                 </Switch>
                 <ATopLevelComponent/>

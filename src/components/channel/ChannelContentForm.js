@@ -35,7 +35,7 @@ class ChannelContentForm extends React.Component {
         this.setState({channelContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
 
-    };
+};
 
 
 
