@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {Col, Row} from "reactstrap";
-import ChannelContentList from "../channel/ChannelContentList";
+
 
 import {Route, Switch} from "react-router-dom";
 
@@ -17,7 +17,7 @@ const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 
-export default class Proso extends Component {
+export default class MainFrame extends Component {
     constructor(props) {
         super(props);
 
