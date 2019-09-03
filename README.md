@@ -482,4 +482,7 @@ getChannelContentsAction ise, GET_CHANNEL_CONTENTS türünde bir Action yaratıy
  Mesela "Do" notası görüldü, piyanoda "Do" tuşuna (reducer) basılacaktır.
  
  Tuşlara basmak=  Herhangi bir servis çağırarak, store'un (piyanonun) o ânki hâlini (ritmini) değiştirmek.
-  
+ 
+ # COMPONENTLERİN TASLAĞI
+ 
+  ![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/componentdraft.jpg?raw=true)
