@@ -7,22 +7,22 @@ import {getToken} from "./process";
 
 Transaction metoduna receiver ve objectId olmak üzere iki parametre girilmiştir.
 
-receiver: Thankcoin'in transfer edileceği kullanıcı.
-objectId: Thankcoin transfer edilecek olan nesnenin id'si. (Veritabanındaki, kimlik numarası)
+                receiver: Thankcoin'in transfer edileceği kullanıcı.
+    objectId: Thankcoin transfer edilecek olan nesnenin id'si. (Veritabanındaki, kimlik numarası)
 
-Thankcoin aktarma işlemi için gereken veriyi hazırlar.
+    Thankcoin aktarma işlemi için gereken veriyi hazırlar.
 
-Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki getTokenForSendTransaction() fonksiyonu aracılığı ile
-bir (Gateway'deki bir) REST servisine aktarılır.
-Örneğin gene bu component içerisinde şu kod ile çağırılmıştır;
-<ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)}  ... />
+        Bu veri, transaction adında bir JSON objesidir ve  ThankcoinPanel.js içerisindeki getTokenForSendTransaction() fonksiyonu aracılığı ile
+    bir (Gateway'deki bir) REST servisine aktarılır.
+    Örneğin gene bu component içerisinde şu kod ile çağırılmıştır;
+    <ThankcoinPanel transaction={ this.getTransaction(content.user.username, content.id)}  ... />
 
- */
+*/
 
-export function getTransaction(receiver, objectId, objectType, name) {
+    export function getTransaction(receiver, objectId, objectType, name) {
 
-    var transaction = {
-        receiver: {
+        var transaction = {
+            receiver: {
             username: receiver
         },
         objectType: objectType,    // Transfer işlemi yapılacak nesnenin türü. (örn: "Channel", "User" veya "ChannelContent" türünde nesne)
