@@ -6,6 +6,12 @@ export function channelContentsHasErrored(bool) {
 }
 
 
+export function transactionChannelContent(transaction) {
+    return {
+        type: 'TRANSACTION_CHANNEL_CONTENT',
+        transaction
+    };
+}
 
 export function getChannelContentsAction(channelContents) {
     return {
