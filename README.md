@@ -487,6 +487,6 @@ getChannelContentsAction ise, GET_CHANNEL_CONTENTS türünde bir Action yaratıy
  
   ![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/componentdraft.jpg?raw=true)
 
-# Özel Chat Componentlerinin Taslağı
+# Özel Chat Componentlerinin TASLAĞI 
 
 ![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/dialogcompdraft.jpg?raw=true)
