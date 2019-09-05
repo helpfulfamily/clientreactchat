@@ -8,19 +8,16 @@ var notificationMessage="";
 export function  showNotificationForTransaction(transaction) {
     var objectType=transaction.objectType;
     var channelName= transaction.name;
+    var image= transaction.receiver.profilePhotoUrl;
+    if(image==null){
+        image=defaultavatar;
+    }
 
 
-    notificationMessage="You supported #" + channelName+ " channel!";
 
     switch (objectType) {
         case 'Channel':{
-
-            var image= transaction.receiver.profilePhotoUrl;
-            if(image==null){
-                image=defaultavatar;
-            }
-            console.log(defaultavatar);
-
+            notificationMessage="You supported #" + channelName+ " channel!";
             /*
                 Bunu notify kütüphanesinin kullanılma şekli olarak kabul edelim. Notify, ekrana notification gösteren kütüphanedir.
              */
@@ -41,7 +38,26 @@ export function  showNotificationForTransaction(transaction) {
 
             break;
         }
+        case 'ChannelContent':{
 
+            notificationMessage="You send Thankcoin for a message of " + transaction.receiver.username;
+            store.dispatch(   notify({
+                title: "Thank you!",
+                message: notificationMessage,
+                image: image,
+                status: "success",
+                dismissible: false,
+                dismissAfter: 0,
+                buttons: [{
+                    name: 'OK',
+                    primary: true
+                } ],
+                allowHTML: true
+            }));
+
+
+            break;
+        }
 
 
     }

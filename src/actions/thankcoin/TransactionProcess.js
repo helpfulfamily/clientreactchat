@@ -1,4 +1,5 @@
 import {transactionChannel} from "./TransactionChannelAction";
+import {transactionChannelContent} from "../channel/ChannelContentAction";
 
  
 
@@ -25,7 +26,11 @@ export default function dispatcherTransaction(data, store){
                 break;
             }
 
-
+            case 'ChannelContent':{
+                // Kargo (action) hazırlanıyor.
+                action= transactionChannelContent(transaction);
+                break;
+            }
 
         }
 

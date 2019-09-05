@@ -47,7 +47,7 @@ export default class ChannelContent extends Component {
 
 
                         <ThankcoinPanel transaction={getTransaction(this.props.content.user.username
-                            , this.props.content.id, "ChannelContent", decodeURIComponent(this.props.content.title))}
+                            , this.props.content.id, "ChannelContent", decodeURIComponent(this.props.content.channel.name))}
 
                                         currentThankAmount={this.props.content.currentThankAmount}/>
 

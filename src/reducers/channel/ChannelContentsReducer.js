@@ -1,3 +1,5 @@
+import {showNotificationForTransaction} from "../../actions/notification/NotificationProcess";
+
 export function channelContentsHasErrored(state = false, action) {
     switch (action.type) {
         case 'CHANNEL_CONTENTS_HAS_ERRORED':
@@ -72,6 +74,8 @@ export function channelContentsReducer(state = [], action) {
                 content.currentThankAmount = transaction.lastThankAmountObject;
                 state[index] = content;
             }
+
+            showNotificationForTransaction(transaction);
 
             return [...state];
             }else{
