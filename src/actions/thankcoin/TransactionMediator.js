@@ -1,5 +1,5 @@
 import {transactionChannel} from "./TransactionChannelAction";
-import {transactionChannelContent} from "../channel/ChannelContentAction";
+import {transactionChannelContentIn} from "../../door/TransactionChannelContentDoor";
 
  
 
@@ -23,12 +23,15 @@ export default function dispatcherTransaction(data, store){
             case 'Channel':{
                   // Kargo (action) hazırlanıyor.
                   action= transactionChannel(transaction);
+                 // Kargo  adrese (Reducer'a. Thankcoin için ise: ThankcoinReducer) postalanıyor.
+                 store.dispatch(action);
                 break;
             }
 
             case 'ChannelContent':{
                 // Kargo (action) hazırlanıyor.
-                action= transactionChannelContent(transaction);
+                action= transactionChannelContentIn(transaction, store);
+
                 break;
             }
 
@@ -36,8 +39,7 @@ export default function dispatcherTransaction(data, store){
 
 
 
-       // Kargo  adrese (Reducer'a. Thankcoin için ise: ThankcoinReducer) postalanıyor.
-       store.dispatch(action);
+
 
 
 }

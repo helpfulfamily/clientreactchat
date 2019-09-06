@@ -2,7 +2,7 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { properties } from '../config/properties.js';
 import dispatcherHaProblemContent from './channel/PublishChannelContentAction';
-import dispatcherTransaction from './thankcoin/TransactionProcess';
+import dispatcherTransaction from './thankcoin/TransactionMediator';
 import { dispatcherChannel } from './channel/ChannelAction';
 import dispatcherObservation from "./observation/ObservationAction";
 import { store } from '../App'

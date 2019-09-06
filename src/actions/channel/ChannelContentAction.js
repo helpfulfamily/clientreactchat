@@ -6,7 +6,7 @@ export function channelContentsHasErrored(bool) {
 }
 
 
-export function transactionChannelContent(transaction) {
+export function transactionChannelContentAction(transaction) {
     return {
         type: 'TRANSACTION_CHANNEL_CONTENT',
         transaction
