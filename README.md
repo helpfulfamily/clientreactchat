@@ -37,6 +37,10 @@ In this case, just try SET instead of Export in  package.json like this:
   
       "start": "set HTTPS=true && react-scripts start",
       
+      or in some case just like:
+      
+      "start": "set HTTPS=true&&react-scripts start",
+      
  # Kodu değiştirip, yerel depoya (COMMIT) ve uzak depoya (PUSH) aktarma işlemi.
   1- Master branchinde olduğuna emin ol.
   
