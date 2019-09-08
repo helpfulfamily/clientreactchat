@@ -1,5 +1,5 @@
-import {transactionChannel} from "./TransactionChannelAction";
 import {transactionChannelContentIn} from "../../door/TransactionChannelContentDoor";
+import {transactionChannelIn} from "../../door/TransactionChannelDoor";
 
  
 
@@ -22,9 +22,8 @@ export default function dispatcherTransaction(data, store){
 
             case 'Channel':{
                   // Kargo (action) hazırlanıyor.
-                  action= transactionChannel(transaction);
-                 // Kargo  adrese (Reducer'a. Thankcoin için ise: ThankcoinReducer) postalanıyor.
-                 store.dispatch(action);
+                  action= transactionChannelIn(transaction, store);
+
                 break;
             }
 

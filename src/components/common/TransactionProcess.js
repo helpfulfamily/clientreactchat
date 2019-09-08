@@ -1,5 +1,6 @@
 import {getToken} from "./process";
 import {transactionChannelContentOut} from "../../door/TransactionChannelContentDoor";
+import {transactionChannelOut} from "../../door/TransactionChannelDoor";
 
 
 /*
@@ -42,7 +43,20 @@ export   function getTokenForSendTransaction(keycloak, transaction)
 
     // Token alındı ise, startTransaction fonksiyonu çağrılarak, transaction gönderme işlemi başlatılır.
 
-        .then( (token) => transactionChannelContentOut(token, transaction))
+        .then( (token) => {
+
+            var objectType= transaction.objectType;
+
+             if(objectType== "Channel"){
+
+                  transactionChannelOut(token, transaction)
+
+             }else if (objectType== "ChannelContent") {
+
+                  transactionChannelContentOut(token, transaction)
+        }
+
+        } )
 
         // Eğer token alınırken bir hata oluştu ise, catch içerisinde o hata ekrana yazılıyor.
 
