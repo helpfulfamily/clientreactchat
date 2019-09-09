@@ -17,8 +17,7 @@ export default function dispatcherTransaction(data, store){
 
 
 
-        // Şimdilik sadece Kanal için Thankcoin transferi mesajı gönsteriliyor.
-        switch (objectType) {
+         switch (objectType) {
 
             case 'Channel':{
                   // Kargo (action) hazırlanıyor.
