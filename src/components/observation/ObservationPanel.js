@@ -12,7 +12,6 @@ import UserListModal from "../user/UserListModal";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import {createChannel}  from "../../actions/channel/ChannelAction";
-
 class ObservationPanel extends Component {
     constructor(props) {
         super(props);
@@ -177,7 +176,7 @@ ObservationPanel.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer,
+        loginUser: state.userInformationReducer,
         channel: state.channel
     };
 };

@@ -1,9 +1,9 @@
 import {showNotificationForTransaction} from "../actions/notification/NotificationProcess";
 
-export function loginReducer(userState = {}, action) {
+export function userInformationReducer(userState = {}, action) {
     switch (action.type) {
 
-        case 'USER_LOG_IN':
+        case 'GET_USER_INFORMATION':
             if (typeof action.user !== 'undefined'){
 
                 return action.user;

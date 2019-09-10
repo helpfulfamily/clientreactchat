@@ -7,7 +7,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 import {getTransaction} from "../common/TransactionProcess";
-
 /*
 Kanal listesinin componentidir.
 Kanal listesi ile ilgili işlemler bu component üzerinden yapılır.
@@ -110,7 +109,7 @@ ChannelNameList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
     };
 };
 

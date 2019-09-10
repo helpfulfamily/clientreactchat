@@ -297,7 +297,7 @@ Bizim uygulamamıza, şimdilik iki noktadan veri gelebilir:
                                                                                    }
                                                                                     
                                                                                      ~ sso.js {
-                                                                                            loginReducer()
+                                                                                            userInformationReducer()
                                                                                             }
                                                                      }
 

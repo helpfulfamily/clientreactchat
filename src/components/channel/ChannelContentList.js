@@ -158,7 +158,7 @@ const mapStateToProps = (state) => {
     return {
         channelContents: state.channelContents,
         hasErrored: state.channelContentsHasErrored,
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
 
     };
 };

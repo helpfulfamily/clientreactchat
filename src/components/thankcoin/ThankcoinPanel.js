@@ -15,7 +15,6 @@ Thankcoin aktarma işlemi için gereken veriyi hazırlayan metot çağırılmı�
  */
 
 import {getTokenForSendTransaction}  from "../common/TransactionProcess";
-
 class ThankcoinPanel extends Component {
 
   /*
@@ -63,7 +62,7 @@ ThankcoinPanel.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
     };
 };
 
