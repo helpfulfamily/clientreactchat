@@ -10,7 +10,6 @@ import './profil.css';
 
 import {connect} from "react-redux";
 
-
   class Profile extends Component {
     constructor(props) {
         super(props);
@@ -71,7 +70,7 @@ Profile.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
     };
 };
 

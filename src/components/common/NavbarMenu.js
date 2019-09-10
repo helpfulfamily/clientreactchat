@@ -22,7 +22,6 @@ import logo from "../../img/logo.svg";
 import {FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
-
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -197,7 +196,7 @@ NavbarMenu.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
     };
 };
 

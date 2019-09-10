@@ -19,7 +19,6 @@ import {getOnlineUserList} from "./OnlineUserUtil";
 import OnlineUserList from "../user/OnlineUserList";
 import ChannelContentList from "./ChannelContentList";
 
-
 class ChannelFrame extends Component {
 
 
@@ -105,7 +104,7 @@ const mapStateToProps = (state) => {
     return {
 
         isWebSocketConnected: state.isWebSocketConnected,
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
 
     };
 };

@@ -132,7 +132,7 @@ const mapStateToProps = (state) => {
         hasErrored: state.problemTitleHasErrored,
         isLoading: state.problemTitleIsLoading,
         channel: state.channel,
-        loginUser: state.loginReducer
+        loginUser: state.userInformationReducer
 
     };
 };

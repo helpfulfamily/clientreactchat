@@ -124,7 +124,7 @@ ChannelContentForm.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        loginUser: state.loginReducer,
+        loginUser: state.userInformationReducer,
         hasErrored: state.problemTitleHasErrored,
         isLoading: state.problemTitleIsLoading
     };

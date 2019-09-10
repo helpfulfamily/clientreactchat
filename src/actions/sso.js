@@ -3,16 +3,11 @@ import { properties } from '../config/properties.js';
 export function loginAction(user) {
     console.log("user:", user);
     return {
-        type: 'USER_LOG_IN',
+        type: 'GET_USER_INFORMATION',
         user
     };
 }
-export function logoutAction(user) {
-    return {
-        type: 'USER_LOG_OUT',
-        user
-    };
-}
+
 export function loginActionDispatcher(loginUser) {
     return (dispatch) => {
         var headers = {
