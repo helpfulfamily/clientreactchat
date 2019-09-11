@@ -10,7 +10,7 @@ import {FaUnlockAlt} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import {connect} from "react-redux";
-import { loginActionDispatcher } from '../../actions/sso';
+
 import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
 
@@ -22,6 +22,7 @@ import logo from "../../img/logo.svg";
 import {FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
+import {getUserInformationOut} from "../../door/GetUserInformationDoor";
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -77,8 +78,10 @@ class NavbarMenu extends React.Component {
 
   loginPromiseResolved(loginUser){
       if(loginUser!=null){
-          this.props.loginActionDispatcher(loginUser);
+          // Kullanıcının profil bilgileri, Keycloack'tan gelen loginUser temel bilgisi üzerinden alınıyor.
+          this.props.getUserInformationOut(loginUser);
 
+          // WebSocket'e de bu noktada bağlanıyor.
           connectWebSocket(loginUser.sso.username);
       }
   }
@@ -191,7 +194,7 @@ class NavbarMenu extends React.Component {
 NavbarMenu.propTypes = {
 
     loginUser: PropTypes.object.isRequired,
-    loginActionDispatcher: PropTypes.func.isRequired
+    getUserInformationOut: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -203,8 +206,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        loginActionDispatcher: (user) => {
-            dispatch(loginActionDispatcher(user))
+        getUserInformationOut: (user) => {
+            dispatch(getUserInformationOut(user))
         }
 
     };
