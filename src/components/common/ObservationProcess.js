@@ -1,10 +1,10 @@
-import axios from "axios";
-import {properties} from "../../config/properties";
 import {getToken} from "./process";
+import {observationChannelOut} from "../../door/ObservationChannelDoor";
+import {notify} from "reapop";
 
 export function sendObservationRequestSignal(keycloak, observation)
 {
-    getToken(keycloak).then( (token) => startObservationRequestSignal(token, observation))
+    getToken(keycloak).then( (token) => observationChannelOut(token, observation))
         .catch(function(hata){
 
             console.log(hata)
@@ -12,34 +12,43 @@ export function sendObservationRequestSignal(keycloak, observation)
 
 
 }
-function startObservationRequestSignal(token, observation){
-    var bearer=  ' Bearer ' +   token;
-    var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': bearer,
-        'Access-Control-Allow-Origin': '*'
+export function  loginPromiseResolved(loginUser, store, notificationMessage, observation) {
+    var objectType=observation.objectType;
+
+    var notificationMessage="";
+
+    switch (objectType) {
+
+
+        case 'Channel':{
+            if(observation.observe){
+                notificationMessage= "You are an observer of #" +observation.channelName + " now!";
+            }else {
+                notificationMessage = "You unobserved  #" +observation.channelName + " now!";
+            }
+
+
+
+            break;
+        }
     }
 
+    if(loginUser!=null){
+
+        store.dispatch(   notify({
+            title: "Observation",
+            message: notificationMessage,
+
+            status: "success",
+            dismissible: false,
+            dismissAfter: 0,
+            buttons: [{
+                name: 'OK',
+                primary: true
+            } ],
+            allowHTML: true
+        }));
 
 
-    axios.post(properties.serverUrl+"/observation/sendObservationRequestSignal", observation, {headers: headers})
-
-        .then( (response)  => {
-            if (!response.status) {
-                throw Error(response.statusText);
-            }
-            if(response.data!==""){
-
-            }
-
-        })
-        .catch( (error)  => {
-
-        })
-        .then( () =>  {
-
-
-
-
-        });
+    }
 }
