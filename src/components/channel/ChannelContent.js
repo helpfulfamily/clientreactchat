@@ -27,7 +27,7 @@ export default class ChannelContent extends Component {
     }
 
     render() {
-        console.log(this.props.content)
+
 
         return (
             <Row>

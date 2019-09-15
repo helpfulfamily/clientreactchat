@@ -11,6 +11,7 @@ import { Editor} from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
 import {getToken} from "../common/process";
 import {publishChannelContentOut} from "../../door/PublishChannelContentDoor";
+import logger from "../../tools/log/index";
 
 class ChannelContentForm extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class ChannelContentForm extends React.Component {
         getToken(this.props.loginUser.sso.keycloak).then( (token) => this.startPublishProcess(token))
             .catch(function(hata){
 
-                console.log(hata)
+                logger.error(hata)
             });
 
 

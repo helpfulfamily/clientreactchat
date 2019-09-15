@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 
 import PropTypes from 'prop-types'
 import ModalExample from "./ModalExample";
+import logger from "../../tools/log/index";
 
 import Responsive from 'react-responsive';
 
@@ -70,7 +71,7 @@ class NavbarMenu extends React.Component {
             (typeof this.props.loginUser.sso!=="undefined" && !this.props.loginUser.sso.isAuthenticated)) {
 
             getLoginUser().then( (loginUser) => this.loginPromiseResolved(loginUser)).catch(function(hata){
-                console.log(hata)
+                logger.error(hata)
             });
 
         }

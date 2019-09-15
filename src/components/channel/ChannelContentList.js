@@ -6,6 +6,7 @@ import {
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import PropTypes from 'prop-types';
 import defaultavatar from '../user/default-avatar.png';
+import logger from "../../tools/log/index";
 
 
 import './channelcontent.css';
@@ -114,11 +115,11 @@ class ChannelContentList extends Component {
     render() {
 
         if (this.props.hasErrored) {
-            console.log("Sorry! There was an error loading the contents")
+            logger.error("Sorry! There was an error loading the contents")
         }
 
         if (this.props.isLoading) {
-            console.log("Contents are loading.")
+            logger.error("Contents are loading.")
         }
 
 

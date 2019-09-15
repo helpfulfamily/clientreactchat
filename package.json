@@ -10,6 +10,7 @@
     "draftjs-to-html": "^0.8.4",
     "html-to-draftjs": "^1.4.0",
     "keycloak-js": "^4.8.3",
+    "loglevel": "^1.6.4",
     "react": "^16.8.1",
     "react-dnd": "^7.4.5",
     "react-dnd-html5-backend": "^7.4.4",

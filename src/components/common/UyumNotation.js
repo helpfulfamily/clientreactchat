@@ -18,11 +18,10 @@ export default class UyumNotation extends Component {
 
     }
     handleKeyCommand(command) {
-        console.log(command);
+
         if (command === 'split-block') {
 
-            console.log(this.state.uyumContent);
-        }
+         }
         return 'not-handled';
     }
 
@@ -36,7 +35,6 @@ export default class UyumNotation extends Component {
 
         this.setState({uyumContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
-        console.log(convertToRaw(editorState.getCurrentContent()));
 
     };
 

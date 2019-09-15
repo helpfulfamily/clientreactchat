@@ -134,7 +134,7 @@ ObservationPanel.js içerisindeki şu button aracılığı ile, süreç başlar:
             getToken(this.props.loginUser.sso.keycloak).then((token) => this.startCreateChannelProcess(token))
                 .catch(function (hata) {
 
-                    console.log(hata)
+                    logger.error(hata)
                 });
 
 

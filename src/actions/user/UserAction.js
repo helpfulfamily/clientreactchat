@@ -62,13 +62,14 @@ export function userFetchData(url) {
 }
 
 export   function dispatcherUserList(data, store){
-    console.log(data);
+
     var body=  JSON.parse(data.body);
     var payload= body.payload;
 
 
-         var action= userListArrived(payload);
-        store.dispatch(action)
+    var action= userListArrived(payload);
+
+    store.dispatch(action)
 
 
 
