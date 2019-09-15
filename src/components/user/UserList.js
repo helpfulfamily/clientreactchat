@@ -135,7 +135,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        fetchData: (url) => {console.log(url); dispatch(userFetchData(url))},
+        fetchData: (url) => { dispatch(userFetchData(url))},
 
     };
 };

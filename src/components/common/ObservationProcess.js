@@ -1,13 +1,14 @@
 import {getToken} from "./process";
 import {observationChannelOut} from "../../door/ObservationChannelDoor";
 import {notify} from "reapop";
+import logger from "../../tools/log/index";
 
 export function sendObservationRequestSignal(keycloak, observation)
 {
     getToken(keycloak).then( (token) => observationChannelOut(token, observation))
         .catch(function(hata){
 
-            console.log(hata)
+            logger.error(hata)
         });
 
 

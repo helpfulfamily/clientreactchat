@@ -98,7 +98,7 @@ export function createChannel(url, item, token) {
 
 }
 export   function dispatcherChannel(data, store){
-    console.log(data);
+
     var body=  JSON.parse(data.body);
     var payload= body.payload;
     var name= payload.name;

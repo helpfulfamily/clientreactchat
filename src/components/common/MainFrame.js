@@ -5,6 +5,7 @@ import {Col, Row} from "reactstrap";
 
 import {Route, Switch} from "react-router-dom";
 
+import logger from "../../tools/log/index";
 
 import Responsive from 'react-responsive';
 
@@ -28,7 +29,7 @@ export default class MainFrame extends Component {
       render() {
 
           if (this.props.toLocaleString()) {
-              console.log("Sorry! There was an error loading the contents")
+              logger.error("Sorry! There was an error loading the contents")
           }
 
 

@@ -1,6 +1,7 @@
 import {getToken} from "./process";
 import {transactionChannelContentOut} from "../../door/TransactionChannelContentDoor";
 import {transactionChannelOut} from "../../door/TransactionChannelDoor";
+import logger from "../../tools/log/index";
 
 
 /*
@@ -62,7 +63,7 @@ export   function getTokenForSendTransaction(keycloak, transaction)
 
         .catch(function(hata){
 
-            console.log(hata)
+            logger.error(hata)
         });
 
 

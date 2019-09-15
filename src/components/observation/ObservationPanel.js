@@ -85,7 +85,7 @@ class ObservationPanel extends Component {
             getToken(this.props.loginUser.sso.keycloak).then((token) => this.startCreateChannelProcess(token))
                 .catch(function (hata) {
 
-                    console.log(hata)
+
                 });
 
 
@@ -185,7 +185,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         postData: (url, item, token) => {
-            console.log(url);
+
             createChannel(url, item, token)
         }
     };

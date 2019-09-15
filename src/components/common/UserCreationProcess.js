@@ -1,5 +1,6 @@
 import {properties} from "../../config/properties";
 import axios from "axios";
+import logger from "../../tools/log/index";
 
 export function createUser(user){
     var headers = {
@@ -14,7 +15,7 @@ export function createUser(user){
 
         .then( (response) =>  {
 
-            console.log("user created");
+            logger.info("user created");
 
 
         });
