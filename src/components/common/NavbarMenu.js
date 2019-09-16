@@ -3,7 +3,7 @@ import {
     Navbar, NavbarBrand,
     Nav,
     NavItem,
-    NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu, ListGroupItem
+    NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu
 } from 'reactstrap';
 import connectWebSocket from '../../actions/websocket';
 import {FaUnlockAlt} from "react-icons/fa";

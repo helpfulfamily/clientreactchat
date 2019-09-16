@@ -1,11 +1,13 @@
 import {properties} from "../config/properties";
 import axios from "axios";
 import {transactionChannelContentAction} from "../actions/channel/ChannelContentAction";
+import logger from "../tools/log/index";
 
 
 
 //Aşağıda bearer + token ve headers değişkeni tanımlanıyor.
 export function transactionChannelContentOut(token, transaction){
+
     var bearer=  ' Bearer ' +   token;
     var headers = {
         'Content-Type': 'application/json',
@@ -13,6 +15,12 @@ export function transactionChannelContentOut(token, transaction){
         'Access-Control-Allow-Origin': '*'
     }
 
+    var log= {action: "TRANSACTION_CHANNEL_CONTENT"
+        , information:"transactionChannelContentOut(token, transaction)"
+        , "token": token
+        , "transaction": transaction
+    };
+    logger.debug(log);
 
     /*
 
@@ -55,7 +63,17 @@ export function transactionChannelContentOut(token, transaction){
 export function transactionChannelContentIn(transaction, store) {
 
 
+            var log= {action: "TRANSACTION_CHANNEL_CONTENT"
+                , information:"transactionChannelContentIn(transaction, store)"
+                , "transaction": transaction
+                , "store": store
+                };
+
+            logger.debug(log);
+
+
             var action = transactionChannelContentAction(transaction);
+
              store.dispatch(action);
 
 
