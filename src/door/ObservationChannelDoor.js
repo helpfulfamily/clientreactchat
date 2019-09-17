@@ -1,6 +1,7 @@
 import {properties} from "../config/properties";
 import axios from "axios";
 import {observationChannelAction} from "../actions/observation/ObservationChannelAction";
+import logger from "../tools/log";
 
 export function observationChannelOut(token, observation){
     var bearer=  ' Bearer ' +   token;
@@ -10,6 +11,13 @@ export function observationChannelOut(token, observation){
         'Access-Control-Allow-Origin': '*'
     }
 
+    var log = {
+        action: "OBSERVATION_CHANNEL"
+        , information: "observationChannelOut(token, observation)"
+        , "token": token
+        , "observation": observation
+    };
+    logger.debug(log);
 
 
     axios.post(properties.serverUrl+"/observation/sendObservationRequestSignal", observation, {headers: headers})
@@ -25,6 +33,14 @@ export function observationChannelOut(token, observation){
 
 
 export function observationChannelIn(observation) {
+
+    var log = {
+        action: "OBSERVATION_CHANNEL"
+        , information: "observationChannelIn(observation)"
+
+        , "observation": observation
+    };
+    logger.debug(log);
 
     var action = observationChannelAction(observation);
 

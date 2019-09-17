@@ -1,10 +1,9 @@
-import {
-    getUserInformationAction
-} from "../actions/user/GetUserInformationAction";
+import {getUserInformationAction} from "../actions/user/GetUserInformationAction";
 
 import {properties} from "../config/properties";
 import axios from "axios";
 import {createUser} from "../components/common/UserCreationProcess";
+import logger from "../tools/log";
 
 export function getUserInformationOut(loginUser) {
     return (dispatch) => {
@@ -16,6 +15,17 @@ export function getUserInformationOut(loginUser) {
         }
 
         var url= properties.serverUrl+ properties.user+ "/"+loginUser.sso.username;
+
+
+        var log = {
+            action: "GET_USER_INFORMATION"
+            , information: "getUserInformationOut(loginUser)"
+
+            , "loginUser": loginUser
+
+        };
+        logger.debug(log);
+
 
         axios.get(url,{headers: headers})
             .then( (response) =>  {
@@ -40,6 +50,15 @@ export function getUserInformationOut(loginUser) {
 }
 
 export function getUserInformationIn(contents) {
+
+    var log = {
+        action: "GET_USER_INFORMATION"
+        , information: "getUserInformationIn(contents)"
+
+        , "contents": contents
+
+    };
+    logger.debug(log);
     const action=  getUserInformationAction(contents);
     return action;
 
