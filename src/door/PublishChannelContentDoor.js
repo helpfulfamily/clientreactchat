@@ -1,6 +1,7 @@
 import {properties} from "../config/properties";
 import axios from "axios";
 import {publishChannelContentAction} from "../actions/channel/PublishChannelContentAction";
+import logger from "../tools/log";
 
 
 export function publishChannelContentOut(content, token)  {
@@ -12,6 +13,14 @@ export function publishChannelContentOut(content, token)  {
         'Access-Control-Allow-Origin': '*'
     }
 
+    var log = {
+        action: "PUBLISH_CHANNEL_CONTENT"
+        , information: "publishChannelContentOut(content, token)"
+
+        , "content": content
+        , "token": token
+    };
+    logger.debug(log);
 
 
     axios.post(url, content, {headers: headers})
@@ -29,10 +38,19 @@ export function publishChannelContentOut(content, token)  {
 export function publishChannelContentIn(data, store) {
     data= JSON.parse(data.body);
 
+    var log = {
+        action: "PUBLISH_CHANNEL_CONTENT"
+        , information: "publishChannelContentIn(data, store)"
 
+        , "data": data
+        , "store": store
+    };
+    logger.debug(log);
 
 
     if(typeof data !="undefined"){
+
+
         var payload= data.payload;
         if(typeof payload !="undefined"){
 

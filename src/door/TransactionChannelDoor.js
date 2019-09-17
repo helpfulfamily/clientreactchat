@@ -1,8 +1,7 @@
 import {properties} from "../config/properties";
 import axios from "axios";
 import {transactionChannelAction} from "../actions/thankcoin/TransactionChannelAction";
-
-
+import logger from "../tools/log";
 
 
 //Aşağıda bearer + token ve headers değişkeni tanımlanıyor.
@@ -14,6 +13,13 @@ export function transactionChannelOut(token, transaction){
         'Access-Control-Allow-Origin': '*'
     }
 
+    var log = {
+        action: "TRANSACTION_CHANNEL"
+        , information: "transactionChannelOut(token, transaction)"
+        , "token": token
+        , "transaction": transaction
+    };
+    logger.debug(log);
 
     /*
 
@@ -55,6 +61,13 @@ export function transactionChannelOut(token, transaction){
 
 export function transactionChannelIn(transaction, store) {
 
+    var log = {
+        action: "TRANSACTION_CHANNEL"
+        , information: "transactionChannelIn(transaction, store)"
+        , "transaction": transaction
+        , "store": store
+    };
+    logger.debug(log);
 
             var action = transactionChannelAction(transaction);
              store.dispatch(action);
