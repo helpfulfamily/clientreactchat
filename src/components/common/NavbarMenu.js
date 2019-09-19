@@ -16,6 +16,7 @@ import ModalExample from "./ModalExample";
 import logger from "../../tools/log/index";
 
 import Responsive from 'react-responsive';
+import 'react-toastify/dist/ReactToastify.css';
 
 import '../../css/style.css';
 
@@ -24,6 +25,7 @@ import {FaUserCog} from "react-icons/fa/index";
 import defaultavatar from "../user/default-avatar.png";
 import  {getLoginUser, login, logout}  from "./LoginProcess";
 import {getUserInformationOut} from "../../door/GetUserInformationDoor";
+import {ToastContainer} from "react-toastify";
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -184,6 +186,17 @@ class NavbarMenu extends React.Component {
                   </Collapse>
               </Navbar>
 
+              <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnVisibilityChange
+                  draggable
+                  pauseOnHover
+              />
 
 
           </div>

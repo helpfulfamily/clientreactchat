@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import PropTypes from 'prop-types'
-import InfiniteScroll from "react-infinite-scroll-component";
 import './channeltitle.css';
 import ThankcoinPanel from "../thankcoin/ThankcoinPanel";
 import {getTransaction} from "../common/TransactionProcess";
@@ -43,7 +42,6 @@ class ChannelNameList extends Component {
         /* Yükleme sırasında döndürülecek mesaj belirtilmiştir.  */
 
         var list = "";
-        var infiniteList="";
 
         /*
           Bu if içerisinde:
@@ -79,25 +77,13 @@ class ChannelNameList extends Component {
             </ListGroup>;
 
 
-            infiniteList=  <InfiniteScroll
-                dataLength={this.props.loginUser.channels.length}
-                next={this.fetchMoreData}
-                hasMore={true}
-                loader={<br/>}
-                scrollableTarget="scrollableDiv"
-            >
-                {list}
-            </InfiniteScroll>;
+
+
         }
 
         return (
             <div>
-
-                <div
-                    id="scrollableDiv" style={{height: 700, overflow: "auto"}}>
-
-                    {infiniteList}
-                </div>
+            {list}
             </div>
         );
     }

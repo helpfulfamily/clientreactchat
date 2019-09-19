@@ -56,7 +56,13 @@ class ChannelFrame extends Component {
 
     partChannel(event) {
         event.preventDefault();
-        getOnlineUserList("part");
+        var channelName= this.props.location.pathname;
+        channelName = decodeURIComponent(channelName);
+        channelName = channelName.replace("\/channelcontents\/","")
+
+        // Kanaldaki online kullanıcı listesini bu şekilde alır.
+        getOnlineUserList(this.props.loginUser.sso.username,"part", channelName);
+
     }
 
 
