@@ -8,11 +8,8 @@ import { isWebSocketConnected} from './WebSocketReducer';
 
 import { channel, channelReducer, channelHasErrored, channelIsLoading} from './channel/ChannelReducer';
 
-import {reducer as notificationsReducer} from 'reapop';
-
 export default combineReducers({
 
-    notifications: notificationsReducer(),
     channel: channel,
     channels: channelReducer,
     channelHasErrored,

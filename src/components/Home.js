@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import Profile from "./user/Profile";
 import NavbarMenu from "./common/NavbarMenu";
 import MainFrame from "./common/MainFrame";
-import ATopLevelComponent from "./common/ATopLevelComponent";
 import {channelGetByName} from "../actions/channel/ChannelAction";
 import {connect} from "react-redux";
 import {properties} from "../config/properties";
@@ -69,7 +68,6 @@ class Home extends Component {
 
 
                 </Switch>
-                <ATopLevelComponent/>
             </div>
         );
     }

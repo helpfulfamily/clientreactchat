@@ -1,6 +1,6 @@
 import axios from "axios";
-import {notify} from "reapop";
-import defaultavatar from "../../components/user/default-avatar.png";
+
+import {toast} from "react-toastify";
 
 
 export function channelHasErrored(bool) {
@@ -104,20 +104,15 @@ export   function dispatcherChannel(data, store){
     var name= payload.name;
 
     var  notificationMessage="Channel " + name +  " created.";
-    store.dispatch(   notify({
-        title: "Thank you!",
-        message: notificationMessage,
-        image: defaultavatar,
-        status: "success",
-        dismissible: false,
-        dismissAfter: 0,
-        buttons: [{
-            name: 'OK',
-            primary: true
-        } ],
-        allowHTML: true
-    }));
 
+    toast(notificationMessage, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+    });
     var action= channelCreated(payload);
     store.dispatch(action)
 

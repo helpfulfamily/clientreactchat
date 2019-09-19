@@ -1,7 +1,8 @@
 import {getToken} from "./process";
 import {observationChannelOut} from "../../door/ObservationChannelDoor";
-import {notify} from "reapop";
+
 import logger from "../../tools/log/index";
+import {toast} from "react-toastify";
 
 export function sendObservationRequestSignal(keycloak, observation)
 {
@@ -35,20 +36,15 @@ export function  loginPromiseResolved(loginUser, store, notificationMessage, obs
     }
 
     if(loginUser!=null){
+        toast(notificationMessage, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+        });
 
-        store.dispatch(   notify({
-            title: "Observation",
-            message: notificationMessage,
-
-            status: "success",
-            dismissible: false,
-            dismissAfter: 0,
-            buttons: [{
-                name: 'OK',
-                primary: true
-            } ],
-            allowHTML: true
-        }));
 
 
     }

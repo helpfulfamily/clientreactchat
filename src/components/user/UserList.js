@@ -4,8 +4,7 @@ import { userFetchData } from '../../actions/user/UserAction';
 import {Link} from 'react-router-dom';
 import {Col, ListGroup, ListGroupItem, Row} from 'reactstrap';
 import { properties } from '../../config/properties.js';
-import PropTypes from 'prop-types'
-import InfiniteScroll from "react-infinite-scroll-component";
+import PropTypes from 'prop-types';
 import './profil.css';
 import defaultavatar from "./default-avatar.png";
 
@@ -31,15 +30,26 @@ class UserList extends Component {
         }
 
     }
+    listenScrollEvent= () => {
+        var messageBody = document.querySelector('#messageBody');
+        var totalHeight = messageBody.scrollHeight;
+        var clientHeight = messageBody.clientHeight;
+        var scrollTop = messageBody.scrollTop;
+
+        if (totalHeight == scrollTop + clientHeight){
+            amount= amount + 10;
+            if (typeof this.props.fetchData !== 'undefined'){
+                this.props.fetchData(properties.users_all + "/"+ (10 + amount)+"/"+this.props.channel.name);
+
+            }
+        }
+    }
     profilePicture(picture) {
         if(picture===null){
             picture= defaultavatar;
         }
         return picture;
     }
-    fetchMoreData = () => {
-        this.props.fetchData(properties.users_all + "/"+ (10 + amount)+"/"+this.props.channel.name);
-     };
 
     render() {
         if (this.props.hasErrored) {
@@ -51,7 +61,7 @@ class UserList extends Component {
         }
         var list="";
         if(typeof this.props.users!=="undefined" && this.props.users.length>0){
-            list= <ListGroup>
+            list=    <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
                 {this.props.users.map((user, index) => (
                     <ListGroupItem  key={user.id} className="content-img" >
 
@@ -95,17 +105,10 @@ class UserList extends Component {
         return (
 
 
-                <div id="scrollableDiv" style={{ height: 700, overflow: "auto" }}>
+                <div>
 
-                <InfiniteScroll
-                        dataLength={this.props.users.length}
-                        next={this.fetchMoreData}
-                        hasMore={true}
-                        loader={<br/>}
-                        scrollableTarget="scrollableDiv"
-                         >
                         {list}
-                    </InfiniteScroll>
+
 
 
                 </div>

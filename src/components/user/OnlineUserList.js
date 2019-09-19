@@ -1,10 +1,9 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Col, ListGroup, ListGroupItem, Row} from 'reactstrap';
+import {ListGroup, ListGroupItem, Row} from 'reactstrap';
 import { properties } from '../../config/properties.js';
-import PropTypes from 'prop-types'
-import InfiniteScroll from "react-infinite-scroll-component";
+import PropTypes from 'prop-types';
 import './profil.css';
 import defaultavatar from "./default-avatar.png";
 import {getOnlineUserList} from "../channel/OnlineUserUtil";
@@ -54,9 +53,23 @@ class OnlineUserList extends Component {
         }
         return picture;
     }
-    fetchMoreData = () => {
+
+    //TODO: fetchData, it is not coded yet.
+    listenScrollEvent= () => {
+    var messageBody = document.querySelector('#messageBody');
+    var totalHeight = messageBody.scrollHeight;
+    var clientHeight = messageBody.clientHeight;
+    var scrollTop = messageBody.scrollTop;
+
+    if (totalHeight == scrollTop + clientHeight){
+    amount= amount + 10;
+    if (typeof this.props.fetchData !== 'undefined'){
         this.props.fetchData(properties.users_all + "/"+ (10 + amount)+"/"+this.props.channel.name);
-     };
+
+        }
+        }
+    }
+
 
     render() {
 
@@ -67,52 +80,36 @@ class OnlineUserList extends Component {
         if (this.props.isLoading) {
             return <p>Loading…</p>;
         }
-        var list="";
-        if(typeof this.props.users!=="undefined" && this.props.users.length>0){
-            list= <ListGroup>
+
+        return (
+
+
+            <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
+
                 {this.props.users.map((user, index) => (
+
                     <ListGroupItem  key={user.id} className="content-img" >
 
-                            <div className="content-img"  style={{ height: 99 , overflow: "auto" }}>
+                        <div className="content-img"  style={{ height: 99 , overflow: "auto" }}>
 
 
 
 
-                                <Link to={{
-                                    pathname:    "/dialogcontents/" + user.username ,
+                            <Link to={{
+                                pathname:    "/dialogcontents/" + user.username ,
 
-                                }}>  <img     src={this.profilePicture(user.profilePhotoUrl) } alt=""   /> </Link>
+                            }}>  <img     src={this.profilePicture(user.profilePhotoUrl) } alt=""   /> </Link>
 
 
 
-                            </div>
+                        </div>
 
                         <label className="align-content-center">{user.username}</label>
 
                     </ListGroupItem>
                 ))}
-            </ListGroup>;
-        }
+            </ListGroup>
 
-        return (
-
-
-                <div id="scrollableDiv" style={{ height: 700, overflow: "auto" }}>
-                    { (typeof this.props.users!="undefined" && this.props.users.length>0)  ?
-                    <InfiniteScroll
-                        dataLength={this.props.users.length}
-                        next={this.fetchMoreData}
-                        hasMore={true}
-                        loader={<br/>}
-                        scrollableTarget="scrollableDiv"
-                    >
-                        {list}
-                    </InfiniteScroll>: ''}
-
-
-
-
-                </div>
 
         );
     }
