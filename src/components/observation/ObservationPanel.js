@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {properties} from '../../config/properties.js';
 
 import {Button} from 'reactstrap';
-import {getToken} from "../common/process";
+import {getToken} from "../common/LoginProcess.js";
 import PropTypes from 'prop-types'
 
 import {sendObservationRequestSignal} from "../common/ObservationProcess";
