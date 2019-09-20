@@ -1,4 +1,4 @@
-import {getToken} from "./process";
+import {getToken} from "./LoginProcess";
 import {transactionChannelContentOut} from "../../door/TransactionChannelContentDoor";
 import {transactionChannelOut} from "../../door/TransactionChannelDoor";
 import logger from "../../tools/log/index";

@@ -1,4 +1,4 @@
-import {getToken} from "./process";
+import {getToken} from "../common/LoginProcess";
 import {observationChannelOut} from "../../door/ObservationChannelDoor";
 
 import logger from "../../tools/log/index";

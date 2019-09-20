@@ -2,6 +2,7 @@ import React from 'react';
 
 
 import {Button} from "reactstrap";
+import {getToken} from "../common/LoginProcess";
 
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
@@ -9,7 +10,7 @@ import {convertToRaw, EditorState, ContentState} from "draft-js";
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { Editor} from 'react-draft-wysiwyg';
 import draftToHtml from "draftjs-to-html";
-import {getToken} from "../common/process";
+
 import {publishChannelContentOut} from "../../door/PublishChannelContentDoor";
 import logger from "../../tools/log/index";
 
