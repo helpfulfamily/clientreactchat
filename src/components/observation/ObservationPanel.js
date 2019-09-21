@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {properties} from '../../config/properties.js';
+import {properties} from '../common/config/properties.js';
 
 import {Button} from 'reactstrap';
-import {getToken} from "../common/LoginProcess.js";
+import {getToken} from "../user/process/LoginProcess.js";
 import PropTypes from 'prop-types'
 
-import {sendObservationRequestSignal} from "../common/ObservationProcess";
+import {sendObservationRequestSignal} from "./process/ObservationProcess";
 import {FaEye} from "react-icons/fa";
-import UserListModal from "../user/UserListModal";
+import ChannelObserverModal from "../chat/channel/structure/ChannelObserverModal";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import {createChannel}  from "../../actions/channel/ChannelAction";
+import {createChannel} from "../chat/channel/action/ChannelAction";
+
 class ObservationPanel extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +68,7 @@ class ObservationPanel extends Component {
             channelId: this.props.channel.id,
             channelName: this.props.channel.name,
             observe: observe
-        }
+        };
         return observation;
 
     }
@@ -97,11 +98,11 @@ class ObservationPanel extends Component {
 
         var channel = {
             "name": this.props.channel.name,
-        }
+        };
 
 
         this.props.postData(apiBaseUrl, channel, token);
-    }
+    };
 
     render() {
         var contextChannelNotExist = "";
@@ -138,7 +139,7 @@ class ObservationPanel extends Component {
             if (typeof this.props.loginUser.sso !== "undefined") {
                 context = <Row>
                     <Col xs="3">
-                        <UserListModal currentObserverAmount={this.props.channel.currentObserverAmount}/>
+                        <ChannelObserverModal currentObserverAmount={this.props.channel.currentObserverAmount}/>
 
                     </Col>
                     <Col xs="9">

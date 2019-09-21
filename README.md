@@ -83,7 +83,7 @@ In this case, just try SET instead of Export in  package.json like this:
  # Üst düzey ilişki görseli
  If you want to embed images, this is how you do it:
 
-![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/60473125_204786917164054_756205996929449984_o.jpg?raw=true)
+![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/education/bigpicture.jpg?raw=true)
 
 # KANALA GİRME:
 
@@ -489,10 +489,10 @@ getChannelContentsAction ise, GET_CHANNEL_CONTENTS türünde bir Action yaratıy
  
  # COMPONENTLERİN TASLAĞI
  
-  ![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/componentdraft.jpg?raw=true)
+  ![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/education/componentdraft.jpg?raw=true)
 
 # Özel Chat Componentlerinin Taslağı
 
-![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/dialogcompdraft.jpg?raw=true)
+![Image of Higher level relations](https://github.com/helpfulfamily/clientreactchat/blob/master/education/dialogcompdraft.jpg?raw=true)
 
 

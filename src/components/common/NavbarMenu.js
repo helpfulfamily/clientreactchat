@@ -1,31 +1,38 @@
 import React from 'react';
 import {
-    Navbar, NavbarBrand,
+    Collapse,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
     Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
     NavItem,
-    NavLink, NavbarToggler, Collapse, UncontrolledDropdown, DropdownToggle, DropdownItem, DropdownMenu
+    NavLink,
+    UncontrolledDropdown
 } from 'reactstrap';
-import connectWebSocket from '../../actions/websocket';
+import connectWebSocket from '../../tools/websocket/action/websocket';
 import {FaUnlockAlt} from "react-icons/fa";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {connect} from "react-redux";
 
 import PropTypes from 'prop-types'
-import ModalExample from "./ModalExample";
 import logger from "../../tools/log/index";
 
 import Responsive from 'react-responsive';
 import 'react-toastify/dist/ReactToastify.css';
 
-import '../../css/style.css';
+import '../../tools/asset/css/style.css';
 
-import logo from "../../img/logo.svg";
+import logo from "../../tools/asset/img/logo.svg";
 import {FaUserCog} from "react-icons/fa/index";
-import defaultavatar from "../user/default-avatar.png";
-import  {getLoginUser, login, logout}  from "./LoginProcess";
-import {getUserInformationOut} from "../../door/GetUserInformationDoor";
+import defaultavatar from "../user/style/default-avatar.png";
+import {getLoginUser, login, logout} from "../user/process/LoginProcess";
+import {getUserInformationOut} from "../user/door/GetUserInformationDoor";
 import {ToastContainer} from "react-toastify";
+
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -164,16 +171,7 @@ class NavbarMenu extends React.Component {
                   <NavbarBrand href="/" className="scrollto logo"><img src={logo}  /></NavbarBrand>
                   <NavbarToggler onClick={this.toggle} />
                   <Collapse isOpen={this.state.isOpen} navbar>
-                      <Mobile>
-                          <Nav  navbar>
-                              <ModalExample buttonLabel="Problems"/>
-                          </Nav>
-                      </Mobile>
-                      <Tablet>
-                          <Nav  navbar>
-                              <ModalExample buttonLabel="Problems"/>
-                          </Nav>
-                      </Tablet>
+
                       <input type="text" value={this.state.currentPath} onChange={this.setCurrentPath} />
 
 
@@ -225,6 +223,6 @@ const mapDispatchToProps = (dispatch) => {
         }
 
     };
-}
+};
 
     export default connect(mapStateToProps, mapDispatchToProps)(NavbarMenu);

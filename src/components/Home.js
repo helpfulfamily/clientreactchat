@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 
 import {Route, Switch} from "react-router-dom";
@@ -7,13 +7,12 @@ import {Route, Switch} from "react-router-dom";
 import PropTypes from 'prop-types'
 
 
-import Profile from "./user/Profile";
+import Profile from "./user/structure/Profile";
 import NavbarMenu from "./common/NavbarMenu";
 import MainFrame from "./common/MainFrame";
-import {channelGetByName} from "../actions/channel/ChannelAction";
+import {channelGetByName} from "./chat/channel/action/ChannelAction";
 import {connect} from "react-redux";
-import {properties} from "../config/properties";
-import UyumNotation from "./common/UyumNotation";
+import {properties} from "./common/config/properties";
 
 
 var channelName="";
@@ -63,7 +62,6 @@ class Home extends Component {
 
                 <Switch>
                     <Route exact path="/:username" component={Profile} />
-                    <Route exact  path="/uyum/notation" component={UyumNotation} />
                     <Route exact  path="/*" component={MainFrame} />
 
 
@@ -93,7 +91,7 @@ const mapDispatchToProps = (dispatch) => {
         }
 
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

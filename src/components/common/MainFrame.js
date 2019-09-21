@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {Col, Row} from "reactstrap";
 
 
 import {Route, Switch} from "react-router-dom";
 
- 
 
 import Responsive from 'react-responsive';
 
-import ChannelTab from "./ChannelTab";
-import ChannelFrame from "../channel/ChannelFrame";
+import ChannelTab from "../chat/channel/structure/ChannelTab";
+import ChannelFrame from "../chat/channel/structure/ChannelFrame";
 
 
- const Desktop = props => <Responsive {...props} minWidth={992} />;
+const Desktop = props => <Responsive {...props} minWidth={992}/>;
 const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
