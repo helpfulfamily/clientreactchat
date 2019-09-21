@@ -12,25 +12,25 @@ import {
     NavLink,
     UncontrolledDropdown
 } from 'reactstrap';
-import connectWebSocket from '../../tools/websocket/action/websocket';
+import connectWebSocket from '../../../tools/websocket/action/websocket';
 import {FaUnlockAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 
 import {connect} from "react-redux";
 
 import PropTypes from 'prop-types'
-import logger from "../../tools/log/index";
+import logger from "../../../tools/log";
 
 import Responsive from 'react-responsive';
 import 'react-toastify/dist/ReactToastify.css';
 
-import '../../tools/asset/css/style.css';
+import '../../../tools/asset/css/style.css';
 
-import logo from "../../tools/asset/img/logo.svg";
+import logo from "../../../tools/asset/img/logo.svg";
 import {FaUserCog} from "react-icons/fa/index";
-import defaultavatar from "../user/style/default-avatar.png";
-import {getLoginUser, login, logout} from "../user/process/LoginProcess";
-import {getUserInformationOut} from "../user/door/GetUserInformationDoor";
+import defaultavatar from "../../user/style/default-avatar.png";
+import {getLoginUser, login, logout} from "../../user/process/LoginProcess";
+import {getUserInformationOut} from "../../user/door/GetUserInformationDoor";
 import {ToastContainer} from "react-toastify";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;

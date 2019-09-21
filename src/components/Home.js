@@ -8,8 +8,8 @@ import PropTypes from 'prop-types'
 
 
 import Profile from "./user/structure/Profile";
-import NavbarMenu from "./common/NavbarMenu";
-import MainFrame from "./common/MainFrame";
+import NavbarMenu from "./common/structure/NavbarMenu";
+import MainFrame from "./common/structure/MainFrame";
 import {channelGetByName} from "./chat/channel/action/ChannelAction";
 import {connect} from "react-redux";
 import {properties} from "./common/config/properties";

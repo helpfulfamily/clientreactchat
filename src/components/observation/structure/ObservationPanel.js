@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {properties} from '../common/config/properties.js';
+import {properties} from '../../common/config/properties.js';
 
 import {Button} from 'reactstrap';
-import {getToken} from "../user/process/LoginProcess.js";
+import {getToken} from "../../user/process/LoginProcess.js";
 import PropTypes from 'prop-types'
 
-import {sendObservationRequestSignal} from "./process/ObservationProcess";
+import {sendObservationRequestSignal} from "../process/ObservationProcess";
 import {FaEye} from "react-icons/fa";
-import ChannelObserverModal from "../chat/channel/structure/ChannelObserverModal";
+import ChannelObserverModal from "../../chat/channel/structure/ChannelObserverModal";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import {createChannel} from "../chat/channel/action/ChannelAction";
+import {createChannel} from "../../chat/channel/action/ChannelAction";
 
 class ObservationPanel extends Component {
     constructor(props) {

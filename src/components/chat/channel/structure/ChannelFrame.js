@@ -7,7 +7,7 @@ import ChannelContentForm from "./ChannelContentForm";
 
 import {Editor} from 'react-draft-wysiwyg';
 import '../style/channelcontent.css';
-import ObservationPanel from "../../../observation/ObservationPanel";
+import ObservationPanel from "../../../observation/structure/ObservationPanel";
 
 import {getOnlineUserList} from "./OnlineUserUtil";
 import OnlineUserList from ".//OnlineUserList";

@@ -8,8 +8,8 @@ import {Route, Switch} from "react-router-dom";
 
 import Responsive from 'react-responsive';
 
-import ChannelTab from "../chat/channel/structure/ChannelTab";
-import ChannelFrame from "../chat/channel/structure/ChannelFrame";
+import ChannelTab from "../../chat/channel/structure/ChannelTab";
+import ChannelFrame from "../../chat/channel/structure/ChannelFrame";
 
 
 const Desktop = props => <Responsive {...props} minWidth={992}/>;
