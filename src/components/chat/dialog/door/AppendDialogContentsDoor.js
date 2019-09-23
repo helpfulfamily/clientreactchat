@@ -3,14 +3,16 @@ import {properties} from "../../../common/config/properties";
 import axios from "axios";
 import logger from "../../../../tools/log";
 
-export function appendDialogContentsOut(senderID, receiverID, pageNumber) {
-    var url= properties.dialog_contents+  senderID+ "/"+ receiverID+ "/"+ pageNumber;
+export function appendDialogContentsOut(token, senderID, receiverID, pageNumber) {
+
+    var url = properties.dialog_contents + "/" + senderID + "/" + receiverID + "/" + pageNumber;
     return (dispatch) => {
 
+        var bearer = ' Bearer ' + token;
         var headers = {
-
             'Content-Type': 'application/json',
-
+            'Authorization': bearer,
+            'Access-Control-Allow-Origin': '*'
         };
         var log = {
             action: "APPEND_DIALOG_CONTENTS"
