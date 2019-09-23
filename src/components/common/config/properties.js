@@ -4,8 +4,9 @@ properties = {
 
 
         channel_publishContent: process.env.REACT_APP_SERVICE_URL+ process.env.REACT_APP_CHANNEL+ process.env.REACT_APP_PUBLISH_CHANNEL_CONTENT,
-    dialog_publishContent: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_DIALOG + process.env.REACT_APP_PUBLISH_DIALOG_CONTENT,
+        dialog_publishContent: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_DIALOG + process.env.REACT_APP_PUBLISH_DIALOG_CONTENT,
         channel_contents:process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_CHANNEL + process.env.REACT_APP_CONTENTS,
+        dialog_contents:process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_DIALOG + process.env.REACT_APP_CONTENTS,
         channel_by_name: process.env.REACT_APP_SERVICE_URL + process.env.REACT_APP_CHANNEL,
         channel_create: process.env.REACT_APP_SERVICE_URL+ process.env.REACT_APP_CHANNEL + process.env.REACT_APP_CREATE_CHANNEL,
 
