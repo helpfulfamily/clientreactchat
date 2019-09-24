@@ -34,7 +34,7 @@ class DialogContentForm extends React.Component {
 
         this.setState({editorState: editorState});
 
-        this.setState({channelContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
+        this.setState({dialogContent:  draftToHtml(convertToRaw(editorState.getCurrentContent()))});
 
 
     };
@@ -61,14 +61,14 @@ class DialogContentForm extends React.Component {
     startPublishProcess = (token) =>
     {
 
-          // Allta, ChannelName yerine ne yazacağıma karar veremedim.
+
 
 
         var content = {
             "name": "",
             "text": this.state.dialogContent,
-            "dialog": {
-                "name": decodeURIComponent(this.props.channelName)
+            "receiverID": {
+                "name": decodeURIComponent(this.props.receiverID)
             }
         };
 
