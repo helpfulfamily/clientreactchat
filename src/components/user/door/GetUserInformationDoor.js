@@ -14,7 +14,7 @@ export function getUserInformationOut(loginUser) {
 
         };
 
-        var url= properties.serverUrl+ properties.user+ "/"+loginUser.sso.username;
+        var url = properties.serverUrl + properties.user + properties.get_userinformation + "/" + loginUser.sso.username;
 
 
         var log = {

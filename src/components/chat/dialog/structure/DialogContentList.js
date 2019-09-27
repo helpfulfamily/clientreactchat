@@ -9,6 +9,7 @@ import '../style/dialogcontent.css';
 import {getDialogContentsOut} from "../door/GetDialogContentsDoor";
 import {appendDialogContentsOut} from "../door/AppendDialogContentsDoor";
 import DialogContent from "./DialogContent";
+import {getToken} from "../../../user/process/LoginProcess";
 
 
 var pageNumber = 0;
@@ -26,9 +27,33 @@ class DialogContentList extends Component {
 
     componentDidMount() {
 
-        this.props.getDialogContentsOut(this.props.receiverID, pageNumber);
-
+        this.getTokenAndThenContentList(pageNumber);
         this.toBottom();
+
+
+    }
+
+    getTokenAndThenContentList(pageNumber) {
+        if (typeof this.props.loginUser.sso != "undefined") {
+            getToken(this.props.loginUser.sso.keycloak)
+
+            // Token alındı ise, getDialogContentsOut fonksiyonu çağrılarak, transaction gönderme işlemi başlatılır.
+
+                .then((token) => {
+
+
+                    this.props.getDialogContentsOut(token, this.props.receiverID, pageNumber);
+
+
+                })
+
+                // Eğer token alınırken bir hata oluştu ise, catch içerisinde o hata ekrana yazılıyor.
+
+                .catch(function (hata) {
+
+                    logger.error(hata)
+                });
+        }
 
 
     }
@@ -56,7 +81,7 @@ class DialogContentList extends Component {
         if (messageBody.scrollTop == 0) {
 
             pageNumber = pageNumber + 1;
-            this.props.appendDialogContentsOut(this.props.receiverID, pageNumber);
+            this.getTokenAndThenContentList(pageNumber);
         }
 
 
@@ -83,8 +108,7 @@ class DialogContentList extends Component {
 
             // Dialogtaki mesajları çeker.
             pageNumber = 0;
-            this.props.getDialogContentsOut(this.props.receiverID, pageNumber);
-
+            this.getTokenAndThenContentList(pageNumber);
             // Yeni kişinin dilaoğuna girildiği için, scrollu en aşağı atar.
             this.toBottom()
 
@@ -122,9 +146,11 @@ class DialogContentList extends Component {
 
 
         return (
+
             <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
 
                 {
+
                     this.props.dialogContents.map((content) => (
                         <ListGroupItem key={content.id}>
 
@@ -161,8 +187,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDialogContentsOut: (senderID, receiverID, pageNumber) => dispatch(getDialogContentsOut(senderID, receiverID, pageNumber)),
-        appendDialogContentsOut: (senderID, receiverID, pageNumber) => dispatch(appendDialogContentsOut(senderID, receiverID, pageNumber))
+        getDialogContentsOut: (token, receiverID, pageNumber) => dispatch(getDialogContentsOut(token, receiverID, pageNumber)),
+        appendDialogContentsOut: (token, receiverID, pageNumber) => dispatch(appendDialogContentsOut(token, receiverID, pageNumber))
 
     };
 };

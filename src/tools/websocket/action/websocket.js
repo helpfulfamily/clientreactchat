@@ -12,6 +12,7 @@ import {observationChannelIn} from "../../../components/observation/door/Observa
 import {getLoginUser} from "../../../components/user/process/LoginProcess";
 import {loginPromiseResolved} from "../../../components/observation/process/ObservationProcess";
 import logger from "../../log";
+import {publishDialogContentIn} from "../../../components/chat/dialog/door/PublishDialogContentDoor";
 
 var stompClient = null;
 export default function connect(username) {
@@ -26,6 +27,11 @@ export default function connect(username) {
 
         });
 
+        stompClient.subscribe('/topic/pushNotificationDialogContent', function (message) {
+            logger.debug(logInformation, "/topic/pushNotificationDialogContent", message);
+            publishDialogContentIn(message, store);
+
+        });
 
        stompClient.subscribe("/topic/sendThankCoinChannel", function (message) {
 
@@ -49,6 +55,7 @@ export default function connect(username) {
 
             dispatcherChannel(message, store)
         });
+
         stompClient.subscribe('/topic/pushNotificationUserChannelJoinPart', function (message) {
             logger.debug(logInformation, "/topic/pushNotificationUserChannelJoinPart", message);
 

@@ -1,0 +1,28 @@
+/* unvisited link */
+.problemtitle {
+    /* visited link */
+    /* mouse over link */
+}
+
+.problemtitle a:link {
+    font-weight: bold;
+    color: red;
+}
+
+.problemtitle a:active {
+    font-weight: bold;
+    color: #CC3333;
+}
+
+.problemtitle a:hover {
+    font-weight: bold;
+    color: #f44242;
+}
+
+.problemtitle a:visited {
+    font-weight: bold;
+    color: red;
+}
+
+
+/*# sourceMappingURL=problemtitle.css.map */

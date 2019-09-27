@@ -1,4 +1,4 @@
-import {showNotificationForTransaction} from './/src/components/thankcoin/process/TransactionNotificationProcess';
+import {showNotificationForTransaction} from "../../../thankcoin/process/TransactionNotificationProcess";
 
 export function dialogContentsHasErrored (state = false, action) {
     switch (action.type) {

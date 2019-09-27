@@ -1,7 +1,7 @@
 import {properties} from "../../../common/config/properties";
 import axios from "axios";
-import {publishDialogContentAction} from "../action/PublishDialogContentAction";
 import logger from "../../../../tools/log";
+import {publishDialogContentAction} from "../action/PublishDailogContentAction";
 
 
 export function publishDialogContentOut(content, token)  {

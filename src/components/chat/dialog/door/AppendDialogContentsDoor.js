@@ -3,9 +3,9 @@ import {properties} from "../../../common/config/properties";
 import axios from "axios";
 import logger from "../../../../tools/log";
 
-export function appendDialogContentsOut(token, senderID, receiverID, pageNumber) {
+export function appendDialogContentsOut(token, receiverID, pageNumber) {
 
-    var url = properties.dialog_contents + "/" + senderID + "/" + receiverID + "/" + pageNumber;
+    var url = properties.dialog_contents + receiverID + "/" + pageNumber;
     return (dispatch) => {
 
         var bearer = ' Bearer ' + token;
@@ -16,9 +16,7 @@ export function appendDialogContentsOut(token, senderID, receiverID, pageNumber)
         };
         var log = {
             action: "APPEND_DIALOG_CONTENTS"
-            , information: "appendDialogContentsOut(senderID, receiverID, pageNumber)"
-
-            , "senderID": senderID
+            , information: "appendDialogContentsOut(token, receiverID, pageNumber)"
             , "receiverID": receiverID
             , "pageNumber": pageNumber
 

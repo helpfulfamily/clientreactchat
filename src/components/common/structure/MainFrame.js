@@ -10,6 +10,7 @@ import Responsive from 'react-responsive';
 
 import ChannelTab from "../../chat/channel/structure/ChannelTab";
 import ChannelFrame from "../../chat/channel/structure/ChannelFrame";
+import DialogFrame from "../../chat/dialog/structure/DialogFrame";
 
 
 const Desktop = props => <Responsive {...props} minWidth={992}/>;
@@ -37,6 +38,8 @@ export default class MainFrame extends Component {
                             <Col xs="6" sm="6">
                                 <Switch>
                                     <Route exact path="/channelcontents/:title" component={ChannelFrame} />
+                                    <Route exact path="/dialogcontents/:receiverID" component={DialogFrame}/>
+
                                 </Switch>
                             </Col>
 
@@ -48,6 +51,8 @@ export default class MainFrame extends Component {
                       <Col>
                           <Switch>
                                <Route exact path="/channelcontents/:title" component={ChannelFrame} />
+                              <Route exact path="/dialogcontents/:receiverID" component={DialogFrame}/>
+
                           </Switch>
                        </Col>
                     </Row>
@@ -57,6 +62,8 @@ export default class MainFrame extends Component {
                         <Col>
                             <Switch>
                                  <Route exact path="/channelcontents/:title" component={ChannelFrame} />
+                                <Route exact path="/dialogcontents/:receiverID" component={DialogFrame}/>
+
                             </Switch>
                          </Col>
                     </Row>

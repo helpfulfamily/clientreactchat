@@ -15,6 +15,12 @@ import {
     channelContentsHasErrored,
     channelContentsReducer
 } from '../../../components/chat/channel/reducer/ChannelContentsReducer';
+
+import {
+    dialogContentsHasErrored,
+    dialogContentsReducer
+} from '../../../components/chat/dialog/reducer/DialogContentsReducer';
+
 import {userInformationReducer} from '../../../components/user/reducer/UserInformationReducer';
 import {isWebSocketConnected} from '../../websocket/reducer/WebSocketReducer';
 
@@ -39,6 +45,8 @@ export default combineReducers({
     problemTitleIsLoading,
     channelContents: channelContentsReducer,
     channelContentsHasErrored,
+    dialogContents: dialogContentsReducer,
+    dialogContentsHasErrored,
     userInformationReducer,
     onlineUserList:userListArrived,
     isWebSocketConnected: isWebSocketConnected

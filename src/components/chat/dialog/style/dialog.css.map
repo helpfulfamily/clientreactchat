@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "problemtitle.scss"
+  ],
+  "names": [],
+  "mappings": "AACA;AACA;AAMI;AAMA;;AAXA;EACI;EACA,OALM;;AASV;EACI;EACA;;AAIJ;EACI;EACA;;AAGJ;EACI;EACA,OAtBM;;;AAyBd;EACI",
+  "file": "problemtitle.css"
+}
