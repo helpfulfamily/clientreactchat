@@ -16,14 +16,11 @@ export default class ProfilePicture extends Component {
 
         return (
             <div className="content-img" >
-
-
                 <Link to={{
-                    pathname: '/' + this.props.user.username,
-                    state: {
-                        username: this.props.user.username
-                    }
-                }} >
+                    pathname: "/dialogcontents/" + this.props.user.username,
+
+                }}>
+
                                      <span>
                                      <img     src={this.profilePicture(this.props.user.profilePhotoUrl) } alt=""   />
                                      </span>
