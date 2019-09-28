@@ -5,11 +5,11 @@ namespace=webclient
 build_local_project () {
                 echo ">>>>>>>>>>>>>>>>>>> BUILDING LOCAL PROJECT"
 
-                if [[ $app_name  =~ "clientreact" ]]; then
+                if [[ $app_name  =~ "clientreactchat" ]]; then
                                  yarn build .
  
                     else
-                                 echo "App name contains neither 'clientreact' nor 'service'. Therefore exiting."
+                                 echo "App name contains neither 'clientreactchat' nor 'service'. Therefore exiting."
                                  exit 0
                      fi
 
@@ -30,10 +30,10 @@ docker_process(){
 }
 openshift_process_route(){
  echo ">>>>>>>>>>>>>>>>>>> OPENSHIFT: CREATE ROUTE"
-if [[ $app_name  =~ "clientreact" ]]; then
+if [[ $app_name  =~ "clientreactchat" ]]; then
 
 
-            oc create -f clientreact.yaml
+            oc create -f clientreactchat.yaml
 
 oc patch route $app_name \
     -p '{"metadata":{"annotations":{  "kubernetes.io/tls-acme" : "true"   }}}'
