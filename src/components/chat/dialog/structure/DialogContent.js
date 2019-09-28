@@ -13,7 +13,9 @@ export default class DialogContent extends Component {
 
     contentToRender = (html) => {
 
-
+        if (html == null) {
+            html = "";
+        }
         const contentBlock = htmlToDraft(html);
 
         const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks,
@@ -30,22 +32,22 @@ export default class DialogContent extends Component {
         return (
             <Row>
                 <Col xs="2">
-                    <ProfilePicture user={this.props.content.user}/>
+                    <ProfilePicture user={this.props.content.sender}/>
 
                 </Col>
                 <Col xs="9">
 
                     <div className="panel panel-default">
 
-                        <div className="panel-heading"><b>{this.props.content.user.username}</b></div>
+                        <div className="panel-heading"><b>{this.props.content.sender.username}</b></div>
 
                         <Editor editorState={this.contentToRender(this.props.content.text)}
 
                                 readOnly={true} toolbarHidden={true}/>
 
 
-                        <ThankcoinPanel transaction={getTransaction(this.props.content.user.username
-                            , this.props.content.id, "DialogContent", decodeURIComponent(this.props.content.receiverID))}
+                        <ThankcoinPanel transaction={getTransaction(this.props.content.receiver
+                            , this.props.content.id, "DialogContent", decodeURIComponent(this.props.content.receiver))}
 
                                         currentThankAmount={this.props.content.currentThankAmount}/>
 

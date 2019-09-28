@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {channelContentsAppendList} from '../action/ChannelContentAction';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import PropTypes from 'prop-types';
 import defaultavatar from '../../../user/style/default-avatar.png';
@@ -80,8 +79,6 @@ class ChannelContentList extends Component {
 
         // Yeni bir kanala girilip girilmediği bu şekilde öğrenilir.
         if (prevProps.title != this.props.title) {
-
-            var channelName = this.props.title;
 
 
             // Kanaldaki mesajları çeker.

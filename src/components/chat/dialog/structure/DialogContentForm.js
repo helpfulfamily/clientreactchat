@@ -67,8 +67,8 @@ class DialogContentForm extends React.Component {
         var content = {
             "name": "",
             "text": this.state.dialogContent,
-            "receiverID": {
-                "name": decodeURIComponent(this.props.receiverID)
+            "receiver": {
+                "username": decodeURIComponent(this.props.receiverID)
             }
         };
 

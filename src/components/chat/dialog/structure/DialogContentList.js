@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {dialogContentsAppendList} from '../action/DialogContentAction';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import PropTypes from 'prop-types';
 import defaultavatar from '../../../user/style/default-avatar.png';
@@ -27,13 +26,13 @@ class DialogContentList extends Component {
 
     componentDidMount() {
 
-        this.getTokenAndThenContentList(pageNumber);
+        this.getOrAppendTokenAndThenContentList(pageNumber);
         this.toBottom();
 
 
     }
 
-    getTokenAndThenContentList(pageNumber) {
+    getOrAppendTokenAndThenContentList(pageNumber, isAppend) {
         if (typeof this.props.loginUser.sso != "undefined") {
             getToken(this.props.loginUser.sso.keycloak)
 
@@ -41,8 +40,14 @@ class DialogContentList extends Component {
 
                 .then((token) => {
 
+                    if (isAppend) {
+                        this.props.getDialogContentsOut(token, this.props.receiverID, pageNumber);
 
-                    this.props.getDialogContentsOut(token, this.props.receiverID, pageNumber);
+                    } else {
+                        this.props.appendDialogContentsOut(token, this.props.receiverID, pageNumber);
+
+                    }
+
 
 
                 })
@@ -81,7 +86,7 @@ class DialogContentList extends Component {
         if (messageBody.scrollTop == 0) {
 
             pageNumber = pageNumber + 1;
-            this.getTokenAndThenContentList(pageNumber);
+            this.getOrAppendTokenAndThenContentList(pageNumber, true);
         }
 
 
@@ -142,7 +147,7 @@ class DialogContentList extends Component {
         }
 
 
-
+        console.log(this.props);
 
 
         return (

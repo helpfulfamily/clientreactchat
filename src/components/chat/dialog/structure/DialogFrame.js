@@ -52,7 +52,6 @@ class DialogFrame extends Component {
 
         var buttonPartChannel = <Button color="primary" onClick={(e) => this.partDialog(e)}> Part Dialog </Button>;
 
-
         return (
 
 
@@ -61,7 +60,10 @@ class DialogFrame extends Component {
                     <b>  {decodeURIComponent(this.props.match.params.receiverID)} </b>
 
                     {buttonPartChannel}
-                    <DialogContentList receiverID={this.props.match.params.receiverID}/>
+                    {(typeof this.props.loginUser.sso != "undefined" && this.props.isWebSocketConnected)
+                        ? <DialogContentList receiverID={this.props.match.params.receiverID}/> : ''}
+
+
 
                     <DialogContentForm receiverID={this.props.match.params.receiverID}/>
                 </Col>

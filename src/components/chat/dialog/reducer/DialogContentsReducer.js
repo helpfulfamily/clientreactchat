@@ -46,7 +46,7 @@ export function dialogContentsReducer(state = [], action) {
         //Mesaj yayınlayan aksiyon.
         case 'PUBLISH_DIALOG_CONTENT':{
 
-            if(isNeededToUpdateGui(action.content.receiverID) ){
+            if (isNeededToUpdateGui(action.content.receiver.username)) {
                 return   [
                     ...state,
                     action.content,
