@@ -11,11 +11,11 @@ export function dialogContentsHasErrored (state = false, action) {
 }
 
 
-function isNeededToUpdateGui(receiverIDFromWebSocket){
+function isNeededToUpdateGui(receiverIDFromWebSocket, senderIDFromWebSocket) {
     var receiverID= window.location.pathname;
     receiverID = decodeURIComponent(receiverID);
     receiverID = receiverID.replace("\/dialogcontents\/", "");
-    if(receiverIDFromWebSocket==receiverID){
+    if (receiverIDFromWebSocket == receiverID || senderIDFromWebSocket == receiverID) {
         return true;
     }else{
         return false;
@@ -46,7 +46,7 @@ export function dialogContentsReducer(state = [], action) {
         //Mesaj yayınlayan aksiyon.
         case 'PUBLISH_DIALOG_CONTENT':{
 
-            if (isNeededToUpdateGui(action.content.receiver.username)) {
+            if (isNeededToUpdateGui(action.content.receiver.username, action.content.sender.username)) {
                 return   [
                     ...state,
                     action.content,

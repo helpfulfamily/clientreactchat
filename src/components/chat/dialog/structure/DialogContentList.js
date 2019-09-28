@@ -151,23 +151,24 @@ class DialogContentList extends Component {
 
 
         return (
+            <div className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
 
-            <ListGroup className="scrollablediv" id="messageBody" onScroll={this.listenScrollEvent}>
+                <ListGroup>
 
-                {
+                    {
 
-                    this.props.dialogContents.map((content) => (
-                        <ListGroupItem key={content.id}>
+                        this.props.dialogContents.map((content) => (
+                            <ListGroupItem key={content.id}>
 
-                            <DialogContent content={content}/>
-
-
-
-                        </ListGroupItem>
+                                <DialogContent content={content}/>
 
 
-                    ))}
-            </ListGroup>
+                            </ListGroupItem>
+
+
+                        ))}
+                </ListGroup>
+            </div>
 
         );
     }
