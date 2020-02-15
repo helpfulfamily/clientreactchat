@@ -29,7 +29,7 @@
     "redux-thunk": "^2.1.0",
     "sockjs-client": "^1.3.0",
     "stompjs": "^2.3.3",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",
