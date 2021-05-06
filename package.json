@@ -15,7 +15,7 @@
     "react-dnd": "^9.3.4",
     "react-dnd-html5-backend": "^9.3.4",
     "react-dom": "^16.8.1",
-    "react-draft-wysiwyg": "^1.13.2",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-icons": "^3.4.0",
     "react-redux": "^7.1.1",
     "react-responsive": "^8.0.1",
